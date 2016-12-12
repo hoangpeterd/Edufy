@@ -1,3 +1,30 @@
-img {
-	margin-top: 150px;
+body {
+	background:
+	    /* top, transparent black, faked with gradient */ 
+        linear-gradient(
+            rgba(0, 0, 0, 0.5), 
+            rgba(0, 0, 0, 0.5)
+        ),
+        /* bottom, image */
+        url(../images/edufyBG.jpeg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+nav.navbar.navbar-default.navbar-fixed-top.navbar-inverse {
+    border: 0px;
+}
+
+footer {
+	color: #ffffff;
+}
+
+.title {
+	margin-top: 14%;
+}
+
+a.navbar-brand {
+	padding-top: 7px;
 }
