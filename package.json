@@ -1,0 +1,24 @@
+{
+  "name": "edufy",
+  "version": "1.0.0",
+  "description": "Uber like style but for students needing help and tutors offering help",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoangpeterd/Edufy.git"
+  },
+  "keywords": [
+    "tutor",
+    "help",
+    "study"
+  ],
+  "author": "Peta Raqel Den Yaz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hoangpeterd/Edufy/issues"
+  },
+  "homepage": "https://github.com/hoangpeterd/Edufy#readme"
+}
