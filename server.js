@@ -28,9 +28,9 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 //requiring and calling the function that was exported from the controllers file. It will get the webpage and post it in the local host. At the same time it will listen for certain request so i can edit the DB and then refresh the page
 require("./controllers/users_controllers.js")(app);
 
-// const db = require("./models");
+const db = require("./models");
 
 //after connecting to the DB base with sequelize, it will create a localhost so the user can view the page
-// db.sequelize.sync().then(function(){
+db.sequelize.sync().then(function(){
 	app.listen(process.env.PORT || 8080);
-// });
+});

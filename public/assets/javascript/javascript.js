@@ -13,7 +13,7 @@ function validateForm(email) {
 
 function signingIn (info){
   $.post("/signing", info).done(function(result) {
-  
+
   });
 }
 
