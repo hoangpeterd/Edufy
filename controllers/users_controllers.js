@@ -11,5 +11,15 @@ module.exports = function(app){
     res.sendFile(path.join(__dirname + "/../public", "index.html"));
   });
 
+  // app.get("/signing", function(req, res) {
+  //   console.log(req)
+  // });
+
+  app.post("/signing", function(req, res) {
+    console.log(req.body);
+  });
+
+
+
 	//more stuff will be added
 }

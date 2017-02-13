@@ -10,3 +10,22 @@ function validateForm(email) {
 			console.log("True");
 		}
 }
+
+function signingIn (info){
+  $.post("/signing", info).done(function(result) {
+  
+  });
+}
+
+$("document").ready(function(){
+  $("#submit").on("click",function() {
+    var userName = $("#userName").val().toLowerCase();
+    var password = $("#password").val();
+    var info = {
+      userName: userName,
+      password: password
+    };
+
+    signingIn(info);
+  });
+});
