@@ -1,3 +1,25 @@
+//http://www.bootstrap-year-calendar.com/#Documentation/Options
+//http://www.bootstrap-year-calendar.com/#Documentation/Methods
+//The bootstrap year calendar widget is under Apache license V2.0.
+
+//This mean you can reuse, modify and distribute the code, for a open source or a commercial use.
+
+//You just have to provide the Apache license with your project. All modified files must be tagged as such, and must contain the original copyright.
+
+//http://www.apache.org/licenses/LICENSE-2.0
+
+$('.calendar').calendar();
+$(".datepicker").datepicker();
+// $(".datepicker").on("click", function() {
+// if ($("[name='event-start-date']")) {
+// $("[name='event-start-date']").datepicker("setDate", 0);
+// }
+// if ($("[name='event-end-date']")) {
+// $("[name='event-end-date']").datepicker("setDate", 0);
+// }
+// });
+    //  $('#calendar').data('calendar').setDataSource(...);
+
 function editEvent(event) {
     $('#event-modal input[name="event-index"]').val(event ? event.id : '');
     $('#event-modal input[name="event-name"]').val(event ? event.name : '');
@@ -25,15 +47,16 @@ $(function() {
 
     $('#calendar').calendar({ 
         disabledDays: [
-            new Date(currentYear,1,2),
-            new Date(currentYear,1,3),
-            new Date(currentYear,1,8),
-            new Date(currentYear,1,9),
-            new Date(currentYear,1,10),
-            new Date(currentYear,1,11),
-            new Date(currentYear,1,13),
-            new Date(currentYear,1,14),
-            new Date(currentYear,1,15)
+            //Example structure for disabling a block of days.
+            // new Date(currentYear,1,2),
+            // new Date(currentYear,1,3),
+            // new Date(currentYear,1,8),
+            // new Date(currentYear,1,9),
+            // new Date(currentYear,1,10),
+            // new Date(currentYear,1,11),
+            // new Date(currentYear,1,13),
+            // new Date(currentYear,1,14),
+            // new Date(currentYear,1,15)
         ]
     });
 });
@@ -45,12 +68,12 @@ function saveEvent() {
         location: $('#event-modal input[name="event-location"]').val(),
         startDate: $('#event-modal input[name="event-start-date"]').datepicker('getDate'),
         endDate: $('#event-modal input[name="event-end-date"]').datepicker('getDate')
-    }
+    };
     
     var dataSource = $('#calendar').data('calendar').getDataSource();
-
+    var i;
     if(event.id) {
-        for(var i in dataSource) {
+        for(i in dataSource) {
             if(dataSource[i].id == event.id) {
                 dataSource[i].name = event.name;
                 dataSource[i].location = event.location;
@@ -62,7 +85,7 @@ function saveEvent() {
     else
     {
         var newId = 0;
-        for(var i in dataSource) {
+        for(i in dataSource) {
             if(dataSource[i].id > newId) {
                 newId = dataSource[i].id;
             }
@@ -102,10 +125,7 @@ $(function() {
                 var content = '';
                 
                 for(var i in e.events) {
-                    content += '<div class="event-tooltip-content">'
-                                    + '<div class="event-name" style="color:' + e.events[i].color + '">' + e.events[i].name + '</div>'
-                                    + '<div class="event-location">' + e.events[i].location + '</div>'
-                                + '</div>';
+                    content += '<div class="event-tooltip-content">' + '<div class="event-name" style="color:' + e.events[i].color + '">' + e.events[i].name + '</div>' + '<div class="event-location">' + e.events[i].location + '</div>' + '</div>';
                 }
             
                 $(e.element).popover({ 

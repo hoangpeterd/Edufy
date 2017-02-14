@@ -1,5 +1,5 @@
 var key = {
-    mysql: ""
+    mysql: "your password"
 };
 
 module.exports = key;

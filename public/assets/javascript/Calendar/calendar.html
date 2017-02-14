@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>edufy</title>
+	<link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="../../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./calendar-assets/calendar.css">
+    <!--Required for calendar-->
+    <link rel="stylesheet" type="text/css" href="./calendar-assets/bootstrap-year-calendar.min.css">
+	<!--Required for calendar-->
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+    <!--Required for calendar-->
+    <div id="calendar" class="calendar datepicker"></div>
+    <div class="modal modal-fade tutor-modal" id="event-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">x</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title">Tutor Availability</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="event-index">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="min-date" class="col-sm-4 control-label">Location</label>
+                            <div class="col-sm-7">
+                                <input name="event-location" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="min-date" class="col-sm-4 control-label">Available Dates</label>
+                            <div class="col-sm-7">
+                                <div class="input-group input-daterange" data-provide="datepicker">
+                                    <input name="event-start-date" type="text" class="form-control" value="" placeholder="Start Date">
+                                    <span class="input-group-addon">to</span>
+                                    <input name="event-end-date" type="text" class="form-control" value="" placeholder="End Date">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-default" id="todayBtn">Today</button>
+                    <button type="button" class="btn btn-success" id="save-event">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Will not use until later
+    <div class="modal modal-fade student-modal" id="event-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">x</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title">Tutor Availability</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="event-index">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="min-date" class="col-sm-4 control-label">Location</label>
+                            <div class="col-sm-7">
+                                <p class="tutorLocation"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="min-date" class="col-sm-4 control-label">Available Dates</label>
+                            <div class="col-sm-7">
+                                <div class="input-group input-daterange" data-provide="datepicker">
+                                    @Display dates from tutor's calendar@
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-default" id="todayBtn">Today</button>
+                    <button type="button" class="btn btn-success" id="save-event">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>-->
+    <div id="context-menu">
+    </div>                          
+</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!--Required for calendar-->
+    <script type="text/javascript" src="./calendar-assets/bootstrap-year-calendar.min.js"></script>
+    <script type="text/javascript" src="./calendar-assets/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="./calendar.js"></script>
+    <!--Required for calendar-->
+</body>
+</html>
