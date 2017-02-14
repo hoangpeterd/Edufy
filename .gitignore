@@ -36,8 +36,14 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
+
 keys.js
 
 calendar-assets/
 
 key.js
+
+key.js
+
+calendar-assets/
+
