@@ -11,9 +11,13 @@ module.exports = function(app){
     res.sendFile(path.join(__dirname + "/../public", "index.html"));
   });
   
-  //Page for testing out file sending
+  //Page for testing out file sending. Will organize after we figure out if/how we want to separate backend files. --YASHA
+  //Nodemailer for email notifications, and cookie npm package. --YASHA
   app.get('/upload', function(req, res) {
-    res.sendFile(path.join(__dirname +'/../public', 'SampleUpload.html'))
+    res.sendFile(path.join(__dirname + '/../public', 'SampleUpload.html'))
+  })
+  app.get('/view', function(req, res) {
+    res.sendFile(path.join(__dirname + '/../public', 'VueAttempt.html' ))
   })
   app.post('/upload1', function(req, res) {
     
@@ -28,6 +32,8 @@ module.exports = function(app){
       else {res.send('File uploaded!')}
     })
   })
+  
+  
   //end test
   app.post("/signing", function(req, res) {
     db.users.count({ where: { username: req.body.userName } })

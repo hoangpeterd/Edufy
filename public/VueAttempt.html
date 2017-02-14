@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>edufy</title>
+	<title>Edufy</title>
 	<!-- favicon -->
 	<link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
@@ -9,8 +9,11 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
 	<!-- linking CSS file -->
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/app.css">
 	<!-- linking bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src='assets/javascript/vue.js'></script>
+  <script src='assets/javascript/App.js'></script>
 </head>
 <body>
 	<!-- main title -->
@@ -29,15 +32,6 @@
       			</button>
      			<a class="navbar-brand" href="#"><img src="assets/images/edufyIcon.png" height="35" width="35" alt=""></a>
     		</div>
-<!-- *********************************************** Dan made some change here ***********************************************-->
-      <!--Check out passport.js. It's an authenticator -Yasha -->
-				<div style="color: white">
-					UserName
-					<input style="color: black" type="text" id="userName" placeholder="UserName">
-					Password
-					<input style="color: black" type="password" id="password" placeholder="Password">
-					<button id="submit" class="btn btn-success">SignIn</button>
-				</div>
 <!-- ********************************************************************************************** -->
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -68,7 +62,9 @@
 
     <!-- main title -->
     <div class="container">
-        <img class="img-responsive center-block" src="assets/images/edufyLogo.png" height="300" width="500">
+      <div id="apple">
+        {{ message }}
+      </div>
     </div>
     <!-- end main title -->
 
