@@ -6,7 +6,7 @@ body {
             rgba(0, 0, 0, 0.5)
         ),
         /* bottom, image */
-        url(../images/edufyBG.jpeg) no-repeat center center fixed;
+        url(../images/edufyBG.gif) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -15,16 +15,21 @@ body {
 
 nav.navbar.navbar-default.navbar-fixed-top.navbar-inverse {
     border: 0px;
-}
-
-.title {
-	margin-top: 14%;
-}
-
-a.navbar-brand {
-	padding-top: 7px;
+		height: 60px;
 }
 
 .btn-success {
-	margin-top: 8px;
+	margin-top: 13px;
+	margin-left: 15px;
+}
+
+#logo {
+	position:absolute;
+    left:0; right:0;
+    top:0; bottom:0;
+	margin:auto;
+
+	max-width:100%;
+	max-height:100%;
+	overflow:auto;
 }
