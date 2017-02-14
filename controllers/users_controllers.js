@@ -33,9 +33,15 @@ module.exports = function(app){
     db.users.count({ where: { username: req.body.userName } })
       .then(count => {
         if (count === 0) {
-          console.log("fake");
+          console.log("not a real user");
         } else {
-          console.log("true");
+          db.users.findOne({ where: {username: req.body.userName} }).then(function(result) {
+            if(req.body.password !== result.pass){
+              console.log("not your password");
+            } else {
+              console.log("Welcome " + req.body.userName);
+            }
+          })
         }
     });
   });
