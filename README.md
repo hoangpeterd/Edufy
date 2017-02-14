@@ -6,7 +6,7 @@ stuff
 
 ##Installation
 
-You will need to create a key.js in the same directory as server.js. In that file you will input your MySql password. The format should be the same as the following...
+You will need to create a **key.js** in the same directory as server.js. In that file you will input your MySql password. The format should be the same as the following...
 
 ```
 var key = {
