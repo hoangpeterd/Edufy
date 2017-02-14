@@ -12,7 +12,7 @@ function validateEmail(email) {
 }
 
 function validatePassword(password){
-  if(password.length<6){
+  if(password.length<=6){
     console.log("Password to short");
   } else {
     return true;
@@ -36,35 +36,29 @@ function creatingUser (){
 
   if(email !== "" && password!== "" && position !== ""){
     var createObject = {
-      email: email,
-      password: password,
-      position: position
+      username: email,
+      pass: password,
+      tutor_student: position
     }
 
-    $.post("/signup", createObject).done(function(result) {
-
-    });
+    $.post("/signup", createObject).done(function(result) {});
   }
-
-
 }
 
-function signingIn (info){
-  $.post("/signing", info).done(function(result) {
+function signingIn (){
+  var userName = $("#userName").val().toLowerCase();
+  var password = $("#password").val();
+  var info = {
+    userName: userName,
+    password: password
+  };
 
-  });
+  $.post("/signing", info).done(function(result) {});
 }
 
 $("document").ready(function(){
   $("#submit").on("click",function() {
-    var userName = $("#userName").val().toLowerCase();
-    var password = $("#password").val();
-    var info = {
-      userName: userName,
-      password: password
-    };
-
-    signingIn(info);
+    signingIn();
   });
 
   $("#createBtn").on("click", function(){
