@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": null,
-    "database": "Edufy",
+    "database": "edufy",
     "host": "localhost",
     "dialect": "mysql"
   },
