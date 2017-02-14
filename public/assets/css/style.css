@@ -1,8 +1,8 @@
 body {
 	background:
-	    /* top, transparent black, faked with gradient */ 
+	    /* top, transparent black, faked with gradient */
         linear-gradient(
-            rgba(0, 0, 0, 0.5), 
+            rgba(0, 0, 0, 0.5),
             rgba(0, 0, 0, 0.5)
         ),
         /* bottom, image */
@@ -17,14 +17,14 @@ nav.navbar.navbar-default.navbar-fixed-top.navbar-inverse {
     border: 0px;
 }
 
-footer {
-	color: #ffffff;
-}
-
 .title {
 	margin-top: 14%;
 }
 
 a.navbar-brand {
 	padding-top: 7px;
+}
+
+.btn-success {
+	margin-top: 8px;
 }
