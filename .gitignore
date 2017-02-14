@@ -36,6 +36,7 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
+<<<<<<< HEAD
 
 keys.js
 
@@ -47,3 +48,10 @@ key.js
 
 calendar-assets/
 
+=======
+calendar-assets/
+
+key.js
+
+.DS_Store
+>>>>>>> aa9106cfcc976b12115115c540de8291a1926bc3
