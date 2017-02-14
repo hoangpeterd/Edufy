@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>edufy</title>
+	<title>Edufy</title>
 	<!-- favicon -->
 	<link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
@@ -29,14 +29,6 @@
       			</button>
      			<a class="navbar-brand" href="#"><img src="assets/images/edufyIcon.png" height="35" width="35" alt=""></a>
     		</div>
-<!-- *********************************************** Dan made some change here ***********************************************-->
-				<div style="color: white">
-					UserName
-					<input style="color: black" type="text" id="userName" placeholder="UserName">
-					Password
-					<input style="color: black" type="password" id="password" placeholder="Password">
-					<button id="submit" class="btn btn-success">SignIn</button>
-				</div>
 <!-- ********************************************************************************************** -->
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -67,7 +59,14 @@
 
     <!-- main title -->
     <div class="container">
-        <img class="img-responsive center-block" src="assets/images/edufyLogo.png" height="300" width="500">
+     <form ref='uploadForm' 
+      id='uploadForm' 
+      action='http://localhost:8080/upload1' 
+      method='post' 
+      encType="multipart/form-data">
+        <input type="file" name="transcript" />
+        <input type='submit' value='Upload!' />
+    </form>  
     </div>
     <!-- end main title -->
 
