@@ -26,6 +26,11 @@ div.container-fluid {
 .btn-success {
 	margin-top: 13px;
 	margin-left: 14px;
+	background-color: #222 !important;
+}
+
+.btn-success:hover {
+  background-color: #449d44 !important;
 }
 
 #logo {
