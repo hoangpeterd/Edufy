@@ -11,6 +11,7 @@ function validateEmail(email) {
 		}
 }
 
+//checking if the password is longer then 6 character
 function validatePassword(password){
   if(password.length<=6){
     console.log("Password to short");
@@ -19,6 +20,7 @@ function validatePassword(password){
   }
 }
 
+collecting the information and checking them before pushing it to a database
 function creatingUser (){
   var email = "";
   var password = "";
@@ -57,18 +59,22 @@ function signingIn (){
 }
 
 $("document").ready(function(){
+  //when clicked on the signin button a modal will show up
   $("#modalSignIn").on("click",function() {
     $("#signInModal").modal();
   });
 
+  //start the signin path by checking the inputs first
   $("#submitSignIn").on("click", function() {
     signingIn();
   });
 
+  //when clicked on the signup button a modal will show up
   $("#modalSignUp").on("click", function() {
     $("#signUpModal").modal();
   });
 
+  //button to start the create new user path
   $("#createBtn").on("click", function() {
     creatingUser();
   });
