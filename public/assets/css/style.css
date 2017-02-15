@@ -24,23 +24,23 @@ div.container-fluid {
 }
 
 /*home page buttons*/
-button#submitSignIn.btn.btn-success {
+button#modalSignIn.btn.btn-success {
 	margin-top: 13px;
 	margin-left: 14px;
 	background-color: #222 !important;
 }
 
-button#submitSignIn.btn.btn-success:hover {
+button#modalSignIn.btn.btn-success:hover {
   background-color: #449d44 !important;
 }
 
-button#submitSignUp.btn.btn-success {
+button#modalSignUp.btn.btn-success {
 	margin-top: 13px;
 	margin-left: 14px;
 	background-color: #222 !important;
 }
 
-button#submitSignUp.btn.btn-success:hover {
+button#modalSignUp.btn.btn-success:hover {
   background-color: #449d44 !important;
 }
 

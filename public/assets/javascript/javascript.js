@@ -57,15 +57,20 @@ function signingIn (){
 }
 
 $("document").ready(function(){
-  $("#submitSignIn").on("click",function() {
-    // signingIn();
+  $("#modalSignIn").on("click",function() {
     $("#signInModal").modal();
   });
 
-  $("#submitSignUp").on("click",function() {
-  // $("#createBtn").on("click", function(){
-    // creatingUser();
+  $("#submitSignIn").on("click", function() {
+    signingIn();
+  });
+
+  $("#modalSignUp").on("click", function() {
     $("#signUpModal").modal();
+  });
+
+  $("#createBtn").on("click", function() {
+    creatingUser();
   });
 
 
