@@ -28,19 +28,10 @@ button#modalSignIn.btn.btn-success {
 	margin-top: 13px;
 	margin-left: 14px;
 	background-color: #222 !important;
+	border-radius: 20px;
 }
 
 button#modalSignIn.btn.btn-success:hover {
-  background-color: #449d44 !important;
-}
-
-button#modalSignUp.btn.btn-success {
-	margin-top: 13px;
-	margin-left: 14px;
-	background-color: #222 !important;
-}
-
-button#modalSignUp.btn.btn-success:hover {
   background-color: #449d44 !important;
 }
 
@@ -64,7 +55,7 @@ div.modal-body {
 .modal:before {
   content: '';
   display: inline-block;
-  height: 90%;
+  height: 95%;
   vertical-align: middle;
   margin-right: -4px;
 }

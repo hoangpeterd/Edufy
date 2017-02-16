@@ -13,14 +13,10 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
-	<!-- background image -->
-	<div class="bg">
 
 	<!-- navbar -->
 	<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
   		<div class="container-fluid">
-
-					<button id="modalSignUp" class="btn btn-success pull-right">sign up</button>
 					<button id="modalSignIn" class="btn btn-success pull-right">sign in</button>
       </div>
 	</nav>
@@ -31,7 +27,7 @@
 		<div class="modal-dialog modal-sm" align="center">
 				<div class="modal-content">
 					 <div class="modal-header">
-							<h4 class="modal-title"><img src="assets/images/edufyIcon.png" alt="edufy icon" height="50px" width="50px"> sign in</h4>
+							<h4 class="modal-title"><img src="assets/images/edufyIcon.png" alt="edufy icon" height="30px" width="30px"> sign in</h4>
 					</div>
 					<div class="modal-body">
 						<form action="" id="loginForm">
@@ -43,21 +39,21 @@
 								<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 								<input id="password" class="form-control" type="password" name='password' placeholder="password"/>
 							</div>
-							<div class="checkbox">
+							<!-- <div class="checkbox">
 								<label>
 									<input type="checkbox"> i agree to the <a href="#">terms and conditions</a>
 								</label>
-							</div>
+							</div> -->
 							<div class="form-group">
-								<button type="button" class="btn btn-def btn-block" id="submitSignIn">login</button>
+								<button type="button" class="btn btn-success btn-block" id="submitSignIn">login</button>
 							</div>
-							<div class="form-group text-center">
+							<!-- <div class="form-group text-center">
 								<a href="#">forgot password</a>&nbsp;|&nbsp;<a href="#">support</a>
-							</div>
+							</div> -->
 						</form>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-success" data-dismiss="modal">close</button>
+						<button id="modalSignUp" type="button" class="btn btn-default btn-block" data-dismiss="modal">sign up</button>
 					</div>
 				</div>
 		</div>
@@ -69,22 +65,42 @@
 		<div class="modal-dialog modal-sm" align="center">
 				<div class="modal-content">
 					 <div class="modal-header">
-							<h4 class="modal-title">sign up</h4>
+							<h4 class="modal-title"><img src="assets/images/edufyIcon.png" alt="edufy icon" height="30px" width="30px"> sign up</h4>
 					</div>
 					<div class="modal-body">
-						<p>sign up form here.</p>
-						<!-- ****************************Dan was here to put this here :D**************************************************************************************************************** -->
-						<input id="createUser" type="text" placeholder="User Name">
-						<input id="createPassword" type="password" placeholder="password">
-						<select id="creatPosition">
-						  <option value="Tutor">Tutor</option>
-						  <option value="Student">Student</option>
-						</select>
-						<button id="createBtn" class="btn btn-success pull-right">Create New User</button>
-						<!-- ********************Oh yea!!!! **************************************************************************************************************** -->
+						<form action="" id="loginForm">
+							<div class="form-group input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+								<input id="createUser" class="form-control" type="text" name='username' placeholder="username"/>
+							</div>
+							<div class="form-group input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+								<input id="createPassword" class="form-control" type="password" name='password' placeholder="password"/>
+							</div>
+							<div class="form-group">
+								<!-- <select id="creatPosition" class="form-control">
+									<option value="Tutor">tutor</option>
+								  <option value="Student">student</option>
+								</select> -->
+								<label class="checkbox-inline">
+      						<input type="checkbox" class="chb">tutor
+    						</label>
+    						<label class="checkbox-inline">
+    						  <input type="checkbox" class="chb">student
+    						</label>
+							</div>
+							<!-- <div class="checkbox">
+								<label>
+									<input type="checkbox"> i agree to the <a href="#">terms and conditions</a>
+								</label>
+							</div> -->
+							<!-- <div class="form-group text-center">
+								<a href="#">forgot password</a>&nbsp;|&nbsp;<a href="#">support</a>
+							</div> -->
+						</form>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-success" data-dismiss="modal">close</button>
+						<button id="createBtn" type="button" class="btn btn-success btn-block" data-dismiss="modal">submit</button>
 					</div>
 				</div>
 		</div>
@@ -96,7 +112,6 @@
       <img id="logo" class="img-responsive center-block" src="assets/images/edufyLogo.png" height="300" width="500">
   </div>
   <!-- end logo -->
-	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<!-- linking bootstrap JS -->

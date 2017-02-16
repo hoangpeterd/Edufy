@@ -20,7 +20,7 @@ function validatePassword(password){
   }
 }
 
-collecting the information and checking them before pushing it to a database
+//collecting the information and checking them before pushing it to a database
 function creatingUser (){
   var email = "";
   var password = "";
@@ -41,7 +41,7 @@ function creatingUser (){
       username: email,
       pass: password,
       tutor_student: position
-    }
+    };
 
     $.post("/signup", createObject).done(function(result) {});
   }
@@ -79,6 +79,10 @@ $("document").ready(function(){
     creatingUser();
   });
 
-
+  // makes sure only one choice can be chosen with checkbox
+  $(".chb").change(function() {
+    $(".chb").prop('checked', false);
+    $(this).prop('checked', true);
+  });
 
 });
