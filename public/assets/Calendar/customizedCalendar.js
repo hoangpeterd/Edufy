@@ -1,16 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset='utf-8' />
-<link href='../lib/fullcalendar.min.css' rel='stylesheet' />
-<link href='../lib/fullcalendar.print.min.css' rel='stylesheet' media='print' />
-<link href='../scheduler.min.css' rel='stylesheet' />
-<script src='../lib/moment.min.js'></script>
-<script src='../lib/jquery.min.js'></script>
-<script src='../lib/fullcalendar.min.js'></script>
-<script src='../scheduler.min.js'></script>
-<!--<script src="../scheduler.js"></script>-->
-<script>
+
 		var moment = moment();
 		var todayDate = moment.format("YYYY-MM-DD");
 
@@ -52,11 +40,11 @@
 			},
 			defaultView: 'month',
 			events: [
-				{ 
-					id: '3', 
-					start: '2017-02-06', 
-					end: '2017-02-08', 
-					title: 'event 3' 
+				{
+					id: '3',
+					start: '2017-02-06',
+					end: '2017-02-08',
+					title: 'event 3'
 				}
 			],
 			select: function(start, end, jsEvent, view) {
@@ -82,30 +70,5 @@
 		$('#select-unspecified').on('click', function() {
 			$('#calendar').fullCalendar('select', '2017-02-07T02:00:00', '2017-02-07T07:00:00');
 		});
-	
+
 	});
-
-</script>
-<style>
-
-	body {
-		margin: 0;
-		padding: 0;
-		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-		font-size: 14px;
-	}
-
-	#calendar {
-		max-width: 563px;
-		max-height: 280px;
-		margin: 50px auto;
-	}
-
-</style>
-</head>
-<body>
-
-	<div id='calendar'></div>
-
-</body>
-</html>

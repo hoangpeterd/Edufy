@@ -26,6 +26,20 @@
 	padding-bottom: 30px;
 }
 
+.calendar-body {
+	margin: 0;
+	padding: 0;
+	font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+	font-size: 14px;
+	background-color: white;
+}
+
+/*#calendar {
+	max-width: 563px;
+	max-height: 280px;
+	margin: 50px auto;
+}*/
+
 div.col-sm-9 {
 	padding-left: 30px;
 	padding-top: 30px;
