@@ -32,7 +32,7 @@
 			selectable: true,
 			selectHelper: true,
 			editable: true, // enable draggable events
-			aspectRatio: 1.8,
+			aspectRatio: 1.25,
 			scrollTime: '00:00', // undo default 6am scrollTime
 			header: {
 				left: 'today prev,next',
