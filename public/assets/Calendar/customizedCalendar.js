@@ -27,6 +27,7 @@
 		/* initialize the calendar
 		-----------------------------------------------------------------*/
 		$('#calendar').fullCalendar({
+			schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
 			// now: todayDate,
 			selectable: true,
 			selectHelper: true,
