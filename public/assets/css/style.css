@@ -1,4 +1,4 @@
-body {
+#homeBody {
 	background:
 	    /* top, transparent black, faked with gradient */
         linear-gradient(
@@ -11,6 +11,25 @@ body {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+}
+
+#tutorBody {
+	background-color: #222;
+}
+
+#subjectsTab {
+	padding-bottom: 5px;
+}
+
+.headers {
+	color: white;
+	padding-bottom: 30px;
+}
+
+div.col-sm-9 {
+	padding-left: 30px;
+	padding-top: 30px;
+	margin-top: 25px;
 }
 
 nav.navbar.navbar-default.navbar-fixed-top.navbar-inverse {
