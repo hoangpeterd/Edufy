@@ -16,13 +16,57 @@ body {
 nav.navbar.navbar-default.navbar-fixed-top.navbar-inverse {
     border: 0px;
 		height: 60px;
+		padding-right: 11px;
 }
 
-.btn-success {
+div.container-fluid {
+	padding: 0px;
+}
+
+/*home page buttons*/
+button#modalSignIn.btn.btn-success {
 	margin-top: 13px;
-	margin-left: 15px;
+	margin-left: 14px;
+	background-color: #222 !important;
+	border-radius: 20px;
 }
 
+button#modalSignIn.btn.btn-success:hover {
+  background-color: #449d44 !important;
+}
+
+/*changes modal header color to match color scheme of page, border radius change gives rounded edges*/
+.modal-header {
+  background-color: #222222;
+  color: #ffffff;
+  border-radius: 4px 4px 0px 0px;
+}
+
+/*allows me to vertically align the modal to my preferences*/
+.modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+div.modal-body {
+	padding-bottom: 0;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 95%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/*logo absolute centered*/
 #logo {
 	position:absolute;
     left:0; right:0;

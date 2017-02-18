@@ -28,3 +28,12 @@ Inside the
 ./db
 ```
 you have the scema and the seed for the DB.
+
+For the none heroku peeps. After you pull you will need to go into the ```models/index.js``` and uncomment the line 12-16.
+
+```
+var kee       = require("../key.js");
+ if(env==="development"){
+	 config.password = kee.mysql;
+	}
+```

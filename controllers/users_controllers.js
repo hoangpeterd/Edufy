@@ -33,10 +33,7 @@ module.exports = function(app){
     })
   })
 
-  app.get("/signup", function(req, res) {
-    res.sendFile(path.join(__dirname + "/../public", "signup.html"));
-  });
-
+  //creating a new user for bot h tutor and students
   app.post("/signup", function(req, res) {
     db.users.create(req.body).then(function(){
       res.redirect("/");
@@ -48,20 +45,16 @@ module.exports = function(app){
     db.users.count({ where: { username: req.body.userName } })
       .then(count => {
         if (count === 0) {
-          console.log("not a real user");
+          console.log("not a real user");  //going to change this console.log to do something special***********
         } else {
           db.users.findOne({ where: {username: req.body.userName} }).then(function(result) {
             if(req.body.password !== result.pass){
-              console.log("not your password");
+              console.log("not your password"); //going to change this console.log to do something special***********
             } else {
-              console.log("Welcome " + req.body.userName);
+              console.log("Welcome " + req.body.userName); //going to change this console.log to do something special***********
             }
           })
         }
     });
   });
-
-
-
-	//more stuff will be added
 }
