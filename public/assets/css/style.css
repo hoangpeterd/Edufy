@@ -31,14 +31,9 @@
 	padding: 0;
 	font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
 	font-size: 14px;
-	background-color: white;
+	color: white;
+	background-color: #222;
 }
-
-/*#calendar {
-	max-width: 563px;
-	max-height: 280px;
-	margin: 50px auto;
-}*/
 
 div.col-sm-9 {
 	padding-left: 30px;
