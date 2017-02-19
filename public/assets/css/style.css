@@ -29,7 +29,6 @@
 .calendar-body {
 	margin: 0;
 	padding: 0;
-	font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
 	font-size: 14px;
 	color: white;
 	background-color: #222;
@@ -38,7 +37,7 @@
 div.col-sm-9 {
 	padding-left: 30px;
 	padding-top: 30px;
-	margin-top: 25px;
+	margin-top: 20px;
 }
 
 nav.navbar.navbar-default.navbar-fixed-top.navbar-inverse {
