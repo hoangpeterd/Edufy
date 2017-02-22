@@ -58,33 +58,35 @@ $(function() { // document ready
 			newEvent.start = start.format();
 			newEvent.end = end.format();
 			newEvent.title = "Click to name."; //@FIGURE OUT HOW TO DISPLAY BAR, DYNAMICALLY ADD INPUT ELEMENT TO ACCEPT TITLE@
+			// newEvent = $.parseJSON(newEvent);
 			FC.events.events.push(newEvent);
+			$("#calendar").fullCalendar("addEventSource", FC.events;
 			console.log(newEvent);
-			console.log(FC.events);
 		}
 	});
 });
-
+	
 	FC.events = {
 		events: [
 				{
-					id: '1',
-					start: '2017-02-06',
-					end: '2017-02-08',
-					title: 'All-day Event'
+					"id": '1',
+					"start": '2017-02-06',
+					"end": '2017-02-08',
+					"title": 'All-day Event'
 				}, {
-					id: '2',
-					start: '2017-02-14',
-					end: '2017-02-14',
-					title: "Valentine's Day"
+					"id": '2',
+					"start": '2017-02-14',
+					"end": '2017-02-14',
+					"title": "Valentine's Day"
 				}
 			],
 		color: "#4CAE4C",
 		eventRender: function(event, element) {
 			//http://qtip2.com/
-        element.qtip({
-            content: event.title
-        });
-    }
+			element.qtip({
+				content: event.title
+			});
+		}
 	};
 
+// module.exports = FC.events.events;
