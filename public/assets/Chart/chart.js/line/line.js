@@ -1,33 +1,5 @@
-/*<!doctype html>
-<html>
-
-<head>
-    <title>Line Chart</title>
-    <script src="../../dist/Chart.bundle.js"></script>
-    <script src="../utils.js"></script>
-    <script type="text/javascript" src="https://momentjs.com/downloads/moment.min.js"></script>
-    <style>
-    canvas{
-        -moz-user-select: none;
-        -webkit-user-select: none;
-        -ms-user-select: none;
-    }
-    </style>
-</head>
-
-<body>
-    <div class=row>
-    <div style="width:70%;">
-        <canvas id="canvas"></canvas>
-    </div>
-    <br>
-    <br>
-    <div class=row>
-    <input id="input" type="number" placeholder="Dollar Amount"></input>
-    <button id="addData">Add Data</button>
-    <!--<button id="removeData">Remove Data</button>-->
-    </div>
-    <script>*/
+      
+      
         var sameMonthFlag = false;
         var ranOnceFlag = false;
         var moment = moment();
@@ -90,7 +62,7 @@
         };
 
         window.onload = function() {
-            var ctx = document.getElementById("chart").getContext("2d");
+            var ctx = document.getElementById("canvas").getContext("2d");
             window.myLine = new Chart(ctx, config);
         };
 
@@ -134,17 +106,3 @@
                 window.myLine.update();
             
         });
-
-        // document.getElementById('removeData').addEventListener('click', function() {
-        //     config.data.labels.splice(-1, 1); // remove the label first
-
-        //     config.data.datasets.forEach(function(dataset, datasetIndex) {
-        //         dataset.data.pop();
-        //     });
-
-        //     window.myLine.update();
-        // });
-//     </script>
-// </body>
-
-// </html>

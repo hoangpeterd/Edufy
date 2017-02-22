@@ -12,7 +12,12 @@
     -o-background-size: cover;
     background-size: cover;
 }
-
+/*tutor money chart*/
+canvas{
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
 #tutorBody {
 	background-color: #222;
 }
