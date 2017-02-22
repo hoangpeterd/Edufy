@@ -1,4 +1,4 @@
-<!doctype html>
+/*<!doctype html>
 <html>
 
 <head>
@@ -27,13 +27,13 @@
     <button id="addData">Add Data</button>
     <!--<button id="removeData">Remove Data</button>-->
     </div>
-    <script>
+    <script>*/
         var sameMonthFlag = false;
         var ranOnceFlag = false;
         var moment = moment();
         var month = moment.format("MMMM");
         // var MONTHS = ["February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "January"];
-        var MONTHS = []
+        var MONTHS = [];
         if (MONTHS.pop() !== month) {
             console.log(MONTHS.pop());
             MONTHS.push(month);
@@ -90,7 +90,7 @@
         };
 
         window.onload = function() {
-            var ctx = document.getElementById("canvas").getContext("2d");
+            var ctx = document.getElementById("chart").getContext("2d");
             window.myLine = new Chart(ctx, config);
         };
 
@@ -106,7 +106,7 @@
 
                 config.data.datasets.forEach(function(datasets) {
                     if (sameMonthFlag === false) {
-                        newData = newDataPoint();
+                        var newData = newDataPoint();
                         parseFloat(newData);
                         datasets.data.push(newData);
                     } else {
@@ -144,7 +144,7 @@
 
         //     window.myLine.update();
         // });
-    </script>
-</body>
+//     </script>
+// </body>
 
-</html>
+// </html>
