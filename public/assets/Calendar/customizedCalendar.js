@@ -22,11 +22,19 @@ $(function() { // document ready
 		// make the event draggable using jQuery UI
 		$(this).draggable({
 			zIndex: 999,
-			revert: true,      // will cause the event to go back to its
+			revert: false,      // will cause the event to go back to its
 			revertDuration: 0  //  original position after the drag
 		});
 
+		var dragPosX = $('#external-events').position().left;
+		var dragPosY = $('#external-events').position().top;
+		console.log(dragPosX + ", " + dragPosY);
+		if (dragPosX < $("#calendar").offset().left || dragPosY > $("#calendar").offset().top || dragPosX > $("#calendar").width() || dragPosY < $("#calendar").height()) {
+			FC( 'removeEvents', [$(this)] );
+		}
 	});
+		//Maybe add a <span>x</span> ELEMENT to fire
+		//when clicked
 	/* initialize the calendar
 	-----------------------------------------------------------------*/
 	$('#calendar').fullCalendar({
@@ -64,9 +72,6 @@ $(function() { // document ready
 					start: '2017-02-06',
 					end: '2017-02-08',
 					title: 'All-day Event'
-					//Maybe add a <span>x</span> ELEMENT to fire
-					//.fullCalendar( 'removeEvents' [, idOrFilter ] )
-					//when clicked
 				}, {
 					id: '2',
 					start: '2017-02-14',
@@ -75,4 +80,11 @@ $(function() { // document ready
 				}
 			],
 		color: "#4CAE4C",
+		eventRender: function(event, element) {
+			//http://qtip2.com/
+        element.qtip({
+            content: event.title
+        });
+    }
 	};
+
