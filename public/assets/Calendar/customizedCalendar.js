@@ -7,7 +7,6 @@ var newEvent = {
 };
 var FC = $.fullCalendar;
 
-
 $(function() { // document ready
 	/* initialize the external events
 	-----------------------------------------------------------------*/
@@ -17,6 +16,10 @@ $(function() { // document ready
 		$(this).data('event', {
 			stick: true // maintain when user navigates (see docs on the renderEvent method)
 		});
+		
+		$("span.tc-title").on("click", function() {
+			$(this).attr("contenteditable='true'");
+		})
 
 		// make the event draggable using jQuery UI
 		$(this).draggable({
@@ -31,24 +34,33 @@ $(function() { // document ready
 	-----------------------------------------------------------------*/
 	$('#calendar').fullCalendar({
 		schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-		slotEventOverlap: false,
-		eventOverlap: false,
 		selectable: true,
 		selectHelper: true,
 		editable: true, // enable draggable events
 		aspectRatio: 1.25,
+		nowIndicator: true,
+		slotEventOverlap: false,
+		eventOverlap: false,
 
 		//This element should be custom based on User's registration.
 		// businessHours: userSpecTime,
 
-
 		displayEventTime: true,
+		displayEventEnd: true,
 		scrollTime: '00:00', // undo default 6am scrollTime
 		header: {
 			left: 'today prev,next',
 			center: 'title',
-			right: 'agendaDay,basicWeek,month'
+			right: 'agendaDay,agendaWeek,month,listMonth'
 		},
+		// views: {
+		// 	month: {
+		// 	},
+		// 	agenda: {
+		// 	},
+		// 	list: {
+		// 	}
+		// },
 		defaultView: 'month',
 		events: FC.events,
 		eventColor: "#4CAE4C", 
@@ -59,20 +71,7 @@ $(function() { // document ready
 			newEvent.end = end.format();
 			newEvent.title = "Click to name."; 
 		 	//http://qtip2.com/
-			// $("spam.fc-title").on("click", function() {
-			// 	$("button.dialog").css("display", "inline-block");
 
-			// 	var message = $('<p />', { text: 'Name this event.' }),
-			// 	input = $('<input />', { val: 'Event name' }),
-			// 	ok = $('<button />', {
-			// 		text: 'Ok'
-			// 	}),
-			// 	cancel = $('<button />', {
-			// 		text: 'Cancel'
-			// 	});
-
-			// 	dialogue( message.add(input).add(ok).add(cancel));
-			// });
 			//@FIGURE OUT HOW TO DISPLAY BAR, DYNAMICALLY ADD INPUT ELEMENT TO ACCEPT TITLE@
 			FC.events.events.push(newEvent);
 			// $("#calendar").fullCalendar("addEventSource", userSpecTime);
