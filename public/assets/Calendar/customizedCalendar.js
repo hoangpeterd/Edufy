@@ -11,7 +11,6 @@ var FC = $.fullCalendar;
 $(function() { // document ready
 	/* initialize the external events
 	-----------------------------------------------------------------*/
-	$(".fc-event").css("background-color", "#4CAE4C");
 	$('#external-events .fc-event').each(function() {
 
 		// store data so the calendar knows to render an event upon drop
@@ -32,10 +31,18 @@ $(function() { // document ready
 	-----------------------------------------------------------------*/
 	$('#calendar').fullCalendar({
 		schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+		slotEventOverlap: false,
+		eventOverlap: false,
 		selectable: true,
 		selectHelper: true,
 		editable: true, // enable draggable events
 		aspectRatio: 1.25,
+
+		//This element should be custom based on User's registration.
+		// businessHours: userSpecTime,
+
+
+		displayEventTime: true,
 		scrollTime: '00:00', // undo default 6am scrollTime
 		header: {
 			left: 'today prev,next',
@@ -44,12 +51,14 @@ $(function() { // document ready
 		},
 		defaultView: 'month',
 		events: FC.events,
+		eventColor: "#4CAE4C", 
 		select: function(start, end, jsEvent, view) {
 			
 			newEvent.id = FC.events.events.length + 1;
 			newEvent.start = start.format();
 			newEvent.end = end.format();
 			newEvent.title = "Click to name."; 
+		 	//http://qtip2.com/
 			// $("spam.fc-title").on("click", function() {
 			// 	$("button.dialog").css("display", "inline-block");
 
@@ -65,12 +74,13 @@ $(function() { // document ready
 			// 	dialogue( message.add(input).add(ok).add(cancel));
 			// });
 			//@FIGURE OUT HOW TO DISPLAY BAR, DYNAMICALLY ADD INPUT ELEMENT TO ACCEPT TITLE@
-			// FC.events.events.push(newEvent);
+			FC.events.events.push(newEvent);
+			// $("#calendar").fullCalendar("addEventSource", userSpecTime);
 			$("#calendar").fullCalendar("addEventSource", [newEvent]);
 		}
 	});
 });
-	
+
 	FC.events = {
 		events: [
 				{
@@ -85,13 +95,22 @@ $(function() { // document ready
 					"title": "Valentine's Day"
 				}
 			],
-		color: "#4CAE4C",
-		eventRender: function(event, element) {
-			//http://qtip2.com/
-			element.qtip({
-				content: event.title
-			});
-		}
 	};
 
-// module.exports = FC.events.events;
+	userSpecTime = [ // specify an array instead
+    		{
+				dow: [ 2, 3 ], // Monday, Tuesday, Wednesday
+				start: '09:30', // 
+				end: '17:00' // 
+			},
+			{
+				dow: [ 4, 5 ], // Thursday, Friday
+				start: '10:00', // 10am
+				end: '16:00' // 4pm
+			},
+			{
+				dow: [6],
+				start: '14:00',
+				end: '18:00'
+			}
+		];
