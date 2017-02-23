@@ -19,15 +19,16 @@ $(function() { // document ready
 
 		$("#calendar").fullCalendar("addEventSource", userSpecTime);
 
-		$("span.tc-title").on("click", function() {
-			$(this).attr("contenteditable='true'");
+		$("#calendar > div.fc-view-container > div > table > tbody > tr > td > div > div > div:nth-child(3) > div.fc-content-skeleton > table > tbody > tr > td.fc-event-container").on("click", function() {
+			alert("clicked");
 		})
 
 		// make the event draggable using jQuery UI
 		$(this).draggable({
 			zIndex: 999,
-			revert: false,      // will cause the event to go back to its
+			revert: true,      // will cause the event to go back to its
 			revertDuration: 0  //  original position after the drag
+			
 		});
 	});
 
