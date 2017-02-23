@@ -559,26 +559,50 @@
         });
     };
 
-    $.fn.barrating.defaults = {
-        theme:'',
-        initialRating:5, // initial rating
-        allowEmpty:null, // allow empty ratings?
-        emptyValue:'', // this is the expected value of the empty rating
-        showValues:false, // display rating values on the bars?
-        showSelectedRating:true, // append a div with a rating to the widget?
-        deselectable:true, // allow to deselect ratings?
-        reverse:false, // reverse the rating?
-        readonly:false, // make the rating ready-only?
-        fastClicks:true, // remove 300ms click delay on touch devices?
-        hoverState:true, // change state on hover?
-        silent:false, // supress callbacks when controlling ratings programatically
-        onSelect:function (value, text, event) {
-        }, // callback fired when a rating is selected
-        onClear:function (value, text) {
-        }, // callback fired when a rating is cleared
-        onDestroy:function (value, text) {
-        } // callback fired when a widget is destroyed
-    };
+    if (top.location.pathname === '/tutor.html' || top.location.pathname === '/tutor'){
+        $.fn.barrating.defaults = {
+            theme:'',
+            disableClicks: true,
+            initialRating:5, // initial rating
+            allowEmpty:null, // allow empty ratings?
+            emptyValue:'', // this is the expected value of the empty rating
+            showValues:false, // display rating values on the bars?
+            showSelectedRating:true, // append a div with a rating to the widget?
+            deselectable:true, // allow to deselect ratings?
+            reverse:false, // reverse the rating?
+            readonly:true, // make the rating ready-only?
+            fastClicks:false, // remove 300ms click delay on touch devices?
+            hoverState: false, // change state on hover?
+            silent:false, // supress callbacks when controlling ratings programatically
+            onSelect:function (value, text, event) {
+            }, // callback fired when a rating is selected
+            onClear:function (value, text) {
+            }, // callback fired when a rating is cleared
+            onDestroy:function (value, text) {
+            } // callback fired when a widget is destroyed
+        };
+    } else {
+        $.fn.barrating.defaults = {
+            theme:'',
+            initialRating:5, // initial rating
+            allowEmpty:null, // allow empty ratings?
+            emptyValue:'', // this is the expected value of the empty rating
+            showValues:false, // display rating values on the bars?
+            showSelectedRating:true, // append a div with a rating to the widget?
+            deselectable:true, // allow to deselect ratings?
+            reverse:false, // reverse the rating?
+            readonly:false, // make the rating ready-only?
+            fastClicks:true, // remove 300ms click delay on touch devices?
+            hoverState:true, // change state on hover?
+            silent:false, // supress callbacks when controlling ratings programatically
+            onSelect:function (value, text, event) {
+            }, // callback fired when a rating is selected
+            onClear:function (value, text) {
+            }, // callback fired when a rating is cleared
+            onDestroy:function (value, text) {
+            } // callback fired when a widget is destroyed
+        };
+    }
 
     $.fn.barrating.BarRating = BarRating;
 
