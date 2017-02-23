@@ -21,7 +21,7 @@ canvas{
 }
 #tutorBody {
 	background-color: #222;
-	padding-bottom: 50px;
+	padding-bottom: 20px;
 }
 
 #subjectsTab {
@@ -34,11 +34,49 @@ canvas{
 }
 
 .calendar-body {
-	margin: 0;
+	margin-top: 20px;
 	padding: 0;
 	font-size: 14px;
 	color: white;
 	background-color: #222;
+}
+
+/*calendar title*/
+.fc-toolbar h2 {
+	font-size: 36px;
+}
+
+button.fc-today-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right {
+	margin-top: 8px;
+}
+
+button.fc-prev-button.fc-button.fc-state-default.fc-corner-left {
+	margin-top: 8px;
+}
+
+button.fc-next-button.fc-button.fc-state-default.fc-corner-right {
+	margin-top: 8px;
+}
+
+button.fc-agendaDay-button.fc-button.fc-state-default.fc-corner-left {
+	margin-top: 8px;
+}
+
+button.fc-agendaWeek-button.fc-button.fc-state-default {
+	margin-top: 8px;
+}
+
+button.fc-month-button.fc-button.fc-state-default {
+	margin-top: 8px;
+}
+
+button.fc-listMonth-button.fc-button.fc-state-default.fc-corner-right {
+	margin-top: 8px;
+}
+
+div.fc-toolbar.fc-header-toolbar {
+	padding-bottom: 30px;
+	margin-bottom: 5px;
 }
 
 nav.navbar.navbar-default.navbar-fixed-top.navbar-inverse {
