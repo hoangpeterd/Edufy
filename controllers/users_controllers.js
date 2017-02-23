@@ -19,8 +19,11 @@ module.exports = function(app){
   })
   //Testing out gravatar.
   app.get('/:name', function(req, res) {
-    db.userproto.findOne({where: {fullname: req.params.name}}).then(function(data) {
+    db.userprotos.findOne({where: {fullname: req.params.name}}).then(function(data) {
+      data = data.dataValues
+      data.gravatarEmail = grav.url(data.gravatarEmail,{},true)
       console.log(req.params.name)
+      console.log(data.gravatarEmail)
       console.log(data)
       res.render('index', data)
     })

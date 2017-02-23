@@ -1,6 +1,6 @@
 module.exports = function(sequelize, dataTypes) {
   
-  var userProto = sequelize.define('userproto', {
+  var userProto = sequelize.define('userprotos', {
     id: {
       type: dataTypes.INTEGER,
       autoIncrement: true,
