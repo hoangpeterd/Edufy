@@ -9,3 +9,12 @@ CREATE TABLE IF NOT EXISTS users (
     , rating FLOAT(12) NOT NULL DEFAULT 0
     , sessions INT(12) NOT NULL DEFAULT 0
 );
+
+
+#Handlebars testing
+CREATE TABLE userproto (
+	id integer not null primary key auto_increment,
+    fullname varchar(40) not null ,
+    school varchar(50) not null,
+    gravatarEmail varchar(40) not null
+);
