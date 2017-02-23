@@ -3,7 +3,8 @@ var newEvent = {
 	id: i, 
 	start: null, 
 	end: null, 
-	title: null 
+	title: null
+	// , allDay: false
 };
 var FC = $.fullCalendar;
 
@@ -19,9 +20,9 @@ $(function() { // document ready
 
 		$("#calendar").fullCalendar("addEventSource", userSpecTime);
 
-		$("#calendar > div.fc-view-container > div > table > tbody > tr > td > div > div > div:nth-child(3) > div.fc-content-skeleton > table > tbody > tr > td.fc-event-container").on("click", function() {
-			alert("clicked");
-		})
+		// $("#calendar > div.fc-view-container > div > table > tbody > tr > td > div > div > div:nth-child(3) > div.fc-content-skeleton > table > tbody > tr > td.fc-event-container").on("click", function() {
+		// 	alert("clicked");
+		// });
 
 		// make the event draggable using jQuery UI
 		$(this).draggable({
