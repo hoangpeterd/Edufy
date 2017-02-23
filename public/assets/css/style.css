@@ -24,6 +24,10 @@ canvas{
 	padding-bottom: 20px;
 }
 
+#studentBody {
+	background-color: #222;
+}
+
 #subjectsTab {
 	padding-bottom: 5px;
 }
