@@ -13,6 +13,14 @@
     background-size: cover;
 }
 
+div.br-widget {
+	margin-top: 20px;
+}
+
+h1.display-3 {
+	margin-top: 0;
+}
+
 /*tutor money chart*/
 canvas{
     -moz-user-select: none;
