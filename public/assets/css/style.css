@@ -12,6 +12,7 @@
     -o-background-size: cover;
     background-size: cover;
 }
+
 /*tutor money chart*/
 canvas{
     -moz-user-select: none;
@@ -38,12 +39,6 @@ canvas{
 	font-size: 14px;
 	color: white;
 	background-color: #222;
-}
-
-div.col-sm-9 {
-	padding-left: 30px;
-	padding-top: 30px;
-	margin-top: 20px;
 }
 
 nav.navbar.navbar-default.navbar-fixed-top.navbar-inverse {
