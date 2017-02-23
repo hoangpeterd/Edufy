@@ -16,7 +16,9 @@ $(function() { // document ready
 		$(this).data('event', {
 			stick: true // maintain when user navigates (see docs on the renderEvent method)
 		});
-		
+
+		$("#calendar").fullCalendar("addEventSource", userSpecTime);
+
 		$("span.tc-title").on("click", function() {
 			$(this).attr("contenteditable='true'");
 		})
@@ -28,8 +30,7 @@ $(function() { // document ready
 			revertDuration: 0  //  original position after the drag
 		});
 	});
-		//Maybe add a <span>x</span> ELEMENT to fire
-		//when clicked
+
 	/* initialize the calendar
 	-----------------------------------------------------------------*/
 	$('#calendar').fullCalendar({
@@ -41,9 +42,10 @@ $(function() { // document ready
 		nowIndicator: true,
 		slotEventOverlap: false,
 		eventOverlap: false,
+		slotDuration: '00:60:00',
 
 		//This element should be custom based on User's registration.
-		// businessHours: userSpecTime,
+		businessHours: userSpecTime,
 
 		displayEventTime: true,
 		displayEventEnd: true,
@@ -53,28 +55,17 @@ $(function() { // document ready
 			center: 'title',
 			right: 'agendaDay,agendaWeek,month,listMonth'
 		},
-		// views: {
-		// 	month: {
-		// 	},
-		// 	agenda: {
-		// 	},
-		// 	list: {
-		// 	}
-		// },
 		defaultView: 'month',
 		events: FC.events,
-		eventColor: "#4CAE4C", 
+		eventBorderColor: "#4CAE4C", 
+		eventBackgroundColor: "rgba(76, 174, 76, .5)",
 		select: function(start, end, jsEvent, view) {
 			
 			newEvent.id = FC.events.events.length + 1;
 			newEvent.start = start.format();
 			newEvent.end = end.format();
-			newEvent.title = "Click to name."; 
-		 	//http://qtip2.com/
-
-			//@FIGURE OUT HOW TO DISPLAY BAR, DYNAMICALLY ADD INPUT ELEMENT TO ACCEPT TITLE@
+			newEvent.title = "Available Time"; 
 			FC.events.events.push(newEvent);
-			// $("#calendar").fullCalendar("addEventSource", userSpecTime);
 			$("#calendar").fullCalendar("addEventSource", [newEvent]);
 		}
 	});
@@ -84,9 +75,9 @@ $(function() { // document ready
 		events: [
 				{
 					"id": '1',
-					"start": '2017-02-06',
-					"end": '2017-02-08',
-					"title": 'All-day Event'
+					"start": '2017-02-06T10:00:00',
+					"end": '2017-02-06T16:00:00',
+					"title": 'Available Time'
 				}, {
 					"id": '2',
 					"start": '2017-02-14',
@@ -98,17 +89,17 @@ $(function() { // document ready
 
 	userSpecTime = [ // specify an array instead
     		{
-				dow: [ 2, 3 ], // Monday, Tuesday, Wednesday
-				start: '09:30', // 
-				end: '17:00' // 
+				dow: [ 1, 2, 3 ], // Monday, Tuesday, Wednesday
+				start: '16:30', // 
+				end: '20:00' // 
 			},
 			{
 				dow: [ 4, 5 ], // Thursday, Friday
-				start: '10:00', // 10am
-				end: '16:00' // 4pm
+				start: '12:00', // 10am
+				end: '20:00' // 4pm
 			},
 			{
-				dow: [6],
+				dow: [6], 
 				start: '14:00',
 				end: '18:00'
 			}
