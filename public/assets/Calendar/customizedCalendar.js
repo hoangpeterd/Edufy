@@ -20,10 +20,6 @@ $(function() { // document ready
 
 		$("#calendar").fullCalendar("addEventSource", userSpecTime);
 
-		// $("#calendar > div.fc-view-container > div > table > tbody > tr > td > div > div > div:nth-child(3) > div.fc-content-skeleton > table > tbody > tr > td.fc-event-container").on("click", function() {
-		// 	alert("clicked");
-		// });
-
 		// make the event draggable using jQuery UI
 		$(this).draggable({
 			zIndex: 999,
@@ -47,7 +43,7 @@ $(function() { // document ready
 		slotDuration: '00:60:00',
 
 		//This element should be custom based on User's registration.
-		businessHours: userSpecTime,
+		// businessHours: userSpecTime,
 
 		displayEventTime: true,
 		displayEventEnd: true,
@@ -55,7 +51,7 @@ $(function() { // document ready
 		header: {
 			left: 'today prev,next',
 			center: 'title',
-			right: 'agendaDay,agendaWeek,month,listMonth'
+			right: 'agendaWeek,month,listMonth'
 		},
 		defaultView: 'month',
 		events: FC.events,
