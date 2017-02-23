@@ -20,6 +20,9 @@ div.br-widget {
 h1.display-3 {
 	margin-top: 0;
 }
+span.fc-list-heading-main {
+	color: #222;
+}
 div.fc-scroller.fc-time-grid-container {
 	height: auto !important;
 }
