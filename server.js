@@ -2,6 +2,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const exphbs = require('express-handlebars')
+const fileUpload = require('express-fileupload')
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -17,12 +18,10 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }))
 
 app.use(express.static(__dirname + "/public"));
+app.use(fileUpload());
 app.engine('handlebars', exphbs({defaultLayout: 'main'}))
-app.set('view engine', 'handlebars')
-;
+app.set('view engine', 'handlebars');
 
-
-//Ultimate decision pending on uploads -> app.use(fileUpload());
 
 // const methodOverride = require("method-override");
 // Override with POST having ?_method=DELETE

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Edufy</title>
+	<title>edufy</title>
 	<!-- favicon -->
 	<link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
@@ -12,67 +12,123 @@
 	<!-- linking bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
-<body>
-	<!-- main title -->
-  <div class="container title">
+<body id="homeBody">
 
-
+	<!-- navbar -->
 	<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
   		<div class="container-fluid">
-    		<!-- Brand and toggle get grouped for better mobile display -->
-    		<div class="navbar-header">
-      			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        			<span class="sr-only">Toggle navigation</span>
-        			<span class="icon-bar"></span>
-        			<span class="icon-bar"></span>
-        			<span class="icon-bar"></span>
-      			</button>
-     			<a class="navbar-brand" href="#"><img src="assets/images/edufyIcon.png" height="35" width="35" alt=""></a>
-    		</div>
-<!-- ********************************************************************************************** -->
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-      <ul class="nav navbar-nav navbar-right" id="navbarParent">
-
-
-    <li style="display: none;" id="userThumbnailImage"><a class="navbar-brand" href="#">
-                        <img alt="Brand" id="userImage" src="#">
-        </a></li>
-        <li id="userName"></li>
-        <li style="display: none;" id="signOutButton"><a href="#">sign out</a></li>
-        			<li class="dropdown" id="signInDropdown">
-                		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">sign in <span class="caret"></span></a>
-                    </li>
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
-
-    <!-- main title -->
-    <div class="container">
-     <form ref='uploadForm' 
-      id='uploadForm' 
-      action='http://localhost:8080/upload1' 
-      method='post' 
-      encType="multipart/form-data">
-        <input type="file" name="transcript" />
-        <input type='submit' value='Upload!' />
-    </form>  
-      <div><img src='' id='doeboy'/></div>
-    </div>
-    <!-- end main title -->
-
-    <!-- main content -->
-    <!-- end main content -->
-
- 	<!-- footer -->
-	<footer class="footer text-center navbar-fixed-bottom">
-      <div class="container">
-        <p>&copy; copyright 2016 edufy</p>
+					<button id="modalSignIn" class="btn btn-success pull-right">sign in</button>
       </div>
-    </footer>
-    <!-- linking jQuery library -->
+	</nav>
+	<!-- end navbar -->
+
+  <div class='container'>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+    <div class='row'>
+      <form action='/upload1' method='post' enctype="multipart/form-data">
+       <input type='file' name ='image'>
+       <input type='submit'>
+      </form>
+    </div>
+  </div>
+
+
+
+	<!-- sign in modal -->
+	<div class="modal fade" id="signInModal" role="dialog">
+		<div class="modal-dialog modal-sm" align="center">
+				<div class="modal-content">
+					 <div class="modal-header">
+							<h4 class="modal-title"><img src="assets/images/edufyIcon.png" alt="edufy icon" height="30px" width="30px"> sign in</h4>
+					</div>
+					<div class="modal-body">
+						<form action="" id="loginForm">
+							<div class="form-group input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+								<input id="userName" class="form-control" type="text" name='username' placeholder="username"/>
+							</div>
+							<div class="form-group input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+								<input id="password" class="form-control" type="password" name='password' placeholder="password"/>
+							</div>
+							<!-- <div class="checkbox">
+								<label>
+									<input type="checkbox"> i agree to the <a href="#">terms and conditions</a>
+								</label>
+							</div> -->
+							<div class="form-group">
+								<button type="button" class="btn btn-success btn-block" id="submitSignIn">login</button>
+							</div>
+							<!-- <div class="form-group text-center">
+								<a href="#">forgot password</a>&nbsp;|&nbsp;<a href="#">support</a>
+							</div> -->
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="modalSignUp" type="button" class="btn btn-default btn-block" data-dismiss="modal">sign up</button>
+					</div>
+				</div>
+		</div>
+	</div>
+	<!-- end sign in modal -->
+
+	<!-- sign up modal -->
+	<div class="modal fade" id="signUpModal" role="dialog">
+		<div class="modal-dialog modal-sm" align="center">
+				<div class="modal-content">
+					 <div class="modal-header">
+							<h4 class="modal-title"><img src="assets/images/edufyIcon.png" alt="edufy icon" height="30px" width="30px"> sign up</h4>
+					</div>
+					<div class="modal-body">
+						<form action="" id="loginForm">
+							<div class="form-group input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+								<input id="createUser" class="form-control" type="text" name='username' placeholder="username"/>
+							</div>
+							<div class="form-group input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+								<input id="createPassword" class="form-control" type="password" name='password' placeholder="password"/>
+							</div>
+							<div class="form-group">
+								<!-- <select id="creatPosition" class="form-control">
+									<option value="Tutor">tutor</option>
+								  <option value="Student">student</option>
+								</select> -->
+								<label class="checkbox-inline">
+      						<input type="checkbox" class="chb">tutor
+    						</label>
+    						<label class="checkbox-inline">
+    						  <input type="checkbox" class="chb">student
+    						</label>
+							</div>
+							<!-- <div class="checkbox">
+								<label>
+									<input type="checkbox"> i agree to the <a href="#">terms and conditions</a>
+								</label>
+							</div> -->
+							<!-- <div class="form-group text-center">
+								<a href="#">forgot password</a>&nbsp;|&nbsp;<a href="#">support</a>
+							</div> -->
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="createBtn" type="button" class="btn btn-success btn-block" data-dismiss="modal">submit</button>
+					</div>
+				</div>
+		</div>
+	</div>
+	<!-- end sign in modal -->
+
+  <!-- logo -->
+  <div class="container logo">
+      <img id="logo" class="img-responsive center-block" src="assets/images/edufyLogo.png" height="300" width="500">
+  </div>
+  <!-- end logo -->
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<!-- linking bootstrap JS -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
