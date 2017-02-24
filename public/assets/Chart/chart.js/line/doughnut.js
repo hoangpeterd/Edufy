@@ -60,7 +60,7 @@
         for (var index = 0; index < config.data.labels.length; ++index) {
             newDataset.data.push(randomScalingFactor());
 
-            var colorName = colorNames[index % colorNames.length];;
+            var colorName = colorNames[index % colorNames.length];
             var newColor = window.chartColors[colorName];
             newDataset.backgroundColor.push(newColor);
         }
@@ -73,7 +73,7 @@
         if (config.data.datasets.length > 0) {
             config.data.labels.push('data #' + config.data.labels.length);
 
-            var colorName = colorNames[config.data.datasets[0].data.length % colorNames.length];;
+            var colorName = colorNames[config.data.datasets[0].data.length % colorNames.length];
             var newColor = window.chartColors[colorName];
 
             config.data.datasets.forEach(function(dataset) {

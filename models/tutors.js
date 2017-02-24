@@ -8,8 +8,8 @@ module.exports = function(sequelize, DataTypes){
     firstName: {
       type: DataTypes.STRING
     },
-    lastName{
-      type: DataType.STRING
+    lastName: {
+      type: DataTypes.STRING
     },
     pass: {
         type: DataTypes.STRING
@@ -24,4 +24,4 @@ module.exports = function(sequelize, DataTypes){
       timestamps: false
     });
     return Tutors;
-}
+};
