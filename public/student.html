@@ -10,8 +10,18 @@
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
     <!-- linking CSS file -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+        <!-- full calendar -->
+    <link href='assets/Calendar/lib/fullcalendar.min.css' rel='stylesheet' />
+    <link href='assets/Calendar/lib/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+    <link href='assets/Calendar/scheduler.min.css' rel='stylesheet' />
     <!-- linking bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+         <!--Icons-->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/StarRating/dist/themes/fontawesome-stars.css">
+  </head>
+  <body id="tutorBody">
+
   </head>
   <body id="studentBody">
 
@@ -39,7 +49,7 @@
         </div>
         <div class="col-sm-6">
           <h1 class="headers text-center">sessions</h1>
-          <img class="img-responsive center-block"src="http://placehold.it/600x300">
+          <div id="sessions"></div>
         </div>
       </div>
     </div>
@@ -49,5 +59,15 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- linking JS file -->
     <script type="text/javascript" src="assets/javascript/javascript.js"></script>
+        <!-- full calendar -->
+    <script src='assets/Calendar/lib/moment.min.js'></script>
+    <script src='assets/Calendar/lib/jquery.min.js'></script>
+    <script src='assets/Calendar/lib/fullcalendar.min.js'></script>
+    <script src='assets/Calendar/scheduler.min.js'></script>
+    <script src="assets/Calendar/customizedCalendar.js"></script>
+         <!--star Rating -->
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+    <script src="assets/StarRating/jquery.barrating.js"></script>
+    <script src="assets/StarRating/examples/js/examples.js"></script>
   </body>
 </html>

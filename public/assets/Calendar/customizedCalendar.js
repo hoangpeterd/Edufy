@@ -76,7 +76,6 @@ $(function() { // document ready
 			$("#calendar").fullCalendar("addEventSource", [newEvent]);
 		}
 	});
-
 	$("#sessions").fullCalendar({
 		schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
 		header: {
