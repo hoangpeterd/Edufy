@@ -1,5 +1,4 @@
 var i = 0;
-console.log(moment().format());
 var newEvent = {
 	id: i, 
 	start: null, 
@@ -77,50 +76,6 @@ $(function() { // document ready
 			$("#calendar").fullCalendar("addEventSource", [newEvent]);
 		}
 	});
-});
-function makeSelectable() {
-		FC.selectable = true;
-		FC.selectHelper = true;
-		FC.editable = true; // enable draggable events
-}
-	FC.events = {
-		events: [
-			{
-				"id": '1',
-				"start": '2017-02-06T10:00:00',
-				"end": '2017-02-06T16:00:00',
-				"title": 'Available Time',
-				"allDay": false
-			}, {
-				"id": '2',
-				"start": '2017-02-14',
-				"end": '2017-02-14',
-				"title": "Valentine's Day",
-				"allDay": true
-			}
-		],
-	};
-
-	FC.businessHours = {  
-		//I want this to be customizeable based on Tutor's registration..
-		businessHours: [ // specify an array instead
-    		{
-				dow: [ 1, 2, 3 ], // Monday, Tuesday, Wednesday
-				start: '16:30', // 
-				end: '20:00' // 
-			},
-			{
-				dow: [ 4, 5 ], // Thursday, Friday
-				start: '12:00', // 10am
-				end: '20:00' // 4pm
-			},
-			{
-				dow: [6], 
-				start: '14:00',
-				end: '18:00'
-			}
-		],
-	};
 
 	$("#sessions").fullCalendar({
 		schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
@@ -147,3 +102,49 @@ function makeSelectable() {
 			$("#calendar").fullCalendar("addEventSource", [newEvent]);
 		}
 	});
+});
+
+function makeSelectable() {
+	FC.selectable = true;
+	FC.selectHelper = true;
+	FC.editable = true; // enable draggable events
+}
+
+FC.events = {
+	events: [
+		{
+			"id": '1',
+			"start": '2017-02-06T10:00:00',
+			"end": '2017-02-06T16:00:00',
+			"title": 'Available Time',
+			"allDay": false
+		}, {
+			"id": '2',
+			"start": '2017-02-14',
+			"end": '2017-02-14',
+			"title": "Valentine's Day",
+			"allDay": true
+		}
+	],
+};
+
+FC.businessHours = {  
+	//I want this to be customizeable based on Tutor's registration..
+	businessHours: [ // specify an array instead
+		{
+			dow: [ 1, 2, 3 ], // Monday, Tuesday, Wednesday
+			start: '16:30', // 
+			end: '20:00' // 
+		},
+		{
+			dow: [ 4, 5 ], // Thursday, Friday
+			start: '12:00', // 10am
+			end: '20:00' // 4pm
+		},
+		{
+			dow: [6], 
+			start: '14:00',
+			end: '18:00'
+		}
+	],
+};
