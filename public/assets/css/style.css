@@ -20,12 +20,17 @@ div.br-widget {
 h1.display-3 {
 	margin-top: 0;
 }
-
+span.fc-list-heading-main {
+	color: #222;
+}
+div.fc-scroller.fc-time-grid-container {
+	height: auto !important;
+}
 /*tutor money chart*/
 canvas{
     -moz-user-select: none;
     -webkit-user-select: none;
-    -ms-user-select: none;
+    -ms-user-select: none;no
 }
 #tutorBody {
 	background-color: #222;
@@ -34,6 +39,7 @@ canvas{
 
 #studentBody {
 	background-color: #222;
+	padding-bottom: 20px;
 }
 
 #subjectsTab {
@@ -51,6 +57,18 @@ canvas{
 	font-size: 14px;
 	color: white;
 	background-color: #222;
+}
+
+div.fc-list-empty {
+	color: #222;
+}
+
+span.fc-list-heading-alt {
+	color: #222;
+}
+
+div#sessions.fc.fc-unthemed.fc-ltr {
+	color: white;
 }
 
 /*calendar title*/
