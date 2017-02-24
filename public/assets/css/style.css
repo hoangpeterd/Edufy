@@ -58,6 +58,10 @@ canvas{
 	background-color: #222;
 }
 
+div.fc-list-empty {
+	color: #222;
+}
+
 /*calendar title*/
 .fc-toolbar h2 {
 	font-size: 36px;
