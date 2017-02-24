@@ -11,6 +11,12 @@ module.exports = function(sequelize, DataTypes){
       tutor_student: {
         type: DataTypes.STRING
       },
+      lastName: {
+        type: DataTypes.STRING
+      },
+      firstName: {
+        type: DataTypes.STRING
+      },
       rating: {
         type: DataTypes.FLOAT
       },

@@ -25,6 +25,8 @@ function creatingUser (){
   var email = "";
   var password = "";
   var position = "";
+  var fName = "";
+  var lName = "";
 
   if(validateEmail($("#createUser").val())){
     email = $("#createUser").val();
@@ -34,17 +36,22 @@ function creatingUser (){
     password = $("#createPassword").val();
   }
 
-  position = $("#creatPosition").val();
+  position = $(".chb:checked").val();
+  fName = $("#firstName").val();
+  lName = $("#lastName").val();
 
   if(email !== "" && password!== "" && position !== ""){
     var createObject = {
       username: email,
       pass: password,
-      tutor_student: position
+      tutor_student: position,
+      lastName: lName,
+      firstName: fName
     };
 
     $.post("/signup", createObject).done(function(result) {});
   }
+
 }
 
 function signingIn (){
