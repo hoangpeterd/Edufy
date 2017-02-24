@@ -39,6 +39,7 @@ canvas{
 
 #studentBody {
 	background-color: #222;
+	padding-bottom: 20px;
 }
 
 #subjectsTab {
@@ -60,6 +61,14 @@ canvas{
 
 div.fc-list-empty {
 	color: #222;
+}
+
+span.fc-list-heading-alt {
+	color: #222;
+}
+
+div#sessions.fc.fc-unthemed.fc-ltr {
+	color: white;
 }
 
 /*calendar title*/
