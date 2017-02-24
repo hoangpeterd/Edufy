@@ -79,8 +79,9 @@ $(function() { // document ready
 	$("#sessions").fullCalendar({
 		schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
 		header: {
-			left: 'today prev,next',
-			center: 'title',
+			left: '',
+			center: 'sessions',
+			right: 'today prev,next'
 		},
 		defaultView: 'listMonth',
 		events: FC.events,
