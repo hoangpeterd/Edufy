@@ -38,7 +38,9 @@ $(function() { // document ready
 		nowIndicator: true,
 		slotEventOverlap: false,
 		eventOverlap: false,
-		slotDuration: '00:60:00',
+		slotDuration: '00:30:00',
+		minTime: '06:00:00',
+		
 
 		slotLabelFormat: 'h(:mm)a',
 		businessHours: FC.businessHours.businessHours,	
@@ -102,6 +104,8 @@ $(function() { // document ready
 			$("#calendar").fullCalendar("addEventSource", [newEvent]);
 		}
 	});
+
+	$("td.fc-list-item-title.fc-widget-content").append("<span>x</span>");
 });
 
 function makeSelectable() {
@@ -133,7 +137,7 @@ FC.businessHours = {
 	businessHours: [ // specify an array instead
 		{
 			dow: [ 1, 2, 3 ], // Monday, Tuesday, Wednesday
-			start: '16:30', // 
+			start: '16:00', // 
 			end: '20:00' // 
 		},
 		{
