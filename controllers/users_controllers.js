@@ -3,7 +3,6 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const db = require("../models");
-var grav = require('gravatar')
 
 //creating different routes for special events. along with that we are using the models directory (sequelize)
 module.exports = function(app){
@@ -17,20 +16,9 @@ module.exports = function(app){
   app.get('/upload', function(req, res) {
     res.sendFile(path.join(__dirname + '/../public', 'SampleUpload.html'))
   })
-  //Testing out gravatar.
-  app.get('/:name', function(req, res) {
-    db.userprotos.findOne({where: {fullname: req.params.name}}).then(function(data) {
-      data = data.dataValues
-      data.gravatarEmail = grav.url(data.gravatarEmail,{},true)
-      console.log(req.params.name)
-      console.log(data.gravatarEmail)
-      console.log(data)
-      res.render('index', data)
-    })
-  })
-/*app.post('/upload1', function(req, res) {
+  app.post('/upload1', function(req, res) {
 
-    upload = req.files.transcript;
+    upload = req.files.image;
     console.log(upload.name)
     if (!req.files) {
       res.send('No files were uploaded');
@@ -40,7 +28,7 @@ module.exports = function(app){
       if (err) {res.status(500).send(err)}
       else {res.send('File uploaded!')}
     })
-  }) */
+  })
 
   //creating a new user for bot h tutor and students
   app.post("/signup", function(req, res) {
