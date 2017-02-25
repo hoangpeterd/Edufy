@@ -15,8 +15,12 @@ module.exports = function(app){
     res.sendFile(path.join(__dirname + "/../public", "tutor.html"));
   });
 
-  app.get("/student", function(req, res) {
-    res.sendFile(path.join(__dirname + "/../public", "student.html"));
+  app.get("/student/:id", function(req, res) {
+    //res.sendFile(path.join(__dirname + "/../public", "student.html"));
+    db.students.findOne({where: {studentUserName: req.params.id}}).then(function(data) {
+      data = data.get({plain: true})
+      res.render('index', data)
+    })
   });
 
   //Page for testing out file sending. Will organize after we figure out if/how we want to separate backend files. --YASHA
@@ -80,6 +84,8 @@ module.exports = function(app){
 
   //signing into the user. and sending iformation to the Client-side so it can be redirected
   app.post("/signing", function(req, res) {
+    
+    
     db.tutors.count({ where: { tutorUserName: req.body.userName } }).then(count => {
         if (count === 0) {
           db.students.count({where: {studentUserName: req.body.userName} }).then(count => {
@@ -93,7 +99,7 @@ module.exports = function(app){
                   /**
                    * @todo: find out why res.direct wont work
                    */
-                  res.send({redirect: "/student"});
+                  res.send({redirect: "/student/" + req.body.userName});
                 }
               });
             }
