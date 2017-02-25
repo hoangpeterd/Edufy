@@ -53,6 +53,7 @@ function creatingUser (){
           window.location = result.redirect;
         }
       });
+
     } else if ($(".chb:checked").val() === "student") {
       var createObject = {
         studentUserName: email,
@@ -121,11 +122,8 @@ $("document").ready(function(){
 
 //User profile image upload
   $('#imageUpload').change(function() {
-    
     setTimeout(function() {
       $('#uploadImage').submit()
     }, 1000)
-  })
-  
-  
+  });
 });

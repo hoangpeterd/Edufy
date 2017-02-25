@@ -44,6 +44,9 @@ module.exports = function(app){
             console.log("User has been created");
           } else {
             db.tutors.create(req.body).then(function(){
+              /**
+               * @todo: find out why res.direct wont work
+               */
               res.send({redirect: "/tutor"});
             });
           }
@@ -63,6 +66,9 @@ module.exports = function(app){
             console.log("User has been created");
           } else {
             db.students.create(req.body).then(function(){
+              /**
+               * @todo: find out why res.direct wont work
+               */
               res.send({redirect: "/student"});
             });
           }
@@ -85,6 +91,9 @@ module.exports = function(app){
                 if(req.body.password !== result.pass){
                   console.log("not your password"); //going to change this console.log to do something special***********
                 } else {
+                  /**
+                   * @todo: find out why res.direct wont work
+                   */
                   res.send({redirect: "/student"});
                 }
               });
@@ -96,6 +105,9 @@ module.exports = function(app){
             if(req.body.password !== result.pass){
               console.log("not your password"); //going to change this console.log to do something special***********
             } else {
+              /**
+               * @todo: find out why res.direct wont work
+               */
               res.send({redirect: "/tutor"});
             }
           });
