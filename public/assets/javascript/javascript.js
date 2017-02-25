@@ -101,4 +101,11 @@ $("document").ready(function(){
     $(this).prop('checked', true);
   });
 
+  // isotope
+  $('.grid').isotope({
+  // options
+  itemSelector: '.grid-item',
+  layoutMode: 'fitRows'
+  });
+
 });
