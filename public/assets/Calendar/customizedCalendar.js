@@ -10,7 +10,7 @@ var FC = $.fullCalendar;
 $(function() { // document ready
 	/* initialize the external events
 	-----------------------------------------------------------------*/
-
+	
 	$('#external-events .fc-event').each(function() {
 
 		// store data so the calendar knows to render an event upon drop
@@ -43,21 +43,21 @@ $(function() { // document ready
 		
 
 		slotLabelFormat: 'h(:mm)a',
-		businessHours: FC.businessHours.businessHours,	
-		// displayEventTime: true,
-		// displayEventEnd: true,
+		businessHours: businessHours,	
+		selectConstraint: businessHours,
+		eventConstraint: businessHours,
 		header: {
 			left: 'today prev,next',
 			center: 'title',
-			right: 'agendaWeek,month,listMonth'
+			right: 'agendaWeek,month,listMonth' //Need to set up path call for when rendered on Student page, only weekly should display.
 		},
-		defaultView: 'month',
-		views: {
+		defaultView: 'month', //Need to set up path call for when rendered on Student page, only weekly should display.
+		views: { //Need to set up path call for when rendered on Student page, only weekly should display.
 			month: {
 				selectable: false
 			}
 		},
-		events: FC.events,
+		events: events,
 		eventBorderColor: "#4CAE4C", 
 		eventBackgroundColor: "rgba(76, 174, 76, .5)",
 		// eventClick: function(data, event, view) {
@@ -69,58 +69,74 @@ $(function() { // document ready
 		// 	.reposition(event).show(event);
 		// },
         // dayClick: function() { tooltip.hide(); },
-		select: function(start, end, jsEvent, view) {
-			newEvent.id = FC.events.events.length + 1;
-			newEvent.start = start.format();
-			newEvent.end = end.format();
-			newEvent.title = "Available Time"; 
-			FC.events.events.push(newEvent);
-			$("#calendar").fullCalendar("addEventSource", [newEvent]);
-		}
-	});
-	$("#sessions").fullCalendar({
-		schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-		header: {
-			left: '',
-			center: 'sessions',
-			right: 'today prev,next'
-		},
-		defaultView: 'listMonth',
-		events: FC.events,
-		eventBorderColor: "#4CAE4C", 
-		eventBackgroundColor: "rgba(76, 174, 76, .5)",
-		dayClick: function(date, jsEvent, view) {
-			console.log(date.format());
-			console.log(jsEvent);
-			console.log(view.name);
-		},
-		eventConstraint: FC.businessHours,
-		select: function(start, end, jsEvent, view) {
-			newEvent.id = FC.events.events.length + 1;
-			newEvent.start = start.format();
-			newEvent.end = end.format();
-			newEvent.title = "Available Time"; 
-			FC.events.events.push(newEvent);
-			$("#calendar").fullCalendar("addEventSource", [newEvent]);
-		}
-	});
+		select: function(start, end, jsEvent, view) { //Removing select function for now because I want it to come from Student selections only.
+			console.log(moment);
+			console.log(start);
+			console.log(start.isAfter(moment._d.toTimeString));
+			// if (window.location.pathname === '/student.html') {
+				var trueStart = start.clone();
 
-	$("td.fc-list-item-title.fc-widget-content").append("<span>x</span>");
+				newEvent.id = events.length + 1;
+				newEvent.start = start;
+				newEvent.end = trueStart.add(1000*60*60);
+				newEvent.title = "Scheduled Appointment";
+				
+				events.push(newEvent);
+				$("#calendar").fullCalendar("addEventSource", [newEvent]);
+				$("#sessions").fullCalendar("addEventSource", [newEvent]);
+
+				var timeSpan = end.diff(start)/(1000*60*60); //Returns the number of hours per selected timespan.
+				for (var j = 0; j < timeSpan - 1; j++) {
+					newEvent.id = events.length + 1;
+					newEvent.start = newEvent.end;
+					var newEnd = newEvent.start.clone();
+					newEvent.end = newEnd.add(1000*60*60);
+					newEvent.title = "Scheduled Appointment";
+				
+					events.push(newEvent);
+					$("#calendar").fullCalendar("addEventSource", [newEvent]);
+					$("#sessions").fullCalendar("addEventSource", [newEvent]);
+				}
+     	//    } else if (window.location.pathname == '/tutor.html') {
+			// }
+		}
+	});
+	//Commented out for the moment because I kept editing the wrong calendar
+// 	$("#sessions").fullCalendar({
+// 		schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+// 		header: {
+// 			left: '',
+// 			center: '',
+// 			right: 'today prev,next'
+// 		},
+// 		defaultView: 'listMonth',
+// 		events: events,
+// 		eventBorderColor: "#4CAE4C", 
+// 		eventBackgroundColor: "rgba(76, 174, 76, .5)",
+// 		dayClick: function(date, jsEvent, view) {
+// 			console.log(date.format());
+// 			console.log(jsEvent);
+// 			console.log(view.name);
+// 		},
+// 		eventConstraint: businessHours,
+// 		select: function(start, end, jsEvent, view) {
+// 			newEvent.id = events.length + 1;
+// 			newEvent.start = start.format();
+// 			newEvent.end = end.format();
+// 			newEvent.title = "Scheduled Appointment"; 
+// 			events.push(newEvent);
+// 			$("#calendar").fullCalendar("addEventSource", [newEvent]);
+//			$("#sessions").fullCalendar("addEventSource", [newEvent]);
+// 		}
+// 	});
 });
 
-function makeSelectable() {
-	FC.selectable = true;
-	FC.selectHelper = true;
-	FC.editable = true; // enable draggable events
-}
-
-FC.events = {
-	events: [
+var events = [
 		{
 			"id": '1',
 			"start": '2017-02-06T10:00:00',
 			"end": '2017-02-06T16:00:00',
-			"title": 'Available Time',
+			"title": 'Scheduled Appointment',
 			"allDay": false
 		}, {
 			"id": '2',
@@ -129,12 +145,13 @@ FC.events = {
 			"title": "Valentine's Day",
 			"allDay": true
 		}
-	],
-};
+	];
 
-FC.businessHours = {  
+var businessHours = 
+// {  
 	//I want this to be customizeable based on Tutor's registration..
-	businessHours: [ // specify an array instead
+	// businessHours: [ // specify an array instead
+	[
 		{
 			dow: [ 1, 2, 3 ], // Monday, Tuesday, Wednesday
 			start: '16:00', // 
@@ -150,5 +167,5 @@ FC.businessHours = {
 			start: '14:00',
 			end: '18:00'
 		}
-	],
-};
+	];
+// };
