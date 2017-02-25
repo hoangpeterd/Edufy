@@ -183,3 +183,15 @@ input:hover {
 #imagePlaceholder {
   cursor: move;
 }
+
+/*isotope*/
+.grid-item {
+	position: relative;
+  /*float: left;*/
+  width: 175px;
+  height: 175px;
+  margin: 5px;
+  padding: 10px;
+  background: #888;
+  color: #262524;
+}
