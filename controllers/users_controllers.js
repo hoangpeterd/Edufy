@@ -13,26 +13,30 @@ module.exports = function(app){
 
   //Page for testing out file sending. Will organize after we figure out if/how we want to separate backend files. --YASHA
   //Nodemailer for email notifications, and cookie npm package. --YASHA
-  app.get('/upload', function(req, res) {
-    res.sendFile(path.join(__dirname + '/../public', 'SampleUpload.html'))
-  })
-  app.post('/upload1', function(req, res) {
+  app.post('/uploadProfileImage', function(req, res) {
 
     upload = req.files.image;
-    console.log(upload.name)
     if (!req.files) {
       res.send('No files were uploaded');
       return;
     }
+    console.log(path.join(__dirname + '/../private/uploadFiles/' + upload.name))
     upload.mv(path.join(__dirname + '/../private/uploadFiles/' + upload.name), function (err) {
       if (err) {res.status(500).send(err)}
       else {res.send('File uploaded!')}
     })
   })
 
-  //creating a new user for bot h tutor and students
-  app.post("/signup", function(req, res) {
-    db.users.create(req.body).then(function(){
+  //creating a new tutor in the tutor table
+  app.post("/signupTutor", function(req, res) {
+    db.tutors.create(req.body).then(function(){
+      res.redirect("/");
+    });
+  });
+
+  //creating a new student in the student table
+  app.post("/signupStudent", function(req, res) {
+    db.students.create(req.body).then(function(){
       res.redirect("/");
     });
   });

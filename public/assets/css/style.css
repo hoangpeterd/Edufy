@@ -173,3 +173,13 @@ div.modal-body {
 	max-height:100%;
 	overflow:auto;
 }
+#imageUpload {
+  display: none;
+}
+
+input:hover {
+  cursor: move;
+}
+#imagePlaceholder {
+  cursor: move;
+}
