@@ -10,7 +10,7 @@ var FC = $.fullCalendar;
 $(function() { // document ready
 	/* initialize the external events
 	-----------------------------------------------------------------*/
-	console.log($("#calendar"));
+	
 	$('#external-events .fc-event').each(function() {
 
 		// store data so the calendar knows to render an event upon drop
@@ -66,30 +66,11 @@ $(function() { // document ready
 		// 	})
 		// 	.reposition(event).show(event);
 		// },
-        dayClick: function(date, jsEvent, view) {
-
-				console.log('Clicked on: ' + date.format());
-
-				console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-
-				console.log('Current view: ' + view.name);
-
-				// change the day's background color just for fun
-				$(this).css('display', 'none');
-
-   				 
-			},
-
-
-		navLinks: true,
-    	navLinkDayClick: function(date, jsEvent) {
-        console.log('day', date.format()); // date is a moment
-        console.log('coords', jsEvent.pageX, jsEvent.pageY);
-    	},
-
-
+        // dayClick: 
 		// function() { tooltip.hide(); },
 		select: function(start, end, jsEvent, view) { //Removing select function for now because I want it to come from Student selections only.
+						console.log($(this)[0].options);
+
 			// if (window.location.pathname === '/student.html' {
 				var trueStart = start.clone();
 
