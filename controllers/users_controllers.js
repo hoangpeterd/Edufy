@@ -11,6 +11,14 @@ module.exports = function(app){
     res.sendFile(path.join(__dirname + "/../public", "index.html"));
   });
 
+  app.get("/tutor", function(req, res) {
+    res.sendFile(path.join(__dirname + "/../public", "tutor.html"));
+  });
+
+  app.get("/student", function(req, res) {
+    res.sendFile(path.join(__dirname + "/../public", "student.html"));
+  });
+
   //Page for testing out file sending. Will organize after we figure out if/how we want to separate backend files. --YASHA
   //Nodemailer for email notifications, and cookie npm package. --YASHA
   app.post('/uploadProfileImage', function(req, res) {
@@ -30,32 +38,71 @@ module.exports = function(app){
   //creating a new tutor in the tutor table
   app.post("/signupTutor", function(req, res) {
     db.tutors.create(req.body).then(function(){
-      res.redirect("/");
+      res.redirect("/tutor");
     });
   });
 
   //creating a new student in the student table
   app.post("/signupStudent", function(req, res) {
     db.students.create(req.body).then(function(){
-      res.redirect("/");
+      res.redirect("/student");
     });
   });
 
   //signing into the user. Haven't done much after they sign in correctly yet.
   app.post("/signing", function(req, res) {
-    db.users.count({ where: { username: req.body.userName } })
-      .then(count => {
+    db.tutors.count({ where: { tutorUserName: req.body.userName } }).then(count => {
         if (count === 0) {
+          db.students.count({where: {studentUserName: req.body.userName} }).then(count => {
+            if(count === 0){
+              console.log("not a real user");  //going to change this console.log to do something special***********
+            } else {
+              db.students.findOne({ where: {studentUserName: req.body.userName} }).then(function(result) {
+                if(req.body.password !== result.pass){
+                  console.log("not your password"); //going to change this console.log to do something special***********
+                } else {
+                  console.log("student signed in");
+                  res.redirect("/student");
+                  console.log("after signed in");
+                }
+              });
+            }
+          });
           console.log("not a real user");  //going to change this console.log to do something special***********
         } else {
-          db.users.findOne({ where: {username: req.body.userName} }).then(function(result) {
+          db.tutors.findOne({ where: {tutorUserName: req.body.userName} }).then(function(result) {
             if(req.body.password !== result.pass){
               console.log("not your password"); //going to change this console.log to do something special***********
             } else {
-              console.log("Welcome " + req.body.userName); //going to change this console.log to do something special***********
+              res.redirect("/tutor");
             }
-          })
+          });
         }
     });
   });
 }
+
+
+//ignore these. some codes i might wanna use in the future
+// ...
+//     retStatus = 'Success';
+//     // res.redirect('/team');
+//     res.send({
+//       retStatus : retStatus,
+//       redirectTo: '/team',
+//       msg : 'Just go there please' // this should help
+//     });
+// ...
+// Client-side in $.post('/team/' ...
+//
+// ...
+//     $.post('/team/' + teamId, { _method : 'delete' }, function(response) {
+//         console.log(response);
+//         if(response.retStatus === 'Success') {
+//             // not sure what did you mean by ('/team' && '/team' !== "")
+//             // if('/team' && '/team' !== "") {
+//             if (response.redirectTo && response.msg == 'Just go there please') {
+//                 window.location = response.redirectTo;
+//             }
+//         }
+//     });
