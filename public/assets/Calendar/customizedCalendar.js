@@ -33,7 +33,7 @@ $(function() { // document ready
 		schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
 		selectable: true,
 		selectHelper: true,
-		editable: true, // enable draggable events
+		editable: false, // enable draggable events
 		aspectRatio: 1.25,
 		nowIndicator: true,
 		slotEventOverlap: false,
