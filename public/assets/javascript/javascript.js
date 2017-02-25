@@ -48,7 +48,11 @@ function creatingUser (){
         firstName: fName
       };
 
-      $.post("/signupTutor", createObject).done(function(result) {});
+      $.post("/signupTutor", createObject).done(function(result) {
+        if(result.redirect){
+          window.location = result.redirect;
+        }
+      });
     } else if ($(".chb:checked").val() === "student") {
       var createObject = {
         studentUserName: email,
@@ -57,10 +61,13 @@ function creatingUser (){
         firstName: fName
       };
 
-      $.post("/signupStudent", createObject).done(function(result) {});
+      $.post("/signupStudent", createObject).done(function(result) {
+        if(result.redirect){
+          window.location = result.redirect;
+        }
+      });
     }
   }
-
 }
 
 function signingIn (){
@@ -71,7 +78,11 @@ function signingIn (){
     password: password
   };
 
-  $.post("/signing", info).done(function(result) {});
+  $.post("/signing", info).done(function(result) {
+    if(result.redirect){
+      window.location = result.redirect;
+    }
+  });
 }
 
 $("document").ready(function(){
@@ -100,6 +111,8 @@ $("document").ready(function(){
     $(".chb").prop('checked', false);
     $(this).prop('checked', true);
   });
+});
+
 
   // isotope
   $('.grid').isotope({
