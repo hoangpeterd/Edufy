@@ -8,10 +8,13 @@ module.exports = function(sequelize, DataTypes){
     tutorUserName: {
       type: DataTypes.STRING
     },
-    date: {
+    dow: {
+      type: DataTypes.INTEGER
+    },
+    start: {
       type: DataTypes.STRING
     },
-    schedule: {
+    end: {
       type: DataTypes.STRING
     }
   }, {

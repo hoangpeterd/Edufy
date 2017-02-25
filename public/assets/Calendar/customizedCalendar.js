@@ -5,7 +5,6 @@ var newEvent = {
 	end: null, 
 	title: null,
 };
-var FC = $.fullCalendar;
 
 $(function() { // document ready
 	/* initialize the external events
@@ -26,10 +25,9 @@ $(function() { // document ready
 			revertDuration: 0  //  original position after the drag
 		});
 	});
-
 	/* initialize the calendar
 	-----------------------------------------------------------------*/
-	$('#calendar').fullCalendar({
+	var FC = {
 		schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
 		selectable: true,
 		selectHelper: true,
@@ -44,8 +42,8 @@ $(function() { // document ready
 
 		slotLabelFormat: 'h(:mm)a',
 		businessHours: businessHours,	
-		selectConstraint: businessHours,
-		eventConstraint: businessHours,
+		// selectConstraint: true,
+		// eventConstraint: true,
 		header: {
 			left: 'today prev,next',
 			center: 'title',
@@ -66,10 +64,27 @@ $(function() { // document ready
 		// 	})
 		// 	.reposition(event).show(event);
 		// },
-        // dayClick: 
+		// dayRender: function(min_date, max_date, date, cell){
+		// 	// var min_date = moment.startOf('month');
+		// 	// var max_date = moment.endOf('month');  
+		// 	var before_min = date.diff(min_date, "days") < 0;
+		// 	var after_max = date.diff(max_date, "days") >= 0;
+		// 	if (before_min || after_max){
+		// 	cell.addClass("out-of-range");
+		// 		if(before_min){
+		// 			cell.addClass("out-of-range-before");
+		// 		}
+		// 		else if(after_max){
+		// 			cell.addClass("out-of-range-after");
+		// 		}
+		// 	}
+		// }.bind(this, min_date, max_date),
+        dayClick: function() {
+			console.log($(this));
+		},
 		// function() { tooltip.hide(); },
 		select: function(start, end, jsEvent, view) { //Removing select function for now because I want it to come from Student selections only.
-						console.log($(this)[0].options);
+						// console.log($(this)[0].options);
 
 			// if (window.location.pathname === '/student.html' {
 				var trueStart = start.clone();
@@ -90,15 +105,47 @@ $(function() { // document ready
 					var newEnd = newEvent.start.clone();
 					newEvent.end = newEnd.add(1000*60*60);
 					newEvent.title = "Scheduled Appointment";
-				
+
 					events.push(newEvent);
 					$("#calendar").fullCalendar("addEventSource", [newEvent]);
 					$("#sessions").fullCalendar("addEventSource", [newEvent]);
 				}
+				$.ajax({
+					type: "POST",
+					url: "/json/calendar",
+					data: JSON.stringify(events),
+					success: function(data) {
+						console.log(data);
+					}
+				}).done(function(recd) {
+					console.log(recd);
+				});
      	//    } else if (window.location.pathname == '/tutor.html') {
 			// }
 		}
-	});
+	}
+//   FC.dayRender = function(min_date, max_date, date, cell){
+//              console.log(min_date);
+//              console.log(max_date);
+//              console.log(date);
+//              console.log(cell);
+//     var before_min = date.diff(min_date, "days") < 0;
+//              console.log(before_min);
+//     var after_max = date.diff(max_date, "days") >= 0;
+//              console.log(after_max);
+//     if (before_min || after_max){
+//       cell.addClass("out-of-range");
+//       if(before_min){
+//         cell.addClass("out-of-range-before");
+//       }
+//       else if(after_max){
+//         cell.addClass("out-of-range-after");
+//       }
+//     }
+//   }.bind(this, min_date, max_date),
+
+
+	$('#calendar').fullCalendar(FC);
 
 	$("#sessions").fullCalendar({
 		schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
@@ -112,28 +159,14 @@ $(function() { // document ready
 		eventBorderColor: "#4CAE4C", 
 		eventBackgroundColor: "rgba(76, 174, 76, .5)",
 		dayClick: function(date, jsEvent, view) {
-			console.log(date.format());
-			console.log(jsEvent);
-			console.log(view.name);
+			// console.log(date.format());
+			// console.log(jsEvent);
+			// console.log(view.name);
 		}
 	});
 });
 
-var events = [
-		{
-			"id": '1',
-			"start": '2017-02-06T10:00:00',
-			"end": '2017-02-06T16:00:00',
-			"title": 'Scheduled Appointment',
-		}, {
-			"id": '2',
-			"start": '2017-02-14',
-			"end": '2017-02-14',
-			"title": "Valentine's Day",
-		}
-	];
-
-var businessHours = 
+var businessHours = //Availability
 // {  
 	//I want this to be customizeable based on Tutor's registration..
 	// businessHours: [ // specify an array instead
@@ -155,10 +188,36 @@ var businessHours =
 		}
 	];
 // };
+var events = [ //Appointments
+		{
+			"id": '1',
+			"start": '2017-02-06T10:00:00',
+			"end": '2017-02-06T16:00:00',
+			"title": 'Scheduled Appointment',
+		}, {
+			"id": '2',
+			"start": '2017-02-14',
+			"end": '2017-02-14',
+			"title": "Valentine's Day",
+		}
+	];
+
 function defaultView() {
 	if (window.location.pathname === '/tutor.html') {
 		return 'month';
 	} else if (window.location.pathname === '/student.html') {
 		return 'agendaWeek';
 	}
-};
+}
+
+$.post("/tutorAvailability", businessHours).done(function(result) {
+	if (result.redirect) {
+		window.location = result.redirect;
+	}
+});
+
+$.post("/scheduledAppointments", events).done(function(result) {
+	if (result.redirect) {
+		window.location = result.redirect;
+	}
+});
