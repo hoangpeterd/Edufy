@@ -19,6 +19,9 @@ module.exports = function(sequelize, DataTypes){
     },
     sessions: {
       type: DataTypes.INTEGER
+    },
+    picUrl: {
+      type:DataTypes.STRING
     }
   }, {
     timestamps: false
