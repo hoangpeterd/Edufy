@@ -33,6 +33,6 @@ require("./controllers/users_controllers.js")(app);
 const db = require("./models");
 
 //after connecting to the DB base with sequelize, it will create a localhost so the user can view the page
-db.sequelize.sync({force: true}).then(function(){
+db.sequelize.sync(/*{force: true}*/).then(function(){
 	app.listen(process.env.PORT || 5000);
 });
