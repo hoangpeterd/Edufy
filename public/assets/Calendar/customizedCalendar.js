@@ -1,15 +1,8 @@
-var i = 0;
-var newEvent = {
-	id: i, 
-	start: null, 
-	end: null, 
-	title: null,
-};
+
 
 $(function() { // document ready
 	/* initialize the external events
 	-----------------------------------------------------------------*/
-	
 	$('#external-events .fc-event').each(function() {
 
 		// store data so the calendar knows to render an event upon drop
@@ -25,6 +18,10 @@ $(function() { // document ready
 			revertDuration: 0  //  original position after the drag
 		});
 	});
+
+	// $.post("/tutorAvailability", availability).done(function(result) {
+		
+	// });
 	/* initialize the calendar
 	-----------------------------------------------------------------*/
 	var FC = {
@@ -41,7 +38,7 @@ $(function() { // document ready
 		
 
 		slotLabelFormat: 'h(:mm)a',
-		businessHours: businessHours,	
+		businessHours: availability,	
 		// selectConstraint: true,
 		// eventConstraint: true,
 		header: {
@@ -84,14 +81,24 @@ $(function() { // document ready
 		},
 		// function() { tooltip.hide(); },
 		select: function(start, end, jsEvent, view) { //Removing select function for now because I want it to come from Student selections only.
+
 						// console.log($(this)[0].options);
 
-			// if (window.location.pathname === '/student.html' {
+			// if ($("body").is("#studentBody")) {
+				var i = 0;
+				var newEvent = {
+					id: i, 
+					start: null, 
+					end: null, 
+					title: null,
+				};
 				var trueStart = start.clone();
 
 				newEvent.id = events.length + 1;
 				newEvent.start = start;
+				console.log(start.format());
 				newEvent.end = trueStart.add(1000*60*60);
+				console.log(newEvent.end.format());
 				newEvent.title = "Scheduled Appointment";
 				
 				events.push(newEvent);
@@ -102,20 +109,43 @@ $(function() { // document ready
 				for (var j = 0; j < timeSpan - 1; j++) {
 					newEvent.id = events.length + 1;
 					newEvent.start = newEvent.end;
+					console.log(newEvent.start.format());
 					var newEnd = newEvent.start.clone();
 					newEvent.end = newEnd.add(1000*60*60);
+					console.log(newEvent.end.format());
 					newEvent.title = "Scheduled Appointment";
 
 					events.push(newEvent);
 					$("#calendar").fullCalendar("addEventSource", [newEvent]);
 					$("#sessions").fullCalendar("addEventSource", [newEvent]);
 				}
-				$.post("/scheduledAppointments", events).done(function(result) {
-				});
-     	//    } else if (window.location.pathname == '/tutor.html') {
-			// }
+				console.log(newEvent);
+				console.log(events);
+				//@BUILD UP THE OPTION TO REMOVE EVENT IF ERRONEOUSLY selected
+				//@CREATE AN EVENT LISTENER FOR POST FUNCTION
+				// $.post("/scheduledAppointments", events).done(function(result) {
+
+				// });
+			// } else if ($("body").is("#tutorBody")) {	
+			// var k = 0;
+			// var newAvailability = {
+			// 	id: k,
+			// 	dow: null,
+			// 	start: null,
+			// 	end: null
+			// };
+
+			// 	newAvailability.id = availability.length + 1;
+			// 	newAvailability.dow = start.day();
+			// 	newAvailability.start = start.format();
+			// 	newAvailability.end = end.format();
+
+			// 	availability.push(newAvailability);
+			// 	$("#calendar").fullCalendar("businessHours", [availability]);
+			// 	console.log(newAvailability);
 		}
-	}
+	// }
+};
 //   FC.dayRender = function(min_date, max_date, date, cell){
 //              console.log(min_date);
 //              console.log(max_date);
@@ -156,35 +186,9 @@ $(function() { // document ready
 			// console.log(view.name);
 		}
 	});
-	$.post("/tutorAvailability", businessHours).done(function(result) {
-		if (result.redirect) {
-			window.location = result.redirect;
-		}
-	});
 });
 
-var businessHours = //Availability
-// {  
-	//I want this to be customizeable based on Tutor's registration..
-	// businessHours: [ // specify an array instead
-	[
-		{
-			dow: [ 1, 2, 3 ], // Monday, Tuesday, Wednesday
-			start: '16:00', // 
-			end: '20:00' // 
-		},
-		{
-			dow: [ 4, 5 ], // Thursday, Friday
-			start: '12:00', // 10am
-			end: '20:00' // 4pm
-		},
-		{
-			dow: [6], 
-			start: '14:00',
-			end: '18:00'
-		}
-	];
-// };
+var availability = [];
 var events = [ //Appointments
 		{
 			"id": '1',
@@ -200,9 +204,9 @@ var events = [ //Appointments
 	];
 
 function defaultView() {
-	if (window.location.pathname === '/tutor.html') {
+	if ($("body").is("#tutorBody")) {
 		return 'month';
-	} else if (window.location.pathname === '/student.html') {
+	} else if ($("body").is("#studentBody")) {
 		return 'agendaWeek';
 	}
 }
