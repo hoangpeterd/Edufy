@@ -122,8 +122,6 @@ $("document").ready(function(){
 
 //User profile image upload
   $('#imageUpload').change(function() {
-    setTimeout(function() {
-      $('#uploadImage').submit()
-    }, 1000)
+    if ($('#imageUpload').val()) {$('#uploadImage').submit()}
   });
 });
