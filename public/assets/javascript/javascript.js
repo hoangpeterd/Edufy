@@ -113,7 +113,6 @@ $("document").ready(function(){
   });
 });
 
-
   // isotope
   $('.grid').isotope({
   // options

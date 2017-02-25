@@ -104,7 +104,6 @@ module.exports = function(app){
   });
 }
 
-
 //ignore these. some codes i might wanna use in the future
 // ...
 //     retStatus = 'Success';
