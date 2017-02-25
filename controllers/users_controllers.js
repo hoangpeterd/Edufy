@@ -35,21 +35,45 @@ module.exports = function(app){
     })
   })
 
-  //creating a new tutor in the tutor table
+  //creating a new tutor in the tutor table and sending information to redirect the page
   app.post("/signupTutor", function(req, res) {
-    db.tutors.create(req.body).then(function(){
-      res.redirect("/tutor");
+    db.tutors.count({ where: { tutorUserName: req.body.userName } }).then(count => {
+      if(count === 0){
+        db.students.count({ where: { studentUserName: req.body.userName } }).then(count => {
+          if(count === 0){
+            console.log("User has been created");
+          } else {
+            db.tutors.create(req.body).then(function(){
+              res.send({redirect: "/tutor"});
+            });
+          }
+        });
+      } else {
+        console.log("User has been created");
+      }
     });
   });
 
-  //creating a new student in the student table
+  //creating a new student in the student table and sending information to redirect the page
   app.post("/signupStudent", function(req, res) {
-    db.students.create(req.body).then(function(){
-      res.redirect("/student");
+    db.tutors.count({ where: { tutorUserName: req.body.userName } }).then(count => {
+      if(count === 0){
+        db.students.count({ where: { studentUserName: req.body.userName } }).then(count => {
+          if(count === 0){
+            console.log("User has been created");
+          } else {
+            db.students.create(req.body).then(function(){
+              res.send({redirect: "/student"});
+            });
+          }
+        });
+      } else {
+        console.log("User has been created");
+      }
     });
   });
 
-  //signing into the user. Haven't done much after they sign in correctly yet.
+  //signing into the user. and sending iformation to the Client-side so it can be redirected
   app.post("/signing", function(req, res) {
     db.tutors.count({ where: { tutorUserName: req.body.userName } }).then(count => {
         if (count === 0) {
@@ -61,9 +85,7 @@ module.exports = function(app){
                 if(req.body.password !== result.pass){
                   console.log("not your password"); //going to change this console.log to do something special***********
                 } else {
-                  console.log("student signed in");
-                  res.redirect("/student");
-                  console.log("after signed in");
+                  res.send({redirect: "/student"});
                 }
               });
             }
@@ -74,14 +96,13 @@ module.exports = function(app){
             if(req.body.password !== result.pass){
               console.log("not your password"); //going to change this console.log to do something special***********
             } else {
-              res.redirect("/tutor");
+              res.send({redirect: "/tutor"});
             }
           });
         }
     });
   });
 }
-
 
 //ignore these. some codes i might wanna use in the future
 // ...
