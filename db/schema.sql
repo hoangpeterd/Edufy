@@ -20,16 +20,25 @@ CREATE TABLE IF NOT EXISTS students (
 
 CREATE TABLE IF NOT EXISTS availability (
 	id INT (12) PRIMARY KEY NOT NULL AUTO_INCREMENT
-	, tutorUserName VARCHAR(100) NOT NULL FOREIGN KEY
+	, tutorUserName VARCHAR(100) NOT NULL
 	, date VARCHAR(100) NOT NULL
 	, schedule VARCHAR(100) NOT NULL
+
+  , FOREIGN KEY (tutorUserName)
+		REFERENCES tutors(tutorUserName) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS appointments (
 	id INT (12) PRIMARY KEY NOT NULL AUTO_INCREMENT
-	, tutorUserName VARCHAR(100) NOT NULL FOREIGN KEY
-	, studentUserName VARCHAR(100) NOT NULL FOREIGN KEY
+	, tutorUserName VARCHAR(100) NOT NULL
+	, studentUserName VARCHAR(100) NOT NULL
 	, date VARCHAR(100) NOT NULL
+
+  ,FOREIGN KEY (tutorUserName)
+		REFERENCES tutors(tutorUserName) ON DELETE CASCADE
+
+	,FOREIGN KEY (studentUserName)
+		REFERENCES students(studentUserName) ON DELETE CASCADE
 );
 
 #Handlebars testing
