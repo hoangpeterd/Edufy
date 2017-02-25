@@ -13,6 +13,9 @@ module.exports = function(sequelize, DataTypes){
     },
     pass: {
       type: DataTypes.STRING
+    },
+    picUrl: {
+      type:DataTypes.STRING
     }
   }, {
     timestamps: false
