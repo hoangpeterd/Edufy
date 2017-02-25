@@ -35,7 +35,7 @@ module.exports = function(app){
     })
   })
 
-  //creating a new tutor in the tutor table
+  //creating a new tutor in the tutor table and sending information to redirect the page
   app.post("/signupTutor", function(req, res) {
     db.tutors.count({ where: { tutorUserName: req.body.userName } }).then(count => {
       if(count === 0){
@@ -54,7 +54,7 @@ module.exports = function(app){
     });
   });
 
-  //creating a new student in the student table
+  //creating a new student in the student table and sending information to redirect the page
   app.post("/signupStudent", function(req, res) {
     db.tutors.count({ where: { tutorUserName: req.body.userName } }).then(count => {
       if(count === 0){
@@ -73,7 +73,7 @@ module.exports = function(app){
     });
   });
 
-  //signing into the user. Haven't done much after they sign in correctly yet.
+  //signing into the user. and sending iformation to the Client-side so it can be redirected
   app.post("/signing", function(req, res) {
     db.tutors.count({ where: { tutorUserName: req.body.userName } }).then(count => {
         if (count === 0) {
