@@ -22,7 +22,6 @@ module.exports = function(app){
   //Page for testing out file sending. Will organize after we figure out if/how we want to separate backend files. --YASHA
   //Nodemailer for email notifications, and cookie npm package. --YASHA
   app.post('/uploadProfileImage', function(req, res) {
-
     upload = req.files.imageUpload;
     if (!req.files) {
       res.send('No files were uploaded');
@@ -69,7 +68,7 @@ module.exports = function(app){
               /**
                * @todo: find out why res.direct wont work
                */
-              res.send({redirect: "/student"});
+              res.send({redirect: "/student/" + req.body.userName});
             });
           }
         });
