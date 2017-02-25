@@ -23,7 +23,7 @@ module.exports = function(app){
   //Nodemailer for email notifications, and cookie npm package. --YASHA
   app.post('/uploadProfileImage', function(req, res) {
 
-    upload = req.files.image;
+    upload = req.files.imageUpload;
     if (!req.files) {
       res.send('No files were uploaded');
       return;

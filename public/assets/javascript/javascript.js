@@ -111,7 +111,6 @@ $("document").ready(function(){
     $(".chb").prop('checked', false);
     $(this).prop('checked', true);
   });
-});
 
   // isotope
   $('.grid').isotope({
@@ -120,9 +119,13 @@ $("document").ready(function(){
   layoutMode: 'fitRows'
   });
 
-});
-
 //User profile image upload
   $('#imageUpload').change(function() {
-    $('#uploadImage').submit()
+    
+    setTimeout(function() {
+      $('#uploadImage').submit()
+    }, 1000)
   })
+  
+  
+});
