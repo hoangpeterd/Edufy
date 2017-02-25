@@ -8,9 +8,6 @@ const PORT = process.env.PORT || 5000;
 
 // Serve static content for the app from the "public" directory in the application directory.
 
-
-//const fileUpload = require('express-fileupload')
-
 // Sets up the Express app to handle data parsing
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
