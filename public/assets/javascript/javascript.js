@@ -36,20 +36,29 @@ function creatingUser (){
     password = $("#createPassword").val();
   }
 
-  position = $(".chb:checked").val();
   fName = $("#firstName").val();
   lName = $("#lastName").val();
 
-  if(email !== "" && password!== "" && position !== ""){
-    var createObject = {
-      username: email,
-      pass: password,
-      tutor_student: position,
-      lastName: lName,
-      firstName: fName
-    };
+  if(email !== "" && password!== "" && fName !== "" && lName !== ""){
+    if($(".chb:checked").val() === "tutor") {
+      var createObject = {
+        tutorUserName: email,
+        pass: password,
+        lastName: lName,
+        firstName: fName
+      };
 
-    $.post("/signup", createObject).done(function(result) {});
+      $.post("/signupTutor", createObject).done(function(result) {});
+    } else if ($(".chb:checked").val() === "student") {
+      var createObject = {
+        studentUserName: email,
+        pass: password,
+        lastName: lName,
+        firstName: fName
+      };
+
+      $.post("/signupStudent", createObject).done(function(result) {});
+    }
   }
 
 }

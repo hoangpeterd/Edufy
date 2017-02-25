@@ -1,17 +1,17 @@
 //creating a virtue table so sequelize can run properly
 module.exports = function(sequelize, DataTypes){
-  var Students = sequelize.define("students", {
-    studentUserName: {
-      type: DataTypes.STRING,
+  var Availability = sequelize.define("availability", {
+    id: {
+      type: DataTypes.INTEGER,
       primaryKey: true
     },
-    firstName: {
+    tutorUserName: {
       type: DataTypes.STRING
     },
-    lastName: {
+    date: {
       type: DataTypes.STRING
     },
-    pass: {
+    schedule: {
       type: DataTypes.STRING
     }
   }, {
@@ -19,12 +19,12 @@ module.exports = function(sequelize, DataTypes){
   }, {
     classMethods: {
       associate: function(models) {
-        Students.hasMany(models.availability, {
-          onDelete: "cascade"
+        Availability.belongsTo(models.tutors, {
+          foreignKey: 'tutorUserName'
         });
       }
     }
   });
 
-  return Students;
+  return Availability;
 };

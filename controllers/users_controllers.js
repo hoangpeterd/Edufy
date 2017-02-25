@@ -27,9 +27,16 @@ module.exports = function(app){
     })
   })
 
-  //creating a new user for bot h tutor and students
-  app.post("/signup", function(req, res) {
-    db.users.create(req.body).then(function(){
+  //creating a new tutor in the tutor table
+  app.post("/signupTutor", function(req, res) {
+    db.tutors.create(req.body).then(function(){
+      res.redirect("/");
+    });
+  });
+
+  //creating a new student in the student table
+  app.post("/signupStudent", function(req, res) {
+    db.students.create(req.body).then(function(){
       res.redirect("/");
     });
   });
