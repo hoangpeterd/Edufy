@@ -176,10 +176,6 @@ div.modal-body {
 #imageUpload {
   display: none;
 }
-
-input:hover {
-  cursor: move;
-}
-#imagePlaceholder {
+#profileImage {
   cursor: move;
 }

@@ -31,7 +31,12 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-6">
-            <img class="img-rounded" src="http://placehold.it/180x180">
+            <form action='/uploadProfileImage' method='POST' encType="multipart/form-data">
+              <label for='imageUpload'>
+                <img class="img-rounded" id='profileImage' src="http://placehold.it/180x180">
+              </label>
+              <input type='file' id='imageUpload'>
+            </form>
             <div class="star-ratings start-ratings-main clearfix">
               <div class="stars stars-example-fontawesome">
                 <select id="example-fontawesome" name="rating" autocomplete="off">

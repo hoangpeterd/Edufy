@@ -26,10 +26,10 @@
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
         <div class="row">
-          <div class="col-sm-12 profileHead">
-            <form action='/uploadProfileImage' id='imagePlaceholder'>
+          <div class="col-sm-12">
+            <form id='uploadImage' action='/uploadProfileImage' method='POST' encType="multipart/form-data">
               <label for='imageUpload'>
-                <img class="img-rounded" src="http://placehold.it/180x180">
+                <img class="img-rounded" id='profileImage' src="http://placehold.it/180x180">
               </label>
               <input type='file' id='imageUpload'>
             </form>

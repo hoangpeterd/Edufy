@@ -93,3 +93,8 @@ $("document").ready(function(){
   });
 
 });
+
+//User profile image upload
+  $('#imageUpload').change(function() {
+    $('#uploadImage').submit()
+  })
