@@ -110,15 +110,7 @@ $(function() { // document ready
 					$("#calendar").fullCalendar("addEventSource", [newEvent]);
 					$("#sessions").fullCalendar("addEventSource", [newEvent]);
 				}
-				$.ajax({
-					type: "POST",
-					url: "/json/calendar",
-					data: JSON.stringify(events),
-					success: function(data) {
-						console.log(data);
-					}
-				}).done(function(recd) {
-					console.log(recd);
+				$.post("/scheduledAppointments", events).done(function(result) {
 				});
      	//    } else if (window.location.pathname == '/tutor.html') {
 			// }
@@ -162,6 +154,11 @@ $(function() { // document ready
 			// console.log(date.format());
 			// console.log(jsEvent);
 			// console.log(view.name);
+		}
+	});
+	$.post("/tutorAvailability", businessHours).done(function(result) {
+		if (result.redirect) {
+			window.location = result.redirect;
 		}
 	});
 });
@@ -209,15 +206,3 @@ function defaultView() {
 		return 'agendaWeek';
 	}
 }
-
-$.post("/tutorAvailability", businessHours).done(function(result) {
-	if (result.redirect) {
-		window.location = result.redirect;
-	}
-});
-
-$.post("/scheduledAppointments", events).done(function(result) {
-	if (result.redirect) {
-		window.location = result.redirect;
-	}
-});
