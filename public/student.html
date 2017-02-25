@@ -29,7 +29,12 @@
           <div class="col-sm-12">
             <form id='uploadImage' action='/uploadProfileImage' method='POST' encType="multipart/form-data">
               <label for='imageUpload'>
-                <img class="img-rounded" id='profileImage' src="http://placehold.it/180x180">
+                <div class="profilePic">
+                <img class="img-rounded" id='profileImage' width="180" height="180" src="assets/images/placeholder.png">
+                <div class="overlay">
+                  <div class="text"><span class="glyphicon glyphicon-camera"></span> update profile picture</div>
+                </div>
+                </div>
               </label>
               <input type='file' id='imageUpload' name='imageUpload'>
             </form>
@@ -46,7 +51,6 @@
       <div class="row">
         <div class="col-sm-6">
           <h1 class="headers text-center">subjects</h1>
-          <!-- <img class="img-responsive center-block"src="http://placehold.it/600x300"> -->
           <div class="grid">
             <div class="grid-item">writing</div>
             <div class="grid-item">natural science</div>
@@ -94,6 +98,8 @@
   		</div>
   	</div>
   	<!-- end calendar modal -->
+
+    <div id="calendar" class="calendar-body"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <!-- linking bootstrap JS -->
