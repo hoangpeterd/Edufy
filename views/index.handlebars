@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <title>student</title>
     <!-- favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
     <!-- linking CSS reset file -->
     <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
     <!-- linking CSS file -->
@@ -31,6 +31,7 @@
               <label for='imageUpload'>
                 <img class="img-rounded" id='profileImage' src="http://placehold.it/180x180">
               </label>
+              <input type='text' name='user' value={{this.studentUserName}}  hidden>
               <input type='file' id='imageUpload' name='imageUpload'>
             </form>
             <h1 class="display-3">{{this.firstName}} {{this.lastName}}</h1>

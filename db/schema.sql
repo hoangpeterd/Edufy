@@ -42,12 +42,3 @@ CREATE TABLE IF NOT EXISTS appointments (
 	,FOREIGN KEY (studentUserName)
 		REFERENCES students(studentUserName) ON DELETE CASCADE
 );
-
-#Handlebars testing
-CREATE TABLE userproto (
-	id integer not null primary key auto_increment,
-    fullname varchar(40) not null ,
-    school varchar(50) not null,
-    #Send Email to grav, and store link to account image before placing. gravatarEmail would become just Gravatar.
-    gravatarEmail varchar(40) not null
-);

@@ -26,10 +26,3 @@ VALUES ('Tish@uh.edu', 'DanTran@uh.edu', '2017-06-06T16')
 , ('Yash@uh.edu', 'PetaHoang@ut.edu', '2017-06-15T06')
 , ('Yash@uh.edu', 'PetaHoang@ut.edu', '2017-06-15T07')
 , ('Yash@uh.edu', 'PetaHoang@ut.edu', '2017-06-15T08');
-
-#handlebars testing
-INSERT INTO userProto VALUES
-(null, 'Rach El', 'University of Southern California', 'yashanyou@gmail.com'),
-(null, 'Ya Sha', 'University of Houston', 'yashanyou@gmail.com'),
-(null, 'Pe Ter', 'University of Baltimore', 'yashanyou@gmail.com'),
-(null, 'Da aaady', 'University of Chicago', 'yashanyou@gmail.com')

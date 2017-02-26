@@ -15,24 +15,46 @@ module.exports = function(app){
     res.sendFile(path.join(__dirname + "/../public", "tutor.html"));
   });
 
-  app.get("/student/:id", function(req, res) {
-    //res.sendFile(path.join(__dirname + "/../public", "student.html"));
-    db.students.findOne({where: {studentUserName: req.params.id}}).then(function(data) {
-      data = data.get({plain: true})
-      res.render('index', data)
-    })
+  app.get("/:user/:id", function(req, res) {
+    
+    if (req.params.user == 'student') {
+      db.students.findOne({where: {studentUserName: req.params.id}}).then(function(data) {
+        console.log(data)
+        data = data.get({plain: true})
+        res.render('index', data)
+      })
+    } else {
+      db.tutors.findOne({where: {tutorUserName: req.params.id}}).then(function(data) {
+        console.log(data)
+        data = data.get({plain: true})
+        res.render('index', data)
+      })
+    }
+    
   });
 
   //Page for testing out file sending. Will organize after we figure out if/how we want to separate backend files. --YASHA
   //Nodemailer for email notifications, and cookie npm package. --YASHA
   app.post('/uploadProfileImage', function(req, res) {
-    upload = req.files.imageUpload;
+    
     if (!req.files) {
       res.send('No files were uploaded');
       return;
     }
-    console.log(path.join(__dirname + '/../private/uploadFiles/' + upload.name))
-    upload.mv(path.join(__dirname + '/../private/uploadFiles/' + upload.name), function (err) {
+    let upload = req.files.imageUpload;
+    let newFileName = req.body.user.replace(/\.|@/g,'')
+    let filePath = path.join(__dirname + '/../private/uploadFiles/' + newFileName)
+    
+    if (req.body.userType == 'student') {
+      db.students.update({picUrl: filePath}, {where : {studentUserName: req.body.user}}).then(res.redirect('/student/' + req.body.user))
+      
+    } else {
+      db.tutors.update({picUrl: filePath}, {where : {tutorUserName: req.body.user}}).then(res.redirect('/tutor/' + req.body.user))
+        
+    }
+      
+      
+    upload.mv(path.join(__dirname + '/../private/uploadFiles/' + newFileName), function (err) {
       if (err) {res.status(500).send(err)}
       else {res.send('File uploaded!')}
     })
