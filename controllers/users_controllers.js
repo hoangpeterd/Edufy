@@ -40,40 +40,40 @@ module.exports = function(app){
 
   //creating a new tutor in the tutor table and sending information to redirect the page
   app.post("/signupTutor", function(req, res) {
-    db.tutors.count({ where: { tutorUserName: req.body.userName } }).then(count => {
+    db.tutors.count({ where: { tutorUserName: req.body.tutorUserName } }).then(count => {
       if(count === 0){
-        db.students.count({ where: { studentUserName: req.body.userName } }).then(count => {
+        db.students.count({ where: { studentUserName: req.body.studentUserName } }).then(count => {
           if(count === 0){
-            console.log("User has been created");
-          } else {
             db.tutors.create(req.body).then(function(){
               /**
                * @todo: find out why res.direct wont work
                */
               res.send({redirect: "/tutor"});
             });
+          } else {
+            console.log("User has been created1");
           }
         });
       } else {
-        console.log("User has been created");
+        console.log("User has been created2");
       }
     });
   });
 
   //creating a new student in the student table and sending information to redirect the page
   app.post("/signupStudent", function(req, res) {
-    db.tutors.count({ where: { tutorUserName: req.body.userName } }).then(count => {
+    db.tutors.count({ where: { tutorUserName: req.body.tutorUserName } }).then(count => {
       if(count === 0){
-        db.students.count({ where: { studentUserName: req.body.userName } }).then(count => {
+        db.students.count({ where: { studentUserName: req.body.studentUserName } }).then(count => {
           if(count === 0){
-            console.log("User has been created");
-          } else {
             db.students.create(req.body).then(function(){
               /**
                * @todo: find out why res.direct wont work
                */
-              res.send({redirect: "/student/" + req.body.userName});
+              res.send({redirect: "/student/" + req.body.studentUserName});
             });
+          } else {
+            console.log("User has been created");
           }
         });
       } else {
