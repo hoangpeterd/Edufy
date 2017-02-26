@@ -195,15 +195,16 @@
 	<script>
 	$("document").ready(function(){
 		$('.subject').on("click",function(){
-			$(this).toggleClass('btn-default btn-success');
+			$(this).toggleClass('btn-default select');
 		});
 
 		$("#tutorClassesSubmit").on("click",function(){
 			var yourArray =[];
-			$(".btn-success").each(function(){
-			    yourArray.push($(this).val());
-					console.log(yourArray);
+			$(".select").each(function(){
+			  yourArray.push($(this).val());
 			});
+
+				console.log(yourArray);
 		});
 	});
 
