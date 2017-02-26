@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const exphbs = require('express-handlebars')
 const fileUpload = require('express-fileupload')
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5000;
 
 // Serve static content for the app from the "public" directory in the application directory.
 
@@ -31,5 +31,5 @@ const db = require("./models");
 
 //after connecting to the DB base with sequelize, it will create a localhost so the user can view the page
 db.sequelize.sync().then(function(){
-	app.listen(process.env.PORT || 8080);
+	app.listen(process.env.PORT || 5000);
 });

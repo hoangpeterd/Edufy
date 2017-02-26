@@ -29,8 +29,7 @@ module.exports = function(app){
         data = data.get({plain: true})
         res.render('index', data)
       })
-    }
-    
+    }    
   });
 
   //Page for testing out file sending. Will organize after we figure out if/how we want to separate backend files. --YASHA
@@ -106,8 +105,6 @@ module.exports = function(app){
 
   //signing into the user. and sending iformation to the Client-side so it can be redirected
   app.post("/signing", function(req, res) {
-    
-    
     db.tutors.count({ where: { tutorUserName: req.body.userName } }).then(count => {
         if (count === 0) {
           db.students.count({where: {studentUserName: req.body.userName} }).then(count => {
@@ -140,6 +137,14 @@ module.exports = function(app){
           });
         }
     });
+  });
+
+  app.post("/tutorAvailability", function(req, res) {
+    console.log(req.body);
+
+  });
+  app.post("/scheduledAppointments", function(req, res) {
+    console.log(req.body);
   });
 }
 

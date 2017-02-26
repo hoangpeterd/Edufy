@@ -1,30 +1,20 @@
-var i = 0;
-var newEvent = {
-	id: i, 
-	start: null, 
-	end: null, 
-	title: null,
-};
-
 $(function() { // document ready
 	/* initialize the external events
 	-----------------------------------------------------------------*/
-	
 	$('#external-events .fc-event').each(function() {
-
 		// store data so the calendar knows to render an event upon drop
 		$(this).data('event', {
 			stick: true // maintain when user navigates (see docs on the renderEvent method)
 		});
-
-
-		// make the event draggable using jQuery UI
-		$(this).draggable({
-			zIndex: 999,
-			revert: true,      // will cause the event to go back to its
-			revertDuration: 0  //  original position after the drag
-		});
 	});
+
+	// $.post("/tutorAvailability", availability).done(function(result) {
+	// 	console.log(result);
+	// });
+	
+	// $.post("/scheduledAppointments", events).done(function(result) {
+	// 	console.log(result);
+	// });
 	/* initialize the calendar
 	-----------------------------------------------------------------*/
 	var FC = {
@@ -38,112 +28,44 @@ $(function() { // document ready
 		eventOverlap: false,
 		slotDuration: '00:30:00',
 		minTime: '06:00:00',
-		
-
-		slotLabelFormat: 'h(:mm)a',
-		businessHours: businessHours,	
-		// selectConstraint: true,
-		// eventConstraint: true,
+		slotLabelFormat: 'h:mm',
+		businessHours: availability,	
+		selectConstraint: availability,
+		eventConstraint: availability,
 		header: {
 			left: 'today prev,next',
 			center: 'title',
-			right: 'agendaWeek,month,listMonth' //Need to set up path call for when rendered on Student page, only weekly should display.
+			right: 'agendaWeek,month,listMonth' 
 		},
-		defaultView: defaultView(), //Need to set up path call for when rendered on Student page, only weekly should display.
-		views: { //Need to set up path call for when rendered on Student page, only weekly should display.
-			month: {
-				selectable: false
-			}
+		defaultView: defaultView(), 
+		views: { 
+			month: { selectable: false }
 		},
 		events: events,
 		eventBorderColor: "#4CAE4C", 
 		eventBackgroundColor: "rgba(76, 174, 76, .5)",
-		// eventClick: function(data, event, view) {
-		// 	tooltip.set({
-		// 		'content.text': content
-		// 	})
-		// 	.reposition(event).show(event);
-		// },
-		// dayRender: function(min_date, max_date, date, cell){
-		// 	// var min_date = moment.startOf('month');
-		// 	// var max_date = moment.endOf('month');  
-		// 	var before_min = date.diff(min_date, "days") < 0;
-		// 	var after_max = date.diff(max_date, "days") >= 0;
-		// 	if (before_min || after_max){
-		// 	cell.addClass("out-of-range");
-		// 		if(before_min){
-		// 			cell.addClass("out-of-range-before");
-		// 		}
-		// 		else if(after_max){
-		// 			cell.addClass("out-of-range-after");
-		// 		}
-		// 	}
-		// }.bind(this, min_date, max_date),
-        dayClick: function() {
-			console.log($(this));
-		},
-		// function() { tooltip.hide(); },
-		select: function(start, end, jsEvent, view) { //Removing select function for now because I want it to come from Student selections only.
-						// console.log($(this)[0].options);
-
-			// if (window.location.pathname === '/student.html' {
-				var trueStart = start.clone();
-
-				newEvent.id = events.length + 1;
-				newEvent.start = start;
-				newEvent.end = trueStart.add(1000*60*60);
-				newEvent.title = "Scheduled Appointment";
-				
-				events.push(newEvent);
-				$("#calendar").fullCalendar("addEventSource", [newEvent]);
-				$("#sessions").fullCalendar("addEventSource", [newEvent]);
-
-				var timeSpan = end.diff(start)/(1000*60*60); //Returns the number of hours per selected timespan.
-				for (var j = 0; j < timeSpan - 1; j++) {
-					newEvent.id = events.length + 1;
-					newEvent.start = newEvent.end;
-					var newEnd = newEvent.start.clone();
-					newEvent.end = newEnd.add(1000*60*60);
-					newEvent.title = "Scheduled Appointment";
-
-					events.push(newEvent);
-					$("#calendar").fullCalendar("addEventSource", [newEvent]);
-					$("#sessions").fullCalendar("addEventSource", [newEvent]);
+		eventClick: function(data, jsEvent, view, callback) {
+			if ($("body").is("#studentBody")) {
+				selectAppointment(start, end, jsEvent, view);
+			} else if ($("body").is("#tutorBody")) {
+				if (confirm("delete?")) {
+					eventDestroy(data, jsEvent, view);
+					//@DAN DELETE THIS EVENT
 				}
-				$.ajax({
-					type: "POST",
-					url: "/json/calendar",
-					data: JSON.stringify(events),
-					success: function(data) {
-						console.log(data);
-					}
-				}).done(function(recd) {
-					console.log(recd);
-				});
-     	//    } else if (window.location.pathname == '/tutor.html') {
-			// }
+			}
+		},	
+		eventDestroy: function ( event, element, view, callback) {
+			eventDestroy(event, element, view);
+		},
+		select: function(start, end, jsEvent, view, callback) {
+			if ($("body").is("#tutorBody")) {
+				defineAvailability(start, end, jsEvent, view);
+			} 
+			if ($("body").is("#tutorBody")) {
+				selectAppointment(start, end, jsEvent, view);
+			}
 		}
-	}
-//   FC.dayRender = function(min_date, max_date, date, cell){
-//              console.log(min_date);
-//              console.log(max_date);
-//              console.log(date);
-//              console.log(cell);
-//     var before_min = date.diff(min_date, "days") < 0;
-//              console.log(before_min);
-//     var after_max = date.diff(max_date, "days") >= 0;
-//              console.log(after_max);
-//     if (before_min || after_max){
-//       cell.addClass("out-of-range");
-//       if(before_min){
-//         cell.addClass("out-of-range-before");
-//       }
-//       else if(after_max){
-//         cell.addClass("out-of-range-after");
-//       }
-//     }
-//   }.bind(this, min_date, max_date),
-
+	};
 
 	$('#calendar').fullCalendar(FC);
 
@@ -151,73 +73,128 @@ $(function() { // document ready
 		schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
 		header: {
 			left: '',
-			center: '',
-			right: 'today prev,next'
+			center: 'prev, today, next',
+			right: ''
 		},
 		defaultView: 'listMonth',
 		events: events,
 		eventBorderColor: "#4CAE4C", 
 		eventBackgroundColor: "rgba(76, 174, 76, .5)",
-		dayClick: function(date, jsEvent, view) {
-			// console.log(date.format());
-			// console.log(jsEvent);
-			// console.log(view.name);
-		}
 	});
 });
 
-var businessHours = //Availability
-// {  
-	//I want this to be customizeable based on Tutor's registration..
-	// businessHours: [ // specify an array instead
-	[
-		{
-			dow: [ 1, 2, 3 ], // Monday, Tuesday, Wednesday
-			start: '16:00', // 
-			end: '20:00' // 
-		},
-		{
-			dow: [ 4, 5 ], // Thursday, Friday
-			start: '12:00', // 10am
-			end: '20:00' // 4pm
-		},
-		{
-			dow: [6], 
-			start: '14:00',
-			end: '18:00'
-		}
-	];
-// };
-var events = [ //Appointments
-		{
-			"id": '1',
-			"start": '2017-02-06T10:00:00',
-			"end": '2017-02-06T16:00:00',
-			"title": 'Scheduled Appointment',
-		}, {
-			"id": '2',
-			"start": '2017-02-14',
-			"end": '2017-02-14',
-			"title": "Valentine's Day",
-		}
-	];
+var availability = [
+	{
+		date: '2017-03-03',
+		dow: 4,
+		start: "06:00:00",
+		end: "15:00:00"
+	}
+];
+
+var events = [
+// 	{
+// 		date: "2017-02-28",
+// 		start: "10:00:00",
+// 		end: "16:00:00",
+// 		title: "check it out"
+// 	}
+];
+// //Syntax to revert passed dates in a useful manner.
+// var convertedDate = new Date(events[0].date).toUTCString();
+// console.log(convertedDate);
+// events[0].date = convertedDate;
 
 function defaultView() {
-	if (window.location.pathname === '/tutor.html') {
+	if ($("body").is("#tutorBody")) {
 		return 'month';
-	} else if (window.location.pathname === '/student.html') {
+	} else if ($("body").is("#studentBody")) {
 		return 'agendaWeek';
 	}
 }
 
-$.post("/tutorAvailability", businessHours).done(function(result) {
-	if (result.redirect) {
-		window.location = result.redirect;
-	}
-});
+function defineAvailability(start, end, jsEvent, view) {
+	if ($("body").is("#tutorBody")) {
+		var availableSpan = end.diff(start)/(1000*60*60); //Returns the number of hours per selected availablespan.
+		var weekday = start.clone();
+		if (end.diff(start)/(1000*60*60) % 1 !== 0) {
+			end.add(30, 'minutes');
+		}
 
-$.post("/scheduledAppointments", events).done(function(result) {
-	if (result.redirect) {
-		window.location = result.redirect;
+		var availabilityArray = [];
+		for (var j = 0; j < availableSpan; j++) {
+			var newAvailability = {
+				date: null,
+				dow: null,
+				start: null,
+				end: null
+			};
+
+			var startTime = start.clone();
+			var endTime = end.clone();
+			var newEnd = startTime;
+			newAvailability.date = start.format('YYYY-MM-DD');
+			newAvailability.dow = weekday.day();
+			startTime = startTime.add(1*j, 'hour');
+			newAvailability.start = startTime.format('H:mm');
+			newAvailability.end = newEnd.add(1, 'hour'); 
+			newAvailability.end = newAvailability.end.format('H:mm');
+			availabilityArray.push(newAvailability);
+		}
+		
+		if (confirm("are you free between " + start.format('h:mm T') + "M and " + end.format('h:mm T') + "M?")) {
+			for (var i = 0; i < availabilityArray.length; i++) {
+				availability.push(availabilityArray[i]);
+				$("#calendar").fullCalendar("addEventSource", availabilityArray[i]);
+				$("#sessions").fullCalendar("addEventSource", availabilityArray[i]);
+			}
+		}
+		
+		$.post("/tutorAvailability", availability).done(function(result) {
+			console.log(result);
+		});
 	}
-});
+}
+
+function selectAppointment(start, end, jsEvent, view) {
+	if ($("body").is("#studentBody")) {
+		var newEventsArray = [];
+		var timeSpan = end.diff(start)/(1000*60*60); //Returns the number of hours per selected timespan.
+		for (var j = 0; j < timeSpan; j++) {
+			var newEvent = {
+				date: null,
+				start: null, 
+				end: null, 
+				title: null
+			};
+
+			newEvent.start = start.add(1*j/j, 'hour');
+			var newEnd = newEvent.start.clone();
+			newEvent.date = newEnd.format("YYYY-MM-DD");
+			newEvent.start = newEvent.start.format("H:mm");
+			newEvent.end = newEnd.add(1, 'hour'); 
+			newEvent.end = newEvent.end.format("H:mm");
+			newEvent.title = "Scheduled Appointment";
+			newEventsArray.push(newEvent);
+		}
+		if (confirm("schedule these times?")) {
+			for (var i = 0; i < newEventsArray.length; i++) {
+				events.push(newEventsArray[i]);
+				$("#calendar").fullCalendar("addEventSource", newEventsArray[i]);
+				$("#sessions").fullCalendar("addEventSource", newEventsArray[i]);
+			}
+		}
+		$("#calendar").fullCalendar("rerenderEvents", events);
+		$("#sessions").fullCalendar("rerenderEvents", events);
+
+	// 	$.post("/scheduledAppointments", events).done(function(result) {
+	// 		console.log(result);
+	// 	});
+	}
+}
+
+function eventDestroy( event, element, view ) {
+	console.log("Appointment on " + event.start.format("MMM DD, YYYY") + " at " + event.start.format("h:mm T") + "M to be deleted");
+	$("#calendar").fullCalendar("removeEvent", event);
+	//@Create a delete function for database
+}

@@ -22,6 +22,33 @@ module.exports = function(sequelize, DataTypes){
     },
     picUrl: {
       type:DataTypes.STRING
+    },
+    liberalArts: {
+      type: DataTypes.BOOLEAN
+    },
+    business: {
+      type: DataTypes.BOOLEAN
+    },
+    engineering: {
+      type: DataTypes.BOOLEAN
+    },
+    mathematics: {
+      type: DataTypes.BOOLEAN
+    },
+    biology: {
+      type: DataTypes.BOOLEAN
+    },
+    chemistry: {
+      type: DataTypes.BOOLEAN
+    },
+    computerScience: {
+      type: DataTypes.BOOLEAN
+    },
+    earthSciences: {
+      type: DataTypes.BOOLEAN
+    },
+    physics: {
+      type: DataTypes.BOOLEAN
     }
   }, {
     timestamps: false
