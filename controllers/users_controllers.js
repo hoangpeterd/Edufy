@@ -123,6 +123,9 @@ module.exports = function(app){
   app.post("/tutorAvailability", function(req, res) {
     console.log(req.body);
   });
+  app.post("/scheduledAppointments", function(req, res) {
+    console.log(req.body);
+  });
 }
 
 //ignore these. some codes i might wanna use in the future

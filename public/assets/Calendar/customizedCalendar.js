@@ -8,9 +8,13 @@ $(function() { // document ready
 		});
 	});
 
-	$.post("/tutorAvailability", availability).done(function(result) {
-		
-	});
+	// $.post("/tutorAvailability", availability).done(function(result) {
+	// 	console.log(result);
+	// });
+	
+	// $.post("/scheduledAppointments", events).done(function(result) {
+	// 	console.log(result);
+	// });
 	/* initialize the calendar
 	-----------------------------------------------------------------*/
 	var FC = {
@@ -24,7 +28,7 @@ $(function() { // document ready
 		eventOverlap: false,
 		slotDuration: '00:30:00',
 		minTime: '06:00:00',
-		slotLabelFormat: 'h(:mm)a',
+		slotLabelFormat: 'h:mm',
 		businessHours: availability,	
 		selectConstraint: availability,
 		eventConstraint: availability,
@@ -42,29 +46,35 @@ $(function() { // document ready
 		eventBackgroundColor: "rgba(76, 174, 76, .5)",
 		eventClick: function(data, jsEvent, view, callback) {
 			if ($("body").is("#studentBody")) {
-				selectAppointment(start, end, jsEvent, view)
+				selectAppointment(start, end, jsEvent, view);
 			} else if ($("body").is("#tutorBody")) {
 				if (confirm("delete?")) {
-				//@DAN DELETE THIS EVENT
-				console.log("to be deleted");
+					eventDestroy(data, jsEvent, view);
+					//@DAN DELETE THIS EVENT
 				}
 			}
-		},		
+		},	
+		eventDestroy: function ( event, element, view, callback) {
+			eventDestroy(event, element, view);
+		},
 		select: function(start, end, jsEvent, view, callback) {
 			if ($("body").is("#tutorBody")) {
 				defineAvailability(start, end, jsEvent, view);
 			} 
+			if ($("body").is("#tutorBody")) {
+				selectAppointment(start, end, jsEvent, view);
+			}
 		}
-};
+	};
 
 	$('#calendar').fullCalendar(FC);
 
 	$("#sessions").fullCalendar({
 		schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
 		header: {
-			left: 'prev',
-			center: 'today',
-			right: 'next'
+			left: '',
+			center: 'prev, today, next',
+			right: ''
 		},
 		defaultView: 'listMonth',
 		events: events,
@@ -73,14 +83,27 @@ $(function() { // document ready
 	});
 });
 
-var availability = [];
-var events = [
+var availability = [
 	{
-		start: "2017-02-06T10:00:00",
-		end: "2017-02-06T16:00:00",
-		title: "check it out"
+		date: '2017-03-03',
+		dow: 4,
+		start: "06:00:00",
+		end: "15:00:00"
 	}
 ];
+
+var events = [
+// 	{
+// 		date: "2017-02-28",
+// 		start: "10:00:00",
+// 		end: "16:00:00",
+// 		title: "check it out"
+// 	}
+];
+// //Syntax to revert passed dates in a useful manner.
+// var convertedDate = new Date(events[0].date).toUTCString();
+// console.log(convertedDate);
+// events[0].date = convertedDate;
 
 function defaultView() {
 	if ($("body").is("#tutorBody")) {
@@ -92,55 +115,86 @@ function defaultView() {
 
 function defineAvailability(start, end, jsEvent, view) {
 	if ($("body").is("#tutorBody")) {
-		console.log(start);
-		var startTime = start.clone();
-		var dateClicked = start.clone();
+		var availableSpan = end.diff(start)/(1000*60*60); //Returns the number of hours per selected availablespan.
 		var weekday = start.clone();
-		var halfHour = start.minute();
-		if (halfHour === 30) {
-			startTime.add(halfHour, 'minutes' );
+		if (end.diff(start)/(1000*60*60) % 1 !== 0) {
+			end.add(30, 'minutes');
 		}
 
-		var newAvailability = {
-			date: dateClicked.toDate(),
-			dow: weekday.day(),
-			start:startTime,
-			end: end
-		};
-		console.log(newAvailability);
-		availability.push(newAvailability);
+		var availabilityArray = [];
+		for (var j = 0; j < availableSpan; j++) {
+			var newAvailability = {
+				date: null,
+				dow: null,
+				start: null,
+				end: null
+			};
+
+			var startTime = start.clone();
+			var endTime = end.clone();
+			var newEnd = startTime;
+			newAvailability.date = start.format('YYYY-MM-DD');
+			newAvailability.dow = weekday.day();
+			startTime = startTime.add(1*j, 'hour');
+			newAvailability.start = startTime.format('H:mm');
+			newAvailability.end = newEnd.add(1, 'hour'); 
+			newAvailability.end = newAvailability.end.format('H:mm');
+			availabilityArray.push(newAvailability);
+		}
 		
-		$("#calendar").fullCalendar("businessHours", [availability]);
+		if (confirm("are you free between " + start.format('h:mm T') + "M and " + end.format('h:mm T') + "M?")) {
+			for (var i = 0; i < availabilityArray.length; i++) {
+				availability.push(availabilityArray[i]);
+				$("#calendar").fullCalendar("addEventSource", availabilityArray[i]);
+				$("#sessions").fullCalendar("addEventSource", availabilityArray[i]);
+			}
+		}
 		
 		$.post("/tutorAvailability", availability).done(function(result) {
-		
+			console.log(result);
 		});
 	}
 }
 
 function selectAppointment(start, end, jsEvent, view) {
 	if ($("body").is("#studentBody")) {
-		var newEvent = {
-			start: null, 
-			end: null, 
-			title: null
-		};
-		
+		var newEventsArray = [];
 		var timeSpan = end.diff(start)/(1000*60*60); //Returns the number of hours per selected timespan.
 		for (var j = 0; j < timeSpan; j++) {
-			newEvent.start = start.add(1000*60*60*j/j);
+			var newEvent = {
+				date: null,
+				start: null, 
+				end: null, 
+				title: null
+			};
+
+			newEvent.start = start.add(1*j/j, 'hour');
 			var newEnd = newEvent.start.clone();
-			newEvent.end = newEnd.add(1000*60*60); 
+			newEvent.date = newEnd.format("YYYY-MM-DD");
+			newEvent.start = newEvent.start.format("H:mm");
+			newEvent.end = newEnd.add(1, 'hour'); 
+			newEvent.end = newEvent.end.format("H:mm");
 			newEvent.title = "Scheduled Appointment";
-			$("#calendar").fullCalendar("addEventSource", [newEvent]);
-			$("#sessions").fullCalendar("addEventSource", [newEvent]);
+			newEventsArray.push(newEvent);
 		}
-		events.push(newEvent);
+		if (confirm("schedule these times?")) {
+			for (var i = 0; i < newEventsArray.length; i++) {
+				events.push(newEventsArray[i]);
+				$("#calendar").fullCalendar("addEventSource", newEventsArray[i]);
+				$("#sessions").fullCalendar("addEventSource", newEventsArray[i]);
+			}
+		}
+		$("#calendar").fullCalendar("rerenderEvents", events);
+		$("#sessions").fullCalendar("rerenderEvents", events);
 
-		//@BUILD UP THE OPTION TO REMOVE EVENT IF ERRONEOUSLY selected in EVENT CLICK 
-		//@CREATE AN EVENT LISTENER FOR POST FUNCTION
-		$.post("/scheduledAppointments", events).done(function(result) {
-
-		});
+	// 	$.post("/scheduledAppointments", events).done(function(result) {
+	// 		console.log(result);
+	// 	});
 	}
+}
+
+function eventDestroy( event, element, view ) {
+	console.log("Appointment on " + event.start.format("MMM DD, YYYY") + " at " + event.start.format("h:mm T") + "M to be deleted");
+	$("#calendar").fullCalendar("removeEvent", event);
+	//@Create a delete function for database
 }
