@@ -101,7 +101,7 @@ $(function() { // document ready
 				console.log(newEvent.end.format());
 				newEvent.title = "Scheduled Appointment";
 				
-				events.push(newEvent);
+				// events.push(newEvent);
 				$("#calendar").fullCalendar("addEventSource", [newEvent]);
 				$("#sessions").fullCalendar("addEventSource", [newEvent]);
 
@@ -114,8 +114,8 @@ $(function() { // document ready
 					newEvent.end = newEnd.add(1000*60*60);
 					console.log(newEvent.end.format());
 					newEvent.title = "Scheduled Appointment";
-
-					events.push(newEvent);
+					console.log(newEvent);
+					// events.push(newEvent);
 					$("#calendar").fullCalendar("addEventSource", [newEvent]);
 					$("#sessions").fullCalendar("addEventSource", [newEvent]);
 				}
