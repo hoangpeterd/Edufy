@@ -19,7 +19,7 @@ module.exports = function(app){
     //res.sendFile(path.join(__dirname + "/../public", "student.html"));
     db.students.findOne({where: {studentUserName: req.params.id}}).then(function(data) {
       data = data.get({plain: true})
-      res.render('index', data)
+      res.render('student', data)
     })
   });
 
@@ -84,8 +84,6 @@ module.exports = function(app){
 
   //signing into the user. and sending iformation to the Client-side so it can be redirected
   app.post("/signing", function(req, res) {
-    
-    
     db.tutors.count({ where: { tutorUserName: req.body.userName } }).then(count => {
         if (count === 0) {
           db.students.count({where: {studentUserName: req.body.userName} }).then(count => {
@@ -122,6 +120,7 @@ module.exports = function(app){
 
   app.post("/tutorAvailability", function(req, res) {
     console.log(req.body);
+
   });
 }
 
