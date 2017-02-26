@@ -253,3 +253,17 @@ div.modal-body {
 	transform: translate(-50%, -50%);
 	-ms-transform: translate(-50%, -50%);
 }
+
+button.btn.subject {
+	float:left;
+	width: 169.328px;
+	margin-bottom: 15px;
+}
+
+textarea.form-control {
+	margin-bottom: 15px;
+}
+
+.select{
+	background-color: #5cb85c;
+}

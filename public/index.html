@@ -115,6 +115,68 @@
 	</div>
 	<!-- end sign in modal -->
 
+	<!-- tutorClasses modal -->
+	<div class="modal fade" id="tutorClasses" role="dialog">
+		<div class="modal-dialog modal-default" align="center">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title"><img src="assets/images/edufyIcon.png" alt="edufy icon" height="30px" width="30px"> your proficiencies</h4>
+					</div>
+					<div class="modal-body">
+					<!-- courses -->
+						<div class="row">
+							<div class="col-sm-4">
+								<button class="btn btn-default subject" value="liberalArts"> liberal arts
+								</button>
+							</div>
+							<div class="col-sm-4">
+								<button class="btn btn-default subject" value="business"> business
+								</button>
+							</div>
+							<div class="col-sm-4">
+								<button class="btn btn-default subject" value="engineering"> engineering
+								</button>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<button class="btn btn-default subject" value="mathematics"> mathematics
+								</button>
+							</div>
+							<div class="col-sm-4">
+								<button class="btn btn-default subject" value="biology"> biology
+								</button>
+							</div>
+							<div class="col-sm-4">
+								<button class="btn btn-default subject" value="chemistry"> chemistry
+								</button>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<button class="btn btn-default subject" value="computerScience"> computer science
+								</button>
+							</div>
+							<div class="col-sm-4">
+								<button class="btn btn-default subject" value="geography"> geography
+								</button>
+							</div>
+							<div class="col-sm-4">
+								<button class="btn btn-default subject" value="physics"> physics
+								</button>
+							</div>
+						</div>
+					<!-- form area -->
+					<textarea class="form-control" rows="3"></textarea>
+				</div>
+				<div class="modal-footer">
+					<button id="tutorClassesSubmit" type="button" class="btn btn-success btn-block" data-dismiss="modal">submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end tutorClasses modal -->
+
   <!-- logo -->
   <div class="container logo">
       <img id="logo" class="img-responsive center-block" src="assets/images/edufyLogo.png" height="300" width="500">
@@ -126,5 +188,26 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<!-- linking JS file -->
 	<script type="text/javascript" src="assets/javascript/javascript.js"></script>
+	<!-- Isotope -->
+	<script src="assets/Isotope/isotope.pkgd.js"></script>
+
+	<script>
+	$("document").ready(function(){
+		$('.subject').on("click",function(){
+			$(this).toggleClass('btn-default select');
+		});
+
+		$("#tutorClassesSubmit").on("click",function(){
+			var yourArray =[];
+			$(".select").each(function(){
+			  yourArray.push($(this).val());
+			});
+
+				console.log(yourArray);
+		});
+	});
+
+
+	</script>
 </body>
 </html>
