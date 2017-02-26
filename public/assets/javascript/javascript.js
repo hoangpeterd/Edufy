@@ -20,8 +20,44 @@ function validatePassword(password){
   }
 }
 
+function creatingTutor(){
+  var email = "";
+  var password = "";
+  var position = "";
+  var fName = "";
+  var lName = "";
+
+  if(validateEmail($("#createUser").val())){
+    email = $("#createUser").val();
+  }
+
+  if(validatePassword($("#createPassword").val())){
+    password = $("#createPassword").val();
+  }
+
+  fName = $("#firstName").val();
+  lName = $("#lastName").val();
+
+  var createObject = {
+    tutorUserName: email,
+    pass: password,
+    lastName: lName,
+    firstName: fName
+  };
+
+  $(".select").each(function(){
+    createObject[$(this).val()] = true;
+  });
+
+  $.post("/signupTutor", createObject).done(function(result) {
+    if(result.redirect){
+      window.location = result.redirect;
+    }
+  });
+
+}
 //collecting the information and checking them before pushing it to a database
-function creatingUser (){
+function creatingStudent (){
   var email = "";
   var password = "";
   var position = "";
@@ -41,18 +77,7 @@ function creatingUser (){
 
   if(email !== "" && password!== "" && fName !== "" && lName !== ""){
     if($(".chb:checked").val() === "tutor") {
-      var createObject = {
-        tutorUserName: email,
-        pass: password,
-        lastName: lName,
-        firstName: fName
-      };
-
-      $.post("/signupTutor", createObject).done(function(result) {
-        if(result.redirect){
-          window.location = result.redirect;
-        }
-      });
+      $("#tutorClasses").modal();
 
     } else if ($(".chb:checked").val() === "student") {
       var createObject = {
@@ -86,6 +111,12 @@ function signingIn (){
   });
 }
 
+$('.subject').on("click",function(){
+  $(this).toggleClass('btn-default select');
+});
+
+
+
 $("document").ready(function(){
   //when clicked on the signin button a modal will show up
   $("#modalSignIn").on("click",function() {
@@ -102,9 +133,14 @@ $("document").ready(function(){
     $("#signUpModal").modal();
   });
 
-  //button to start the create new user path
+  //button to start the create new user path of students
   $("#createBtn").on("click", function() {
-    creatingUser();
+    creatingStudent();
+  });
+
+  //button to starte the create new user path of tutors
+  $("#tutorClassesSubmit").on("click",function(){
+    creatingTutor();
   });
 
   // makes sure only one choice can be chosen with checkbox
