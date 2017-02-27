@@ -12,7 +12,6 @@ module.exports = function(app){
   });
 
   app.get("/:user/:id", function(req, res) {
-
     if (req.params.user == 'student') {
       db.students.findOne({where: {studentUserName: req.params.id}}).then(function(data) {
         if (!data) {res.sendStatus(404); return true}
@@ -69,7 +68,7 @@ module.exports = function(app){
               /**
                * @todo: find out why res.direct wont work
                */
-              res.send({redirect: "/tutor"});
+              res.send({redirect: "/tutor/" + req.body.tutorUserName});
             });
           } else {
             console.log("User has been created1");
@@ -132,10 +131,17 @@ module.exports = function(app){
               /**
                * @todo: find out why res.direct wont work
                */
-              res.send({redirect: "/tutor"});
+              res.send({redirect: "/tutor/" + req.body.userName});
             }
           });
         }
+    });
+  });
+
+  app.post("/findRating", function (req, res) {
+    console.log(req.body);
+    db.tutors.findOne({ where: {tutorUserName: req.body.userName} }).then(function(result){
+      res.send({rating: result.rating, sessions: result.sessions});
     });
   });
 

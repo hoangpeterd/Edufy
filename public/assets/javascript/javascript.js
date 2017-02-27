@@ -133,11 +133,35 @@ function signingIn (){
   });
 }
 
-$('.subject').on("click",function(){
-  $(this).toggleClass('btn-default select');
-});
+function findRating (url, cb){
+  var pointer = url.indexOf("tutors/");
+  var userName = url.substring(pointer+7);
+  pointer = userName.indexOf(".edu");
+  userName = userName.substring(0, pointer+4);
+
+  console.log(pointer);
+  console.log(userName);
+
+  $.post("/findRating", {userName: userName}).done(function(result){
+    var rating = result.rating/result.sessions;
+
+    cb(rating);
+  });
+}
+
+
 
 $("document").ready(function(){
+
+  findRating(window.location.href, function(data){
+    $(function () {
+      $("#tutorRating").rateYo({
+        rating: data,
+        readOnly: true
+      });
+    });
+  });
+
   //when clicked on the signin button a modal will show up
   $("#modalSignIn").on("click",function() {
     $("#signInModal").modal();
@@ -179,6 +203,11 @@ $("document").ready(function(){
 //User profile image upload
   $('#imageUpload').change(function() {
     if ($('#imageUpload').val()) {$('#uploadImage').submit()}
+  });
+
+  //toggle colors when subject is being selected by tutors
+  $('.subject').on("click",function(){
+    $(this).toggleClass('btn-default select');
   });
 
 // tutor list with subject selected
