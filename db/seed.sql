@@ -1,9 +1,9 @@
 #LOOK INTO MYSQL SET(data type). ALlows user to be student, tutor, or both.
 
-INSERT INTO tutors (tutorUserName, firstName, lastName, pass, rating, sessions)
-VALUES	('Tish@uh.edu', 'Tish', 'McNeel', 'TishTish', 24000, 5000)
-, ('Yash@uh.edu', 'Yasha', 'Meat', 'theManMeat', 3, 1)
-, ('CamKirk@uh.edu', 'Cam', 'Kirk', 'mrjeepercreeper', 2700, 600);
+INSERT INTO tutors (tutorUserName, firstName, lastName, pass, rating, sessions, specificClasses)
+VALUES	('Tish@uh.edu', 'Tish', 'McNeel', 'TishTish', 24000, 5000, "coolness 101")
+, ('Yash@uh.edu', 'Yasha', 'Meat', 'theManMeat', 3, 1, "trollness 101")
+, ('CamKirk@uh.edu', 'Cam', 'Kirk', 'mrjeepercreeper', 2700, 600, "workhardPlayHard 101");
 
 INSERT INTO students (studentUserName, firstName, lastName, pass)
 VALUES ('DanTran@uh.edu', 'Dan', 'Tran', 'DanDaManTran')

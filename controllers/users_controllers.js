@@ -34,10 +34,10 @@ module.exports = function(app){
   //Login needs to be looked at before presentation because that's where all the security is. SUPER IMPORTANT.
   app.post('/uploadProfileImage', function(req, res) {
     
-//    if (!req.files) {
-//      res.send('No files were uploaded');
-//      return;
-//    }
+    if (!req.files) {
+      res.send('No files were uploaded');
+      return;
+    }
     
     let upload = req.files.imageUpload;
     let newFileName = req.body.user.replace(/\.|@/g,'')
@@ -64,6 +64,7 @@ module.exports = function(app){
       if(count === 0){
         db.students.count({ where: { studentUserName: req.body.studentUserName } }).then(count => {
           if(count === 0){
+            console.log(req.body.specificClasses);
             db.tutors.create(req.body).then(function(){
               /**
                * @todo: find out why res.direct wont work
@@ -140,7 +141,14 @@ module.exports = function(app){
 
   app.post("/tutorAvailability", function(req, res) {
     console.log(req.body);
+    db.availability.create(req.body).then(function(){
+      /**
+       * @todo: find out why res.direct wont work
+       */
+      res.send({reload: true});
 
+      //location.reload(); to refresh 
+    });
   });
   app.post("/scheduledAppointments", function(req, res) {
     console.log(req.body);

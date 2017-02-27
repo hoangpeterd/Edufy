@@ -49,6 +49,9 @@ module.exports = function(sequelize, DataTypes){
     },
     physics: {
       type: DataTypes.BOOLEAN
+    },
+    specificClasses: {
+      type: DataTypes.STRING
     }
   }, {
     timestamps: false
