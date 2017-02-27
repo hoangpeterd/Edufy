@@ -210,21 +210,24 @@ function parseData(start, end) {
 	var thisStartTime = stringJoined.substring(12, 20); //start time
 	var thisEndDate = stringJoined.substring(21, 32); //end date
 	var thisEndTime = stringJoined.substring(33, 41); //end time
-	if ($("body").is("#tutorBody")) {
-		function findRating (url, cb){
+	function grabUserName (url, cb){
+		var pointer = url.indexOf("tutor/");
+		var userName = url.substring(pointer+6);
+		pointer = userName.indexOf(".edu");
+		userName = userName.substring(0, pointer+4);
+		if ($("body").is("#tutorBody")) {
+			$.post("/tutorAvailability", {tutorUserName: userName, startTimes: stringJoined}).done(function(result) {
+				console.log("Hello");
+				console.log(result);
+			});
+		}
+		if ($("body").is("#studentBody")) {
 			var pointer = url.indexOf("tutor/");
 			var userName = url.substring(pointer+6);
 			pointer = userName.indexOf(".edu");
 			userName = userName.substring(0, pointer+4);
-		
-		$.post("/tutorAvailability", {userName: userName, startTimes: stringJoined}).done(function(result) {
-			console.log("Hello");
-			console.log(result);
-		});
+			$.post("/scheduledAppointments", {studentUserName: userName, date: stringJoined).done(function(result) {
+			});
 		}
-	}
-	if ($("body").is("#studentBody")) {
-		$.post("/scheduledAppointments", stringJoined).done(function(result) {
-		});
 	}
 }
