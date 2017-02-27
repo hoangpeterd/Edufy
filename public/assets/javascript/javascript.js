@@ -187,4 +187,31 @@ $("document").ready(function(){
       $("#tutorList").modal();
     console.log($(this).text());
   });
+
+  // countdown timer
+  $('.counter').each(function() {
+  var $this = $(this),
+      countTo = $this.attr('data-count');
+
+  $({ countNum: $this.text()}).animate({
+    countNum: countTo
+  },
+
+  {
+
+    duration: 1000,
+    easing:'linear',
+    step: function() {
+      $this.html("<p>total earnings</p> $" + Math.floor(this.countNum));
+    },
+    complete: function() {
+      $this.html("<p>total earnings</p> $" + this.countNum);
+    }
+
+  });
+
+
+
+});
+
 });

@@ -30,7 +30,47 @@
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
         <div class="row">
-          <div class="col-sm-6">
+          <div class="row">
+          <div class="col-xs-12" align="center">
+            <div class="col-xs-4">
+              <form id='uploadImage' action='/uploadProfileImage' method='POST' encType="multipart/form-data">
+                <label for='imageUpload'>
+                  <div class="profilePic">
+                  <img class="img-rounded" id='profileImage' width="180" height="180" src="assets/images/placeholder.png">
+                  <div class="overlay">
+                    <div class="text"><span class="glyphicon glyphicon-camera"></span> update profile picture</div>
+                  </div>
+                  </div>
+                </label>
+                <input type='file' id='imageUpload' name='imageUpload'>
+              </form>
+            </div>
+            <div class="col-xs-4">
+              <div class="row">
+                  <h1 class="display-3">Peter Hoang</h1>
+                </div>
+              <div class="row">
+                <p class="lead">The University of Texas</p>
+              </div>
+            </div>
+                <div class="col-xs-4">
+                  <div class="countDown">
+                  <div class="counter" data-count="200"><p>total earnings</p>$200</div>
+                  </div>
+                  <!-- <div id="chart">
+                   <div style="width:100%;">
+                     <canvas id="canvas"></canvas>
+                   </div>
+                    <div class=row>
+                      <input id="input" type="number" placeholder="Dollar Amount"></input>
+                      <button id="addData">Add Data</button>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="col-sm-6">
             <form id='uploadImage' action='/uploadProfileImage' method='POST' encType="multipart/form-data">
               <label for='imageUpload'>
                 <div class="profilePic">
@@ -66,7 +106,7 @@
                 <button id="addData">Add Data</button>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
