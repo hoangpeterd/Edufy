@@ -10,7 +10,7 @@ VALUES ('DanTran@uh.edu', 'Dan', 'Tran', 'DanDaManTran')
 , ('PetaHoang@ut.edu', 'Peter', 'Hoang', 'IamTony')
 , ('R.Thiim@ut.edu', 'Rachel', 'Thiim', 'eatBagsofDicks');
 
-INSERT INTO availability (tutorUserName, date, schedule)
+INSERT INTO availability (tutorUserName, date, startTimes)
 VALUES ('Tish@uh.edu', '2017-06-06', '16, 17, 18, 19')
 , ('CamKirk@uh.edu', '2017-06-14', '9, 10, 11, 12')
 , ('Yash@uh.edu', '2017-06-15', '01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12');
