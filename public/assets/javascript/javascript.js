@@ -134,8 +134,13 @@ function signingIn (){
 }
 
 function findRating (url, cb){
-  var start = url.indexOf("tutors/");
-  var userName = url.substring( start+7);
+  var pointer = url.indexOf("tutors/");
+  var userName = url.substring(pointer+7);
+  pointer = userName.indexOf(".edu");
+  userName = userName.substring(0, pointer+4);
+
+  console.log(pointer);
+  console.log(userName);
 
   $.post("/findRating", {userName: userName}).done(function(result){
     var rating = result.rating/result.sessions;
