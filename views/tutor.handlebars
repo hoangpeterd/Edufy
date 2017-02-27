@@ -7,14 +7,14 @@
           <form id='uploadImage' action='/uploadProfileImage' method='POST' encType="multipart/form-data">
             <label for='imageUpload'>
               <div class="profilePic">
-               
+
                 {{#if this.picUrl}}
                 <img class="img-rounded" id='profileImage' width="180" height="180" src={{this.picUrl}}>
                 {{/if}}
                 {{#unless this.picUrl}}
                 <img class="img-rounded" id='profileImage' width="180" height="180" src='/assets/images/placeholder.png'>
                 {{/unless}}
-                
+
                 <div class="overlay">
                   <div class="text"><span class="glyphicon glyphicon-camera"></span> update profile picture</div>
                 </div>
@@ -24,17 +24,7 @@
             <input type='text' name='user' value={{this.tutorUserName}} hidden>
             <input type='file' id='imageUpload' name='imageUpload'>
           </form>
-          <div class="star-ratings start-ratings-main clearfix">
-            <div class="stars stars-example-fontawesome">
-              <select id="example-fontawesome" name="rating" autocomplete="off">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
-            </div>
-          </div>
+          <div id="tutorRating"></div>
           <h1 class="display-3">{{this.firstName}} {{this.lastName}}</h1>
           <p class="lead">{{this.tutorUserName}}</p>
         </div>
@@ -89,10 +79,8 @@
   <script src="/assets/Chart/chart.js/utils.js"></script>
   <script src="/assets/Chart/dist/Chart.bundle.js"></script>
   <script src="/assets/Chart/chart.js/line/line.js"></script>
-   <!--star Rating -->
-  <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
-  <script src="/assets/StarRating/jquery.barrating.js"></script>
-  <script src="/assets/StarRating/examples/js/examples.js"></script>
+  <!--star Rating -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"></script>
   <!-- Isotope -->
   <script src="/assets/Isotope/isotope.pkgd.js"></script>
 </body>

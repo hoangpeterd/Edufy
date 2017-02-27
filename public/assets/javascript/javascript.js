@@ -133,9 +133,21 @@ function signingIn (){
   });
 }
 
-$('.subject').on("click",function(){
-  $(this).toggleClass('btn-default select');
-});
+//getting the url to send it to the back in to query the username so the DB can send back the rating information
+function findRating (url, cb){
+  var pointer = url.indexOf("tutor/");
+  var userName = url.substring(pointer+6);
+  pointer = userName.indexOf(".edu");
+  userName = userName.substring(0, pointer+4);
+
+  $.post("/findRating", {userName: userName}).done(function(result){
+    var rating = result.rating/result.sessions;
+
+    cb(rating);
+  });
+}
+
+
 
 $("document").ready(function(){
   //when clicked on the signin button a modal will show up
@@ -181,6 +193,11 @@ $("document").ready(function(){
     if ($('#imageUpload').val()) {$('#uploadImage').submit()}
   });
 
+  //toggle colors when subject is being selected by tutors
+  $('.subject').on("click",function(){
+    $(this).toggleClass('btn-default select');
+  });
+
 // tutor list with subject selected
   $(".grid-item").on("click", function(){
       jQuery.noConflict();
@@ -188,6 +205,7 @@ $("document").ready(function(){
     console.log($(this).text());
   });
 
+<<<<<<< HEAD
   // countdown timer
   $('.counter').each(function() {
   var $this = $(this),
@@ -214,4 +232,15 @@ $("document").ready(function(){
 
 });
 
+  //when a page is loaded. wait for a tutor page to load up and run the rating search to create a start rating for the tutor
+  if(window.location.href.indexOf("/tutor/")>5){
+    findRating(window.location.href, function(data){
+      $(function () {
+        $("#tutorRating").rateYo({
+          rating: data,
+          readOnly: true
+        });
+      });
+    });
+  }
 });

@@ -17,9 +17,7 @@
     <link href='assets/Calendar/lib/fullcalendar.print.min.css' rel='stylesheet' media='print' />
     <link href='assets/Calendar/scheduler.min.css' rel='stylesheet' />
     <!--star Rating -->
-    <!--<link rel="stylesheet" href="assets/StarRating/examples/css/normalize.min.css">
-    <link rel="stylesheet" href="assets/StarRating/examples/css/main.css">
-    <link rel="stylesheet" href="assets/StarRating/examples/css/examples.css">-->
+	   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css">
      <!--Icons-->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/StarRating/dist/themes/fontawesome-stars.css">
@@ -83,15 +81,7 @@
               <input type='file' id='imageUpload' name='imageUpload'>
             </form>
             <div class="star-ratings start-ratings-main clearfix">
-              <div class="stars stars-example-fontawesome">
-                <select id="example-fontawesome" name="rating" autocomplete="off">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </select>
-              </div>
+              <div id="tutorRating"></div>
             </div>
             <h1 class="display-3">tutor name</h1>
             <p class="lead">school tutor attends</p>
@@ -149,10 +139,8 @@
     <script src="assets/Chart/chart.js/utils.js"></script>
     <script src="assets/Chart/dist/Chart.bundle.js"></script>
     <script src="assets/Chart/chart.js/line/line.js"></script>
-     <!--star Rating -->
-    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
-    <script src="assets/StarRating/jquery.barrating.js"></script>
-    <script src="assets/StarRating/examples/js/examples.js"></script>
+    <!--star Rating -->
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"></script>
     <!-- Isotope -->
     <script src="assets/Isotope/isotope.pkgd.js"></script>
   </body>

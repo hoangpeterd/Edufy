@@ -1,4 +1,3 @@
-#LOOK INTO MYSQL SET(data type). ALlows user to be student, tutor, or both.
 
 INSERT INTO tutors (tutorUserName, firstName, lastName, pass, rating, sessions, specificClasses)
 VALUES	('Tish@uh.edu', 'Tish', 'McNeel', 'TishTish', 24000, 5000, "coolness 101")
