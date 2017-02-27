@@ -205,7 +205,6 @@ $("document").ready(function(){
     console.log($(this).text());
   });
 
-<<<<<<< HEAD
   // countdown timer
   $('.counter').each(function() {
   var $this = $(this),
