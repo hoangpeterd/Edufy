@@ -181,8 +181,10 @@ $("document").ready(function(){
     if ($('#imageUpload').val()) {$('#uploadImage').submit()}
   });
 
+// tutor list with subject selected
   $(".grid-item").on("click", function(){
-    $("#tutorList").modal();
-    // console.log($(this).text());
+      jQuery.noConflict();
+      $("#tutorList").modal();
+    console.log($(this).text());
   });
 });
