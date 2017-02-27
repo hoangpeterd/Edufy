@@ -32,5 +32,5 @@ const db = require("./models");
 
 //after connecting to the DB base with sequelize, it will create a localhost so the user can view the page
 db.sequelize.sync().then(function(){
-	app.listen(process.env.PORT || 5000);
+	app.listen(PORT);
 });
