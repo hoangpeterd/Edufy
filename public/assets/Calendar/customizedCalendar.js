@@ -39,10 +39,14 @@ $(function() { // document ready
 		},
 		defaultView: defaultView(), 
 		views: { 
-			month: { selectable: false }
+			month: { 
+				selectable: false,
+				eventLimit: 3,
+			},
 		},
 		// eventSources: events,
 		events: events,
+		eventLimit: true,
 		eventBorderColor: "#4CAE4C", 
 		eventBackgroundColor: "rgba(76, 174, 76, .5)",
 		eventClick: function(data, jsEvent, view, callback) {
