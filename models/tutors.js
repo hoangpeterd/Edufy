@@ -44,7 +44,7 @@ module.exports = function(sequelize, DataTypes){
     computerScience: {
       type: DataTypes.BOOLEAN
     },
-    earthSciences: {
+    geology: {
       type: DataTypes.BOOLEAN
     },
     physics: {
