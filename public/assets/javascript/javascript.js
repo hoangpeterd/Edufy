@@ -216,7 +216,7 @@ $("document").ready(function(){
 
   {
 
-    duration: 1000,
+    duration: 1300,
     easing:'linear',
     step: function() {
       $this.html("<p>total earnings</p> $" + Math.floor(this.countNum));
