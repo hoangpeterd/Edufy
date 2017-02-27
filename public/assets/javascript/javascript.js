@@ -205,6 +205,33 @@ $("document").ready(function(){
     console.log($(this).text());
   });
 
+<<<<<<< HEAD
+  // countdown timer
+  $('.counter').each(function() {
+  var $this = $(this),
+      countTo = $this.attr('data-count');
+
+  $({ countNum: $this.text()}).animate({
+    countNum: countTo
+  },
+
+  {
+
+    duration: 1000,
+    easing:'linear',
+    step: function() {
+      $this.html("<p>total earnings</p> $" + Math.floor(this.countNum));
+    },
+    complete: function() {
+      $this.html("<p>total earnings</p> $" + this.countNum);
+    }
+
+  });
+
+
+
+});
+
   //when a page is loaded. wait for a tutor page to load up and run the rating search to create a start rating for the tutor
   if(window.location.href.indexOf("/tutor/")>5){
     findRating(window.location.href, function(data){

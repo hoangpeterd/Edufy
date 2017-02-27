@@ -158,7 +158,7 @@ div.modal-body {
 
 .modal-dialog {
   display: inline-block;
-  text-align: center;
+  /*text-align: center;*/
   vertical-align: middle;
 }
 
@@ -266,4 +266,28 @@ textarea.form-control {
 
 .select{
 	background-color: #5cb85c;
+}
+
+/*jumbotron changes*/
+h1.display-3 {
+	margin-top: 40px;
+}
+
+/*counter*/
+.countDown {
+  color:white;
+	font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-align: center;
+  display: table;
+}
+
+.counter {
+  display: table-cell;
+  margin:1.5%;
+  font-size:50px;
+  background-color: #222;
+  width:180px;
+  border-radius: 8px;
+  height:180px;
+  vertical-align: middle;
 }
