@@ -216,11 +216,12 @@ function parseData(start, end) {
 			var userName = url.substring(pointer+6);
 			pointer = userName.indexOf(".edu");
 			userName = userName.substring(0, pointer+4);
-		}
-		$.post("/tutorAvailability", {id: id, userName: userName, startTimes: stringJoined}).done(function(result) {
+		
+		$.post("/tutorAvailability", {userName: userName, startTimes: stringJoined}).done(function(result) {
 			console.log("Hello");
 			console.log(result);
 		});
+		}
 	}
 	if ($("body").is("#studentBody")) {
 		$.post("/scheduledAppointments", stringJoined).done(function(result) {
