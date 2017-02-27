@@ -180,4 +180,9 @@ $("document").ready(function(){
   $('#imageUpload').change(function() {
     if ($('#imageUpload').val()) {$('#uploadImage').submit()}
   });
+
+  $(".grid-item").on("click", function(){
+    $("#tutorList").modal();
+    // console.log($(this).text());
+  });
 });

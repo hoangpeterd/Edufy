@@ -12,7 +12,7 @@ module.exports = function(app){
   });
 
   app.get("/:user/:id", function(req, res) {
-    
+
     if (req.params.user == 'student') {
       db.students.findOne({where: {studentUserName: req.params.id}}).then(function(data) {
         if (!data) {res.sendStatus(404); return true}
@@ -27,34 +27,34 @@ module.exports = function(app){
         data = data.get({plain: true})
         res.render('tutor', data)
       })
-    }    
+    }
   });
 
   //Nodemailer for email notifications, and cookie npm package. --YASHA
   //Login needs to be looked at before presentation because that's where all the security is. SUPER IMPORTANT.
   app.post('/uploadProfileImage', function(req, res) {
-    
+
     if (!req.files) {
       res.send('No files were uploaded');
       return;
     }
-    
+
     let upload = req.files.imageUpload;
     let newFileName = req.body.user.replace(/\.|@/g,'')
     let filePath = '/uploadFiles/' + newFileName
     console.log(filePath)
-    
+
     upload.mv(path.join(__dirname + '/../private' + filePath), function (err) {
       if (err) {res.status(500).send(err); return true;}
       else {console.log('File uploaded!')}
     })
-    
+
     if (req.body.userType == 'student') {
       db.students.update({picUrl: filePath}, {where : {studentUserName: req.body.user}}).then(res.redirect('/student/' + req.body.user))
-      
+
     } else {
       db.tutors.update({picUrl: filePath}, {where : {tutorUserName: req.body.user}}).then(res.redirect('/tutor/' + req.body.user))
-        
+
     }
   })
 
@@ -147,7 +147,7 @@ module.exports = function(app){
        */
       res.send({reload: true});
 
-      //location.reload(); to refresh 
+      //location.reload(); to refresh
     });
   });
   app.post("/scheduledAppointments", function(req, res) {
