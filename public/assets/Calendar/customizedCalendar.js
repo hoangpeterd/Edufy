@@ -215,15 +215,11 @@ function parseData(localArr) {
 
 	// }
 	if ($("body").is("#tutorBody")) {
-		// console.log(thisStartDate);
-		// console.log(thisStartTime);
-		// console.log(thisEndDate);
-		// console.log(thisEndTime);
-		// $.post("/tutorAvailability", {tutorUserName: userName, startTimes: stringJoined}).done(function(result) {
-		console.log(localArr);
-		// 	console.log("Hello");
-		// 	console.log(result);
-		// });
+		$.post("/tutorAvailability", {tutorUserName: $(".lead").text().trim(), dates: localArr}).done(function(result) {
+			if(result.reload){
+				location.reload();
+			}
+		});
 	}
 
 		// if ($("body").is("#studentBody")) {

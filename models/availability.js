@@ -2,18 +2,22 @@
 module.exports = function(sequelize, DataTypes){
   var Availability = sequelize.define("availability", {
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
     },
     tutorUserName: {
       type: DataTypes.STRING
     },
-    startTimes: {
+    date: {
       type: DataTypes.STRING
+    },
+    startTimes: {
+      type: DataTypes.TEXT
     }
   }, {
     timestamps: false
+    , freezeTableName: true
   }, {
     classMethods: {
       associate: function(models) {

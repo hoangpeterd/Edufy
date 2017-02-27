@@ -144,14 +144,25 @@ module.exports = function(app){
   });
 
   app.post("/tutorAvailability", function(req, res) {
-    // console.log(req.body);
-    db.availability.create(req.body).then(function(){
+    var tutorUserName = req.body.tutorUserName;
+    var date = req.body.dates[0];
+    var startTimes = req.body.dates[1];
+
+    for(var i = 2; i<req.body.dates.length; i++){
+      startTimes = startTimes + ", " + req.body.dates[i] ;
+    }
+
+    var availableObj = {
+      tutorUserName: tutorUserName,
+      date: date,
+      startTimes: startTimes
+    }
+
+    db.availability.create(availableObj).then(function(result){
       /**
        * @todo: find out why res.direct wont work
        */
       res.send({reload: true});
-
-      //location.reload(); to refresh
     });
   });
 
