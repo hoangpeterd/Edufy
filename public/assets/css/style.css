@@ -18,7 +18,7 @@ div.br-widget {
 }
 
 h1.display-3 {
-	margin-top: 0;
+	margin-top: 8%;
 }
 span.fc-list-heading-main {
 	color: #222;
@@ -290,4 +290,8 @@ h1.display-3 {
   border-radius: 8px;
   height:180px;
   vertical-align: middle;
+}
+
+p.lead {
+	margin-top: 10px;
 }
