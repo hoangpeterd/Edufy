@@ -15,14 +15,12 @@ module.exports = function(app){
     if (req.params.user == 'student') {
       db.students.findOne({where: {studentUserName: req.params.id}}).then(function(data) {
         if (!data) {res.sendStatus(404); return true}
-        console.log(data)
         data = data.get({plain: true})
         res.render('student', data)
       })
     } else if (req.params.user == 'tutor'){
       db.tutors.findOne({where: {tutorUserName: req.params.id}}).then(function(data) {
         if (!data) {res.sendStatus(404); return true}
-        console.log(data)
         data = data.get({plain: true})
         res.render('tutor', data)
       })
@@ -146,7 +144,7 @@ module.exports = function(app){
   });
 
   app.post("/tutorAvailability", function(req, res) {
-    console.log(req.body);
+    // console.log(req.body);
     db.availability.create(req.body).then(function(){
       /**
        * @todo: find out why res.direct wont work
@@ -158,7 +156,7 @@ module.exports = function(app){
   });
 
   app.post("/scheduledAppointments", function(req, res) {
-    console.log(req.body);
+    // console.log(req.body);
   });
 }
 
