@@ -211,7 +211,11 @@ $("document").ready(function(){
       $(function () {
         $("#tutorRating").rateYo({
           rating: data,
-          readOnly: true
+          readOnly: true,
+          multiColor: {
+            "startColor": "#000000", //black
+            "endColor"  : "#5cb85c"  //successgreen
+          }
         });
       });
     });
