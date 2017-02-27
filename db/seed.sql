@@ -1,16 +1,15 @@
-#LOOK INTO MYSQL SET(data type). ALlows user to be student, tutor, or both.
 
-INSERT INTO tutors (tutorUserName, firstName, lastName, pass, rating, sessions)
-VALUES	('Tish@uh.edu', 'Tish', 'McNeel', 'TishTish', 24000, 5000)
-, ('Yash@uh.edu', 'Yasha', 'Meat', 'theManMeat', 3, 1)
-, ('CamKirk@uh.edu', 'Cam', 'Kirk', 'mrjeepercreeper', 2700, 600);
+INSERT INTO tutors (tutorUserName, firstName, lastName, pass, rating, sessions, specificClasses)
+VALUES	('Tish@uh.edu', 'Tish', 'McNeel', 'TishTish', 24000, 5000, "coolness 101")
+, ('Yash@uh.edu', 'Yasha', 'Meat', 'theManMeat', 3, 1, "trollness 101")
+, ('CamKirk@uh.edu', 'Cam', 'Kirk', 'mrjeepercreeper', 2700, 600, "workhardPlayHard 101");
 
 INSERT INTO students (studentUserName, firstName, lastName, pass)
 VALUES ('DanTran@uh.edu', 'Dan', 'Tran', 'DanDaManTran')
 , ('PetaHoang@ut.edu', 'Peter', 'Hoang', 'IamTony')
 , ('R.Thiim@ut.edu', 'Rachel', 'Thiim', 'eatBagsofDicks');
 
-INSERT INTO availability (tutorUserName, date, schedule)
+INSERT INTO availability (tutorUserName, date, startTimes)
 VALUES ('Tish@uh.edu', '2017-06-06', '16, 17, 18, 19')
 , ('CamKirk@uh.edu', '2017-06-14', '9, 10, 11, 12')
 , ('Yash@uh.edu', '2017-06-15', '01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12');
@@ -26,10 +25,3 @@ VALUES ('Tish@uh.edu', 'DanTran@uh.edu', '2017-06-06T16')
 , ('Yash@uh.edu', 'PetaHoang@ut.edu', '2017-06-15T06')
 , ('Yash@uh.edu', 'PetaHoang@ut.edu', '2017-06-15T07')
 , ('Yash@uh.edu', 'PetaHoang@ut.edu', '2017-06-15T08');
-
-#handlebars testing
-INSERT INTO userProto VALUES
-(null, 'Rach El', 'University of Southern California', 'yashanyou@gmail.com'),
-(null, 'Ya Sha', 'University of Houston', 'yashanyou@gmail.com'),
-(null, 'Pe Ter', 'University of Baltimore', 'yashanyou@gmail.com'),
-(null, 'Da aaady', 'University of Chicago', 'yashanyou@gmail.com')

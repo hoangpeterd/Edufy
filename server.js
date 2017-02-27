@@ -15,6 +15,7 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }))
 
 app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/private"));
 app.use(fileUpload());
 app.engine('handlebars', exphbs({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars');
@@ -31,5 +32,5 @@ const db = require("./models");
 
 //after connecting to the DB base with sequelize, it will create a localhost so the user can view the page
 db.sequelize.sync().then(function(){
-	app.listen(process.env.PORT || 5000);
+	app.listen(PORT);
 });

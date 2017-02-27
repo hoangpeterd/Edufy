@@ -158,7 +158,7 @@
 								</button>
 							</div>
 							<div class="col-sm-4">
-								<button class="btn btn-default subject" value="geography"> geography
+								<button class="btn btn-default subject" value="geology"> geology
 								</button>
 							</div>
 							<div class="col-sm-4">
@@ -167,7 +167,7 @@
 							</div>
 						</div>
 					<!-- form area -->
-					<textarea class="form-control" rows="3"></textarea>
+					<textarea class="form-control" id="specificClass" rows="3"></textarea>
 				</div>
 				<div class="modal-footer">
 					<button id="tutorClassesSubmit" type="button" class="btn btn-success btn-block" data-dismiss="modal">submit</button>
@@ -183,6 +183,7 @@
   </div>
   <!-- end logo -->
 
+	<!-- linking jQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<!-- linking bootstrap JS -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -190,24 +191,5 @@
 	<script type="text/javascript" src="assets/javascript/javascript.js"></script>
 	<!-- Isotope -->
 	<script src="assets/Isotope/isotope.pkgd.js"></script>
-
-	<script>
-	$("document").ready(function(){
-		$('.subject').on("click",function(){
-			$(this).toggleClass('btn-default select');
-		});
-
-		$("#tutorClassesSubmit").on("click",function(){
-			var yourArray =[];
-			$(".select").each(function(){
-			  yourArray.push($(this).val());
-			});
-
-				console.log(yourArray);
-		});
-	});
-
-
-	</script>
 </body>
 </html>
