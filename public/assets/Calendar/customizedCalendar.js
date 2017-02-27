@@ -211,7 +211,13 @@ function parseData(start, end) {
 	var thisEndDate = stringJoined.substring(21, 32); //end date
 	var thisEndTime = stringJoined.substring(33, 41); //end time
 	if ($("body").is("#tutorBody")) {
-		$.post("/tutorAvailability", {id: i, userName: tutorUserName, startTimes: stringJoined}).done(function(result) {
+		function findRating (url, cb){
+			var pointer = url.indexOf("tutor/");
+			var userName = url.substring(pointer+6);
+			pointer = userName.indexOf(".edu");
+			userName = userName.substring(0, pointer+4);
+		}
+		$.post("/tutorAvailability", {id: id, userName: userName, startTimes: stringJoined}).done(function(result) {
 			console.log("Hello");
 			console.log(result);
 		});
