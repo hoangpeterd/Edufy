@@ -15,6 +15,7 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }))
 
 app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/private"));
 app.use(fileUpload());
 app.engine('handlebars', exphbs({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars');
