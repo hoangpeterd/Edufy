@@ -17,8 +17,9 @@ CREATE TABLE IF NOT EXISTS tutors (
 	, biology BOOLEAN NOT NULL DEFAULT FALSE
 	, chemistry BOOLEAN NOT NULL DEFAULT FALSE
 	, computerScience BOOLEAN NOT NULL DEFAULT FALSE
-	, earthSciences BOOLEAN NOT NULL DEFAULT FALSE
+	, geology BOOLEAN NOT NULL DEFAULT FALSE
 	, physics BOOLEAN NOT NULL DEFAULT FALSE
+	, specificClasses TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS students (
@@ -50,13 +51,4 @@ CREATE TABLE IF NOT EXISTS appointments (
 
 	,FOREIGN KEY (studentUserName)
 		REFERENCES students(studentUserName) ON DELETE CASCADE
-);
-
-#Handlebars testing
-CREATE TABLE userproto (
-	id integer not null primary key auto_increment,
-    fullname varchar(40) not null ,
-    school varchar(50) not null,
-    #Send Email to grav, and store link to account image before placing. gravatarEmail would become just Gravatar.
-    gravatarEmail varchar(40) not null
 );

@@ -44,6 +44,7 @@ module.exports = function(app){
       if(count === 0){
         db.students.count({ where: { studentUserName: req.body.studentUserName } }).then(count => {
           if(count === 0){
+            console.log(req.body.specificClasses);
             db.tutors.create(req.body).then(function(){
               /**
                * @todo: find out why res.direct wont work
