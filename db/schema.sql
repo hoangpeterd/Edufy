@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS availability (
 	id INT (12) PRIMARY KEY NOT NULL AUTO_INCREMENT
 	, tutorUserName VARCHAR(100) NOT NULL
 	, date VARCHAR(100) NOT NULL
-	, schedule VARCHAR(100) NOT NULL
+	, startTimes TEXT NOT NULL
 
   , FOREIGN KEY (tutorUserName)
 		REFERENCES tutors(tutorUserName) ON DELETE CASCADE

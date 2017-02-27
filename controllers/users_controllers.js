@@ -121,7 +121,14 @@ module.exports = function(app){
 
   app.post("/tutorAvailability", function(req, res) {
     console.log(req.body);
+    db.availability.create(req.body).then(function(){
+      /**
+       * @todo: find out why res.direct wont work
+       */
+      res.send({reload: true});
 
+      //location.reload(); to refresh 
+    });
   });
   app.post("/scheduledAppointments", function(req, res) {
     console.log(req.body);
