@@ -86,7 +86,6 @@ $(function() { // document ready
 	});
 });
 
-var availability = [];
 var events = [
 	{
 		title: 'Hard Coded',
@@ -104,6 +103,7 @@ function defaultView() {
 }
 
 function defineAvailability(start, end, jsEvent, view) {
+	var availability = [];
 	if (end.diff(start)/(1000*60*60) % 1 !== 0) {
 		end.add(30, 'minutes');
 	}
@@ -122,7 +122,7 @@ function defineAvailability(start, end, jsEvent, view) {
 			// newEnd = newEnd.format('H:mm');
 			var newAvailability = {
 				dow: [start.day()],
-				// hourTop: startTime.format('H:mm:ss'),
+				hourTop: startTime.format('H:mm:ss'),
 				start: startTime.toISOString(),
 				// end: newEnd.format('H:mm:ss'),
 				color: null,
@@ -131,19 +131,20 @@ function defineAvailability(start, end, jsEvent, view) {
 				title: "Available Timeslot"
 			};
 			infoArray.push(newAvailability);
-
 		}
 		var displayStart = start.clone();
 		var displayEnd = end.clone();
 		if (confirm("are you free between " + displayStart.format('h:mm T') + "M and " + displayEnd.format('h:mm T') + "M?")) {
+				availability.push(displayStart.format('YYYY-MM-DD'));
 			for (var i = 0; i < infoArray.length; i++) {
-				availability.push(infoArray[i]);
+				availability.push(infoArray[i].hourTop);
 			}
-			parseData(start, end, jsEvent, view);
+			parseData(availability);
 		}
 	}
 	$("#calendar").fullCalendar("refetchEvents", availability);
 	$("#sessions").fullCalendar("refetchEvents", availability);
+	availability = [];
 }
 
 function selectAppointment(start, end, jsEvent, view) {
@@ -197,29 +198,29 @@ function selectAppointment(start, end, jsEvent, view) {
 // 	$("#calendar").fullCalendar("removeEvent", event);
 // 	//@Create a delete function for database
 // }
-function parseData(start, end) {
+function parseData(localArr) {
 	//Use stringStart and StringEnd to pass to Database
-	var stringStart = start.format("MMM DD YYYY H:mm:ss").toString();
-	var stringEnd = end.format("MMM DD YYYY H:mm:ss").toString();
-	//@SEND TO DAN
-	var stringJoined = stringStart + " " + stringEnd;
-	// @SEND TO DAN
-	var thisStartDate = stringJoined.substring(0, 11); //start date
-	var thisStartTime = stringJoined.substring(12, 20); //start time
-	var thisEndDate = stringJoined.substring(20, 32); //end date
-	var thisEndTime = stringJoined.substring(32, 41); //end time
+	// var stringStart = start.format("MMM DD YYYY H:mm:ss").toString();
+	// var stringEnd = end.format("MMM DD YYYY H:mm:ss").toString();
+	// //@SEND TO DAN
+	// var stringJoined = stringStart + " " + stringEnd;
+	// // @SEND TO DAN
+	// var thisStartDate = stringJoined.substring(0, 11); //start date
+	// var thisStartTime = stringJoined.substring(12, 20); //start time
+	// var thisEndDate = stringJoined.substring(20, 32); //end date
+	// var thisEndTime = stringJoined.substring(32, 41); //end time
 
-	var availableObj = {
-		date: thisStartDate,
+	// var availableObj = {
+	// 	date: thisStartDate,
 
-	}
-
+	// }
 	if ($("body").is("#tutorBody")) {
-		console.log(thisStartDate);
-		console.log(thisStartTime);
-		console.log(thisEndDate);
-		console.log(thisEndTime);
+		// console.log(thisStartDate);
+		// console.log(thisStartTime);
+		// console.log(thisEndDate);
+		// console.log(thisEndTime);
 		// $.post("/tutorAvailability", {tutorUserName: userName, startTimes: stringJoined}).done(function(result) {
+		console.log(localArr);
 		// 	console.log("Hello");
 		// 	console.log(result);
 		// });
