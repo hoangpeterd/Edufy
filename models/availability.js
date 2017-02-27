@@ -3,6 +3,7 @@ module.exports = function(sequelize, DataTypes){
   var Availability = sequelize.define("availability", {
     id: {
       type: DataTypes.INTEGER,
+      autoIncrement: true,
       primaryKey: true
     },
     tutorUserName: {
