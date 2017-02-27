@@ -1,8 +1,7 @@
 $(function() { // document ready
 	/* initialize the external events
 	-----------------------------------------------------------------*/
-	console.log(new Date());
-	console.log((new Date()).toISOString());
+
 	$('#external-events .fc-event').each(function() {
 		// store data so the calendar knows to render an event upon drop
 		$(this).data('event', {
@@ -13,7 +12,7 @@ $(function() { // document ready
 	// $.post("/tutorAvailability", availability).done(function(result) {
 	// 	console.log(result);
 	// });
-	
+
 	// $.post("/scheduledAppointments", events).done(function(result) {
 	// 	console.log(result);
 	// });
@@ -34,37 +33,37 @@ $(function() { // document ready
 		header: {
 			left: 'today prev,next',
 			center: 'title',
-			right: 'agendaWeek,month,listMonth' 
+			right: 'agendaWeek,month,listMonth'
 		},
-		defaultView: defaultView(), 
-		views: { 
-			month: { 
+		defaultView: defaultView(),
+		views: {
+			month: {
 				selectable: false,
 				eventLimit: 3,
 			}
 		},
 		events: events,
 		eventLimit: true,
-		eventBorderColor: "#4CAE4C", 
+		eventBorderColor: "#4CAE4C",
 		eventBackgroundColor: "rgba(76, 174, 76, .5)",
 		eventClick: function(data, jsEvent, view, callback) {
 			if ($("body").is("#studentBody")) {
 				selectAppointment(start, end, jsEvent, view);
-			} else 
+			} else
 			if ($("body").is("#tutorBody")) {
 				if (confirm("delete?")) {
 					eventDestroy(data, jsEvent, view);
 			// 		//@DAN DELETE THIS EVENT
 				}
 			}
-		},	
+		},
 		// eventDestroy: function ( event, element, view, callback) {
 		// 	eventDestroy(event, element, view);
 		// },
 		select: function(start, end, jsEvent, view, callback) {
 			if ($("body").is("#tutorBody")) {
 				defineAvailability(start, end, jsEvent, view);
-			} 
+			}
 			if ($("body").is("#studentBody")) {
 				selectAppointment(start, end, jsEvent, view);
 			}
@@ -82,13 +81,12 @@ $(function() { // document ready
 		},
 		defaultView: 'listMonth',
 		events: events,
-		eventBorderColor: "#4CAE4C", 
+		eventBorderColor: "#4CAE4C",
 		eventBackgroundColor: "rgba(76, 174, 76, .5)",
 	});
 });
 
 var availability = [];
-console.log(availability);
 var events = [
 	{
 		title: 'Hard Coded',
@@ -120,7 +118,7 @@ function defineAvailability(start, end, jsEvent, view) {
 			startTime = startTime.add(k, 'hour');
 			var newEnd = startTime.clone();
 			// startingAt = startTime.format('H:mm');
-			newEnd = newEnd.add(1, 'hour'); 
+			newEnd = newEnd.add(1, 'hour');
 			// newEnd = newEnd.format('H:mm');
 			var newAvailability = {
 				dow: [start.day()],
@@ -133,7 +131,7 @@ function defineAvailability(start, end, jsEvent, view) {
 				title: "Available Timeslot"
 			};
 			infoArray.push(newAvailability);
-			parseData(start, end, jsEvent, view);
+
 		}
 		var displayStart = start.clone();
 		var displayEnd = end.clone();
@@ -141,7 +139,8 @@ function defineAvailability(start, end, jsEvent, view) {
 			for (var i = 0; i < infoArray.length; i++) {
 				availability.push(infoArray[i]);
 			}
-		}	
+			parseData(start, end, jsEvent, view);
+		}
 	}
 	$("#calendar").fullCalendar("refetchEvents", availability);
 	$("#sessions").fullCalendar("refetchEvents", availability);
@@ -171,8 +170,8 @@ function selectAppointment(start, end, jsEvent, view) {
 			var newEvent = {
 				// dow: start.day(),
 				hourTop: startTime.format('H:mm:ss'),
-				start: startTime.toISOString(), 
-				// end: newEnd.format('H:mm:ss'), 
+				start: startTime.toISOString(),
+				// end: newEnd.format('H:mm:ss'),
 				// hourBottom: newEnd,
 				title: "Scheduled Appointment"
 			};
@@ -204,30 +203,35 @@ function parseData(start, end) {
 	var stringEnd = end.format("MMM DD YYYY H:mm:ss").toString();
 	//@SEND TO DAN
 	var stringJoined = stringStart + " " + stringEnd;
-	console.log(stringJoined);
 	// @SEND TO DAN
 	var thisStartDate = stringJoined.substring(0, 11); //start date
 	var thisStartTime = stringJoined.substring(12, 20); //start time
-	var thisEndDate = stringJoined.substring(21, 32); //end date
-	var thisEndTime = stringJoined.substring(33, 41); //end time
-	function grabUserName (url, cb){
-		var pointer = url.indexOf("tutor/");
-		var userName = url.substring(pointer+6);
-		pointer = userName.indexOf(".edu");
-		userName = userName.substring(0, pointer+4);
-		if ($("body").is("#tutorBody")) {
-			$.post("/tutorAvailability", {tutorUserName: userName, startTimes: stringJoined}).done(function(result) {
-				console.log("Hello");
-				console.log(result);
-			});
-		}
-		if ($("body").is("#studentBody")) {
-			var pointer = url.indexOf("tutor/");
-			var userName = url.substring(pointer+6);
-			pointer = userName.indexOf(".edu");
-			userName = userName.substring(0, pointer+4);
-			$.post("/scheduledAppointments", {studentUserName: userName, date: stringJoined).done(function(result) {
-			});
-		}
+	var thisEndDate = stringJoined.substring(20, 32); //end date
+	var thisEndTime = stringJoined.substring(32, 41); //end time
+
+	var availableObj = {
+		date: thisStartDate,
+
 	}
+
+	if ($("body").is("#tutorBody")) {
+		console.log(thisStartDate);
+		console.log(thisStartTime);
+		console.log(thisEndDate);
+		console.log(thisEndTime);
+		// $.post("/tutorAvailability", {tutorUserName: userName, startTimes: stringJoined}).done(function(result) {
+		// 	console.log("Hello");
+		// 	console.log(result);
+		// });
+	}
+
+		// if ($("body").is("#studentBody")) {
+		// 	var pointer = url.indexOf("tutor/");
+		// 	var userName = url.substring(pointer+6);
+		// 	pointer = userName.indexOf(".edu");
+		// 	userName = userName.substring(0, pointer+4);
+		// 	$.post("/scheduledAppointments", {studentUserName: userName, date: stringJoined).done(function(result) {
+		// 	});
+		// }
+	// }
 }

@@ -134,12 +134,7 @@ function signingIn (){
 }
 
 //getting the url to send it to the back in to query the username so the DB can send back the rating information
-function findRating (url, cb){
-  var pointer = url.indexOf("tutor/");
-  var userName = url.substring(pointer+6);
-  pointer = userName.indexOf(".edu");
-  userName = userName.substring(0, pointer+4);
-
+function findRating (userName, cb){
   $.post("/findRating", {userName: userName}).done(function(result){
     var rating = result.rating/result.sessions;
 
@@ -232,8 +227,8 @@ $("document").ready(function(){
 });
 
   //when a page is loaded. wait for a tutor page to load up and run the rating search to create a start rating for the tutor
-  if(window.location.href.indexOf("/tutor/")>5){
-    findRating(window.location.href, function(data){
+  if($(".lead").text().trim()){
+    findRating($(".lead").text().trim(), function(data){
       $(function () {
         $("#tutorRating").rateYo({
           rating: data,
