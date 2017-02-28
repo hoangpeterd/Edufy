@@ -133,9 +133,16 @@ function creatingStudent (){
 //  });
 //}
 
-$('.subject').on("click",function(){
-  $(this).toggleClass('btn-default select');
-});
+//getting the url to send it to the back in to query the username so the DB can send back the rating information
+function findRating (userName, cb){
+  $.post("/findRating", {userName: userName}).done(function(result){
+    var rating = result.rating/result.sessions;
+
+    cb(rating);
+  });
+}
+
+
 
 $("document").ready(function(){
   //when clicked on the signin button a modal will show up
@@ -181,8 +188,57 @@ $("document").ready(function(){
     if ($('#imageUpload').val()) {$('#uploadImage').submit()}
   });
 
-  $(".grid-item").on("click", function(){
-    $("#tutorList").modal();
-    // console.log($(this).text());
+  //toggle colors when subject is being selected by tutors
+  $('.subject').on("click",function(){
+    $(this).toggleClass('btn-default select');
   });
+
+// tutor list with subject selected
+  $(".grid-item").on("click", function(){
+      jQuery.noConflict();
+      $("#tutorList").modal();
+    console.log($(this).text());
+  });
+
+  // countdown timer
+  $('.counter').each(function() {
+  var $this = $(this),
+      countTo = $this.attr('data-count');
+
+  $({ countNum: $this.text()}).animate({
+    countNum: countTo
+  },
+
+  {
+
+    duration: 1300,
+    easing:'linear',
+    step: function() {
+      $this.html("<p>total earnings</p> $" + Math.floor(this.countNum));
+    },
+    complete: function() {
+      $this.html("<p>total earnings</p> $" + this.countNum);
+    }
+
+  });
+
+
+
+});
+
+  //when a page is loaded. wait for a tutor page to load up and run the rating search to create a start rating for the tutor
+  if($(".lead").text().trim()){
+    findRating($(".lead").text().trim(), function(data){
+      $(function () {
+        $("#tutorRating").rateYo({
+          rating: data,
+          readOnly: true,
+          multiColor: {
+            "startColor": "#000000", //black
+            "endColor"  : "#5cb85c"  //successgreen
+          }
+        });
+      });
+    });
+  }
 });

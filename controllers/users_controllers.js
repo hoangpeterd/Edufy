@@ -11,18 +11,15 @@ module.exports = function(app, passport){
   });
 
   app.get("/:user/:id", function(req, res) {
-
     if (req.params.user == 'student') {
       db.students.findOne({where: {studentUserName: req.params.id}}).then(function(data) {
         if (!data) {res.sendStatus(404); return true}
-        console.log(data)
         data = data.get({plain: true})
         res.render('student', data)
       })
-    } else {
+    } else if (req.params.user == 'tutor'){
       db.tutors.findOne({where: {tutorUserName: req.params.id}}).then(function(data) {
         if (!data) {res.sendStatus(404); return true}
-        console.log(data)
         data = data.get({plain: true})
         res.render('tutor', data)
       })
@@ -67,7 +64,7 @@ module.exports = function(app, passport){
               /**
                * @todo: find out why res.direct wont work
                */
-              res.send({redirect: "/tutor"});
+              res.send({userName: req.body.tutorUserName});
             });
           } else {
             console.log("User has been created1");
@@ -139,19 +136,38 @@ module.exports = function(app, passport){
 //    });
   });
 
+  //getting rating information and sending the information so the tutor has there rating
+  app.post("/findRating", function (req, res) {
+    db.tutors.findOne({ where: {tutorUserName: req.body.userName} }).then(function(result){
+      res.send({rating: result.rating, sessions: result.sessions});
+    });
+  });
+
   app.post("/tutorAvailability", function(req, res) {
-    console.log(req.body);
-    db.availability.create(req.body).then(function(){
+    var tutorUserName = req.body.tutorUserName;
+    var date = req.body.dates[0];
+    var startTimes = req.body.dates[1];
+
+    for(var i = 2; i<req.body.dates.length; i++){
+      startTimes = startTimes + ", " + req.body.dates[i] ;
+    }
+
+    var availableObj = {
+      tutorUserName: tutorUserName,
+      date: date,
+      startTimes: startTimes
+    }
+
+    db.availability.create(availableObj).then(function(result){
       /**
        * @todo: find out why res.direct wont work
        */
       res.send({reload: true});
-
-      //location.reload(); to refresh
     });
   });
+
   app.post("/scheduledAppointments", function(req, res) {
-    console.log(req.body);
+    // console.log(req.body);
   });
 }
 
