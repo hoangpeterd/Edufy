@@ -10,9 +10,9 @@ VALUES ('DanTran@uh.edu', 'Dan', 'Tran', 'DanDaManTran')
 , ('R.Thiim@ut.edu', 'Rachel', 'Thiim', 'eatBagsofDicks');
 
 INSERT INTO availability (tutorUserName, date, startTimes)
-VALUES ('Tish@uh.edu', '2017-06-06', '16, 17, 18, 19')
-, ('CamKirk@uh.edu', '2017-06-14', '9, 10, 11, 12')
-, ('Yash@uh.edu', '2017-06-15', '01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12');
+VALUES ('Tish@uh.edu', '2017-06-06', '16:00:00, 17:00:00, 18:00:00, 19:00:00')
+, ('CamKirk@uh.edu', '2017-06-14', '09:00:00, 10:00:00, 11:00:00, 12:00:00')
+, ('Yash@uh.edu', '2017-06-15', '01:00:00, 02:00:00, 03:00:00, 04:00:00, 05:00:00, 06:00:00, 07:00:00, 08:00:00, 09:00:00, 10:00:00, 11:00:00, 12:00:00');
 
 INSERT INTO appointments (tutorUserName, studentUserName, date)
 VALUES ('Tish@uh.edu', 'DanTran@uh.edu', '2017-06-06T16')

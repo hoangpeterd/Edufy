@@ -46,7 +46,7 @@ $(function() { // document ready
 		eventLimit: true,
 		eventBorderColor: "#4CAE4C",
 		eventBackgroundColor: "rgba(76, 174, 76, .5)",
-		eventClick: function(data, jsEvent, view, callback) {
+		eventClick: function(data, jsEvent, view) {
 			if ($("body").is("#studentBody")) {
 				selectAppointment(start, end, jsEvent, view);
 			} else
@@ -60,9 +60,9 @@ $(function() { // document ready
 		// eventDestroy: function ( event, element, view, callback) {
 		// 	eventDestroy(event, element, view);
 		// },
-		select: function(start, end, jsEvent, view, callback) {
+		select: function(start, end, jsEvent, view) {
 			if ($("body").is("#tutorBody")) {
-				defineAvailability(start, end, jsEvent, view);
+				defineAvailability(start, end);
 			}
 			if ($("body").is("#studentBody")) {
 				selectAppointment(start, end, jsEvent, view);
