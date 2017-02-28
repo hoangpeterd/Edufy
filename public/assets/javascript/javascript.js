@@ -227,7 +227,7 @@ $("document").ready(function(){
 });
 
   //when a page is loaded. wait for a tutor page to load up and run the rating search to create a start rating for the tutor
-  if($(".lead").text().trim()){
+  if ($("body").is("#tutorBody")) {
     findRating($(".lead").text().trim(), function(data){
       $(function () {
         $("#tutorRating").rateYo({
