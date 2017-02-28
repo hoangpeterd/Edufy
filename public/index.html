@@ -17,7 +17,12 @@
 	<!-- navbar -->
 	<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
   		<div class="container-fluid">
+        <h2>Signup Database Connection</h2> 
+<input class="signup-username" /> 
+<input type="password" class="signup-password" /> 
+<input type="button" class="signup-db" value="Signup!" /> 
 					<button id="modalSignIn" class="btn btn-success pull-right">sign in</button>
+					<button id="az" class="btn btn-success pull-right" onclick="signinDb()">sign in</button>
       </div>
 	</nav>
 	<!-- end navbar -->
@@ -25,12 +30,12 @@
 	<!-- sign in modal -->
 	<div class="modal fade" id="signInModal" role="dialog">
 		<div class="modal-dialog modal-sm" align="center">
-				<div class="modal-content">
-					 <div class="modal-header">
-							<h4 class="modal-title"><img src="assets/images/edufyIcon.png" alt="edufy icon" height="30px" width="30px"> sign in</h4>
-					</div>
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title"><img src="assets/images/edufyIcon.png" alt="edufy icon" height="30px" width="30px"> sign in</h4>
+				</div>
 					<div class="modal-body">
-						<form action="" id="loginForm">
+						<form action="/signing" method='post' id="loginForm">
 							<div class="form-group input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
 								<input id="userName" class="form-control" type="text" name='username' placeholder="email"/>
@@ -45,7 +50,7 @@
 								</label>
 							</div> -->
 							<div class="form-group">
-								<button type="button" class="btn btn-success btn-block" id="submitSignIn">login</button>
+								<button type="submit" class="btn btn-success btn-block" id="submitSignIn">login</button>
 							</div>
 							<!-- <div class="form-group text-center">
 								<a href="#">forgot password</a>&nbsp;|&nbsp;<a href="#">support</a>
@@ -189,6 +194,6 @@
 	<!-- linking JS file -->
 	<script type="text/javascript" src="assets/javascript/javascript.js"></script>
 	<!-- Isotope -->
-	<script src="assets/Isotope/isotope.pkgd.js"></script>
+	<script src="assets/Isotope/isotope.pkgd.js"></script>  
 </body>
 </html>

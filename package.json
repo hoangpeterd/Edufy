@@ -30,14 +30,17 @@
     "bootstrap-datepicker": "^1.6.4",
     "bootstrap-year-calendar": "^1.1.1",
     "browserify": "^14.1.0",
+    "connect-ensure-login": "^0.1.1",
     "express": "^4.14.1",
     "express-fileupload": "^0.1.1",
     "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.1",
     "jquery": "^3.1.1",
     "jquery-bar-rating": "^1.2.2",
     "method-override": "^2.3.7",
     "mysql": "^2.13.0",
-    "password-hash": "^1.2.2",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
     "sequelize": "^3.30.2"
   }
 }

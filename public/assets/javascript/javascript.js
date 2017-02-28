@@ -1,24 +1,24 @@
-//checking if this is an email or not
-function validateEmail(email) {
-    var x = email;
-    var atPos = x.indexOf("@");
-    var dotPos = x.lastIndexOf(".");
-
-    if (atPos<1 || dotPos<atPos+2 || dotPos+2>=x.length || !x.endsWith(".edu")) {
-      console.log("Not a valid e-mail address"); //setting up a warning
-    } else {
-			return true;
-		}
-}
-
-//checking if the password is longer then 6 character
-function validatePassword(password){
-  if(password.length<=6){
-    console.log("Password to short");
-  } else {
-    return true;
-  }
-}
+////checking if this is an email or not
+//function validateEmail(email) {
+//    var x = email;
+//    var atPos = x.indexOf("@");
+//    var dotPos = x.lastIndexOf(".");
+//
+//    if (atPos<1 || dotPos<atPos+2 || dotPos+2>=x.length || !x.endsWith(".edu")) {
+//      console.log("Not a valid e-mail address"); //setting up a warning
+//    } else {
+//			return true;
+//		}
+//}
+//
+////checking if the password is longer then 6 character
+//function validatePassword(password){
+//  if(password.length<=6){
+//    console.log("Password to short");
+//  } else {
+//    return true;
+//  }
+//}
 
 //this function will send the tutor inforamtion to the backend where we update it on the database
 function creatingTutor(){
@@ -118,20 +118,20 @@ function creatingStudent (){
 }
 
 //simple signing up function that will send the input values to the back end so we can check if there are any user by that name and the matching password. It will wait to see where it will be redirected
-function signingIn (){
-  var userName = $("#userName").val().toLowerCase();
-  var password = $("#password").val();
-  var info = {
-    userName: userName,
-    password: password
-  };
-
-  $.post("/signing", info).done(function(result) {
-    if(result.redirect){
-      window.location = result.redirect;
-    }
-  });
-}
+//function signingIn (){
+//  var userName = $("#userName").val().toLowerCase();
+//  var password = $("#password").val();
+//  var info = {
+//    userName: userName,
+//    password: password
+//  };
+//
+//  $.post("/signing", info).done(function(result) {
+//    if(result.redirect){
+//      window.location = result.redirect;
+//    }
+//  });
+//}
 
 $('.subject').on("click",function(){
   $(this).toggleClass('btn-default select');
@@ -143,10 +143,10 @@ $("document").ready(function(){
     $("#signInModal").modal();
   });
 
-  //start the signin path by checking the inputs first
-  $("#submitSignIn").on("click", function() {
-    signingIn();
-  });
+//  //start the signin path by checking the inputs first
+//  $("#submitSignIn").on("click", function() {
+//    signingIn();
+//  });
 
   //when clicked on the signup button a modal will show up
   $("#modalSignUp").on("click", function() {

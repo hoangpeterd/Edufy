@@ -1,11 +1,10 @@
 //requiring files
-const express = require("express");
-const app = express();
 const path = require("path");
 const db = require("../models");
+const ensureLI = require('connect-ensure-login');
 
 //creating different routes for special events. along with that we are using the models directory (sequelize)
-module.exports = function(app){
+module.exports = function(app, passport){
 
   app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname + "/../public", "index.html"));
@@ -30,7 +29,6 @@ module.exports = function(app){
     }
   });
 
-  //Nodemailer for email notifications, and cookie npm package. --YASHA
   //Login needs to be looked at before presentation because that's where all the security is. SUPER IMPORTANT.
   app.post('/uploadProfileImage', function(req, res) {
 
@@ -104,39 +102,41 @@ module.exports = function(app){
   });
 
   //signing into the user. and sending iformation to the Client-side so it can be redirected
-  app.post("/signing", function(req, res) {
-    db.tutors.count({ where: { tutorUserName: req.body.userName } }).then(count => {
-        if (count === 0) {
-          db.students.count({where: {studentUserName: req.body.userName} }).then(count => {
-            if(count === 0){
-              console.log("not a real user");  //going to change this console.log to do something special***********
-            } else {
-              db.students.findOne({ where: {studentUserName: req.body.userName} }).then(function(result) {
-                if(req.body.password !== result.pass){
-                  console.log("not your password"); //going to change this console.log to do something special***********
-                } else {
-                  /**
-                   * @todo: find out why res.direct wont work
-                   */
-                  res.send({redirect: "/student/" + req.body.userName});
-                }
-              });
-            }
-          });
-          console.log("not a real user");  //going to change this console.log to do something special***********
-        } else {
-          db.tutors.findOne({ where: {tutorUserName: req.body.userName} }).then(function(result) {
-            if(req.body.password !== result.pass){
-              console.log("not your password"); //going to change this console.log to do something special***********
-            } else {
-              /**
-               * @todo: find out why res.direct wont work
-               */
-              res.send({redirect: "/tutor"});
-            }
-          });
-        }
-    });
+  app.post("/signing", passport.authenticate('local', {failureRedirect: '/'}), function(req, res) {
+		
+		res.redirect('/student/DanTran@uh.edu')
+//    db.tutors.count({ where: { tutorUserName: req.body.userName } }).then(count => {
+//        if (count === 0) {
+//          db.students.count({where: {studentUserName: req.body.userName} }).then(count => {
+//            if(count === 0){
+//              console.log("not a real user");  //going to change this console.log to do something special***********
+//            } else {
+//              db.students.findOne({ where: {studentUserName: req.body.userName} }).then(function(result) {
+//                if(req.body.password !== result.pass){
+//                  console.log("not your password"); //going to change this console.log to do something special***********
+//                } else {
+//                  /**
+//                   * @todo: find out why res.direct wont work
+//                   */
+//                  res.send({redirect: "/student/" + req.body.userName});
+//                }
+//              });
+//            }
+//          });
+//          console.log("not a real user");  //going to change this console.log to do something special***********
+//        } else {
+//          db.tutors.findOne({ where: {tutorUserName: req.body.userName} }).then(function(result) {
+//            if(req.body.password !== result.pass){
+//              console.log("not your password"); //going to change this console.log to do something special***********
+//            } else {
+//              /**
+//               * @todo: find out why res.direct wont work
+//               */
+//              res.send({redirect: "/tutor"});
+//            }
+//          });
+//        }
+//    });
   });
 
   app.post("/tutorAvailability", function(req, res) {
