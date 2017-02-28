@@ -15,13 +15,13 @@ VALUES ('Tish@uh.edu', '2017-06-06', '16:00:00, 17:00:00, 18:00:00, 19:00:00')
 , ('Yash@uh.edu', '2017-06-15', '01:00:00, 02:00:00, 03:00:00, 04:00:00, 05:00:00, 06:00:00, 07:00:00, 08:00:00, 09:00:00, 10:00:00, 11:00:00, 12:00:00');
 
 INSERT INTO appointments (tutorUserName, studentUserName, date)
-VALUES ('Tish@uh.edu', 'DanTran@uh.edu', '2017-06-06T16')
-, ('Tish@uh.edu', 'DanTran@uh.edu', '2017-06-06T17')
-, ('Tish@uh.edu', 'DanTran@uh.edu', '2017-06-06T18')
-, ('CamKirk@uh.edu', 'R.Thiim@ut.edu', '2017-06-14T09')
-, ('CamKirk@uh.edu', 'R.Thiim@ut.edu', '2017-06-14T10')
-, ('CamKirk@uh.edu', 'R.Thiim@ut.edu', '2017-06-14T11')
-, ('Yash@uh.edu', 'PetaHoang@ut.edu', '2017-06-15T05')
-, ('Yash@uh.edu', 'PetaHoang@ut.edu', '2017-06-15T06')
-, ('Yash@uh.edu', 'PetaHoang@ut.edu', '2017-06-15T07')
-, ('Yash@uh.edu', 'PetaHoang@ut.edu', '2017-06-15T08');
+VALUES ('Tish@uh.edu', 'DanTran@uh.edu', '2017-02-28T10:30:00')
+, ('Tish@uh.edu', 'DanTran@uh.edu', '2017-06-06T17:00:00')
+, ('Tish@uh.edu', 'DanTran@uh.edu', '2017-06-06T18:00:00')
+, ('CamKirk@uh.edu', 'R.Thiim@ut.edu', '2017-06-14T09:00:00')
+, ('CamKirk@uh.edu', 'R.Thiim@ut.edu', '2017-06-14T10:00:00')
+, ('CamKirk@uh.edu', 'R.Thiim@ut.edu', '2017-06-14T11:00:00')
+, ('Yash@uh.edu', 'PetaHoang@ut.edu', '2017-06-15T05:00:00')
+, ('Yash@uh.edu', 'PetaHoang@ut.edu', '2017-06-15T06:00:00')
+, ('Yash@uh.edu', 'PetaHoang@ut.edu', '2017-06-15T07:00:00')
+, ('Yash@uh.edu', 'PetaHoang@ut.edu', '2017-06-15T08:00:00');

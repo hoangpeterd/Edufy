@@ -91,6 +91,11 @@ var events = [
 		title: 'Hard Coded',
 		start: '2017-02-28T10:30:00',
 		end: '2017-02-28T12:30:00'
+	},
+	{
+		title: 'Available',
+		start: '2017-02-02T10:30:00',
+		end: '2017-02-02T12:30:00'
 	}
 ];
 
