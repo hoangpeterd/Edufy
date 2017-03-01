@@ -17,6 +17,7 @@ console.log(events);
 $(function () { // document ready
 	/* initialize the external events
 	-----------------------------------------------------------------*/
+	$("#calendar").fullCalendar('refetchEvents', availability);
 
 	$('#external-events .fc-event').each(function () {
 		// store data so the calendar knows to render an event upon drop
@@ -29,7 +30,7 @@ $(function () { // document ready
 		$.post("/tutorAvailability", { tutorUserName: $(".lead").text().trim() }).done(function (result) {
 			for (var i = 0; i < result.length; i++) {
 				businessHours.push(result[i]);
-				businessHours.fullCalendar('renderEvent', result[i]);
+				$("#calendar").fullCalendar('renderEvents', result[i]);
 			}
 		});
 		$.post("/scheduledAppointments", { tutorUserName: $(".lead").text().trim() }).done(function (result) {
