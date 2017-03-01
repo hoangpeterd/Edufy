@@ -17,10 +17,6 @@ div.br-widget {
 	margin-top: 20px;
 }
 
-h1.display-3 {
-	margin-top: 8%;
-	color: #ffffff !important;
-}
 span.fc-list-heading-main {
 	color: #222;
 }
@@ -268,8 +264,10 @@ textarea.form-control {
 
 /*jumbotron changes*/
 h1.display-3 {
-	margin-top: 65px;
+	margin-top: 40px;
+	margin-bottom: 0;
 	padding-left: 15px;
+	color: #ffffff !important;
 }
 
 div.col-xs-3 {
@@ -286,6 +284,7 @@ div.jumbotron.jumbotron-fluid {
 	font: "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-align: center;
   display: table;
+	float: right;
 }
 
 .counter {
@@ -298,7 +297,6 @@ div.jumbotron.jumbotron-fluid {
 }
 
 p.lead {
-	margin-top: 10px;
 	padding-left: 15px;
 	color: #ffffff;
 }
@@ -399,4 +397,8 @@ div.col-xs-6 {
 
 div.col-xs-12 {
 	padding-left: 10px;
+}
+
+.jumbotron p {
+	margin-bottom: 0 !important;
 }
