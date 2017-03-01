@@ -279,7 +279,7 @@ div.col-xs-3 {
 
 div.jumbotron.jumbotron-fluid {
 	background-color: #222;
-	border-bottom: 10px solid #449d44;
+	border-bottom: 27px solid #449d44;
 }
 
 /*counter*/
@@ -408,4 +408,14 @@ div.col-xs-12 {
 
 #tutorRating {
 	margin-left: 15px;
+}
+
+#signOut {
+	margin-left: 14px;
+	background-color: #222 !important;
+	border-radius: 20px;
+}
+
+#signOut:hover {
+  background-color: #449d44 !important;
 }
