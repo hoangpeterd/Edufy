@@ -1,8 +1,53 @@
+var FC = {
+	schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+	selectable: true,
+	selectHelper: true,
+	editable: false, // enable draggable events
+	aspectRatio: 1.25,
+	nowIndicator: true,
+	slotEventOverlap: false,
+	eventOverlap: false,
+	slotDuration: '00:30:00',
+	minTime: '06:00:00',
+	defaultTimedEventDuration: '01:00:00',
+	slotLabelFormat: 'h:mm',
+	header: {
+		left: 'title',
+		center: '',
+		right: 'today prev,next agendaWeek,month'
+	},
+	defaultView: defaultView(),
+	views: {
+		month: {
+			selectable: false,
+			eventLimit: 3,
+		}
+	},
+	eventLimit: true,
+	eventBorderColor: "#4CAE4C",
+	eventBackgroundColor: "rgba(76, 174, 76, .5)",
+	eventClick: function (data, jsEvent, view) {
+		if ($("body").is("#studentBody")) {
+			selectAppointment(start, end, jsEvent, view);
+		// } else
+		// 	if ($("body").is("#tutorBody")) {
+		// 		if (confirm("delete?")) {
+		// 			eventDestroy(data, jsEvent, view);
+		// 			// 		//@DAN DELETE THIS EVENT
+		// 		}
+			}
+	},
+	select: function (start, end, jsEvent, view) {
+		if ($("body").is("#tutorBody")) {
+			defineAvailability(start, end);
+		}
+	}
+};
+
 var businessHours = [
 	{
 		title: 'Hard Coded',
 		start: '2017-02-28T10:30:00',
-		allDay: true,
 		rending: 'background'
 	}
 ];
@@ -12,13 +57,9 @@ var events = [
 		start: '2017-02-28T10:30:00'
 	}
 ];
-console.log(events);
-
 $(function () { // document ready
 	/* initialize the external events
 	-----------------------------------------------------------------*/
-	$("#calendar").fullCalendar('refetchEvents', availability);
-
 	$('#external-events .fc-event').each(function () {
 		// store data so the calendar knows to render an event upon drop
 		$(this).data('event', {
@@ -30,8 +71,8 @@ $(function () { // document ready
 		$.post("/tutorAvailability", { tutorUserName: $(".lead").text().trim() }).done(function (result) {
 			for (var i = 0; i < result.length; i++) {
 				businessHours.push(result[i]);
-				$("#calendar").fullCalendar('renderEvents', result[i]);
 			}
+			console.log(businessHours);
 		});
 		$.post("/scheduledAppointments", { tutorUserName: $(".lead").text().trim() }).done(function (result) {
 			for (var i = 0; i < result.length; i++) {
@@ -57,56 +98,7 @@ $(function () { // document ready
 
 	/* initialize the calendar
 	-----------------------------------------------------------------*/
-	var FC = {
-		schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-		selectable: true,
-		selectHelper: true,
-		editable: false, // enable draggable events
-		aspectRatio: 1.25,
-		nowIndicator: true,
-		slotEventOverlap: false,
-		eventOverlap: false,
-		slotDuration: '00:30:00',
-		minTime: '06:00:00',
-		defaultTimedEventDuration: '01:00:00',
-		slotLabelFormat: 'h:mm',
-		header: {
-			left: 'title',
-			center: '',
-			right: 'today prev,next agendaWeek,month'
-		},
-		defaultView: defaultView(),
-		views: {
-			month: {
-				selectable: false,
-				eventLimit: 3,
-			}
-		},
-		eventSources: [
-			'/tutorAvailability', 'scheduledAppointments', events, businessHours
-			],
-		eventLimit: true,
-		eventBorderColor: "#4CAE4C",
-		eventBackgroundColor: "rgba(76, 174, 76, .5)",
-		eventClick: function (data, jsEvent, view) {
-			if ($("body").is("#studentBody")) {
-				selectAppointment(start, end, jsEvent, view);
-			// } else
-			// 	if ($("body").is("#tutorBody")) {
-			// 		if (confirm("delete?")) {
-			// 			eventDestroy(data, jsEvent, view);
-			// 			// 		//@DAN DELETE THIS EVENT
-			// 		}
-				}
-		},
-		select: function (start, end, jsEvent, view) {
-			if ($("body").is("#tutorBody")) {
-				defineAvailability(start, end);
-			}
-		}
-	};
 
-	$('#calendar').fullCalendar(FC);
 
 	$("#sessions").fullCalendar({
 		schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
@@ -120,7 +112,7 @@ $(function () { // document ready
 		eventBorderColor: "#4CAE4C",
 		eventBackgroundColor: "rgba(76, 174, 76, .5)",
 	});
-	
+
 	$("#listMonth").fullCalendar({
 		aspectRatio: 1.25,
 		eventSources: ['/tutorAvailability', events],
