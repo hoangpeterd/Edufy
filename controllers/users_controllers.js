@@ -37,7 +37,7 @@ module.exports = function(app, passport){
 
   })
 
-  router.get("/favicon.ico", function(req, res){
+  app.get("/favicon.ico", function(req, res){
   res.send(204);
   });
 
