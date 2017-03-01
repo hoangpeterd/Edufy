@@ -1,10 +1,4 @@
-<<<<<<< HEAD
 //requiring files
-=======
-  //requiring files
-const express = require("express");
-const app = express();
->>>>>>> master
 const path = require("path");
 const db = require("../models");
 const bcrypt = require("bcryptjs");
