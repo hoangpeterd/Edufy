@@ -1,33 +1,59 @@
-$(function() { // document ready
+var businessHours = [
+	{
+		title: 'Hard Coded',
+		start: '2017-02-28T10:30:00',
+		allDay: true,
+		rending: 'background'
+	}
+];
+var events = [
+	{
+		title: 'Hard Coded',
+		start: '2017-02-28T10:30:00'
+	}
+];
+console.log(events);
+
+$(function () { // document ready
 	/* initialize the external events
 	-----------------------------------------------------------------*/
 
-	$('#external-events .fc-event').each(function() {
+	$('#external-events .fc-event').each(function () {
 		// store data so the calendar knows to render an event upon drop
 		$(this).data('event', {
 			stick: true // maintain when user navigates (see docs on the renderEvent method)
 		});
 	});
+// fs.writeFile('events.json', data[, options]
 	if ($("body").is("#tutorBody")) {
-		$.post("/tutorAvailability", {tutorUserName: $(".lead").text().trim()} ).done(function(result) {
-			console.log(result);
+		$.post("/tutorAvailability", { tutorUserName: $(".lead").text().trim() }).done(function (result) {
 			for (var i = 0; i < result.length; i++) {
-				events.push(result[i]);
+				businessHours.push(result[i]);
+				businessHours.fullCalendar('renderEvent', result[i]);
 			}
-			console.log(events);
-		
+		});
+		$.post("/scheduledAppointments", { tutorUserName: $(".lead").text().trim() }).done(function (result) {
+			for (var i = 0; i < result.length; i++) {
+				var actualTitle = result[i].title.split(", ");
+				var subject = result[i].subject;
+				actualTitle = actualTitle[1];
+				result[i].title = actualTitle + " - " + subject;;
+			}
+			events.push(result);
 		});
 	}
-
 	if ($("body").is("#studentBody")) {
-		 $.post("/scheduledAppointments", {studentUserName: $(".lead").text().trim()} ).done(function(result) {
-		// console.log(req.body);
+		$.post("/scheduledAppointments", { studentUserName: $(".lead").text().trim() }).done(function (result) {
+			for (var i = 0; i < result.length; i++) {
+				var subject = result[i].subject;
+				var actualTitle = result[i].title.split(", ");
+				actualTitle = actualTitle[0];
+				result[i].title = actualTitle + " - " + subject;
+			};
+			events.push(result);
 		});
 	}
 
-	// $.post("/scheduledAppointments", events).done(function(result) {
-	// 	console.log(result);
-	// });
 	/* initialize the calendar
 	-----------------------------------------------------------------*/
 	var FC = {
@@ -41,11 +67,12 @@ $(function() { // document ready
 		eventOverlap: false,
 		slotDuration: '00:30:00',
 		minTime: '06:00:00',
+		defaultTimedEventDuration: '01:00:00',
 		slotLabelFormat: 'h:mm',
 		header: {
-			left: 'today prev,next',
-			center: 'title',
-			right: 'agendaWeek,month,listMonth'
+			left: 'title',
+			center: '',
+			right: 'today prev,next agendaWeek,month'
 		},
 		defaultView: defaultView(),
 		views: {
@@ -54,32 +81,27 @@ $(function() { // document ready
 				eventLimit: 3,
 			}
 		},
-		// events: events,
-		eventSources: ['/tutorAvailability', events],
+		eventSources: [
+			'/tutorAvailability', 'scheduledAppointments', events, businessHours
+			],
 		eventLimit: true,
 		eventBorderColor: "#4CAE4C",
 		eventBackgroundColor: "rgba(76, 174, 76, .5)",
-		eventClick: function(data, jsEvent, view) {
+		eventClick: function (data, jsEvent, view) {
 			if ($("body").is("#studentBody")) {
 				selectAppointment(start, end, jsEvent, view);
-			} else
-			if ($("body").is("#tutorBody")) {
-				if (confirm("delete?")) {
-					eventDestroy(data, jsEvent, view);
-			// 		//@DAN DELETE THIS EVENT
+			// } else
+			// 	if ($("body").is("#tutorBody")) {
+			// 		if (confirm("delete?")) {
+			// 			eventDestroy(data, jsEvent, view);
+			// 			// 		//@DAN DELETE THIS EVENT
+			// 		}
 				}
-			}
 		},
-		// eventDestroy: function ( event, element, view, callback) {
-		// 	eventDestroy(event, element, view);
-		// },
-		select: function(start, end, jsEvent, view) {
+		select: function (start, end, jsEvent, view) {
 			if ($("body").is("#tutorBody")) {
 				defineAvailability(start, end);
 			}
-			// if ($("body").is("#studentBody")) {
-			// 	selectAppointment(start, end, jsEvent, view);
-			// }
 		}
 	};
 
@@ -88,8 +110,8 @@ $(function() { // document ready
 	$("#sessions").fullCalendar({
 		schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
 		header: {
-			left: '',
-			center: 'prev, today, next',
+			left: 'prev, today, next',
+			center: '',
 			right: ''
 		},
 		defaultView: 'listMonth',
@@ -97,15 +119,20 @@ $(function() { // document ready
 		eventBorderColor: "#4CAE4C",
 		eventBackgroundColor: "rgba(76, 174, 76, .5)",
 	});
+	
+	$("#listMonth").fullCalendar({
+		aspectRatio: 1.25,
+		eventSources: ['/tutorAvailability', events],
+		eventLimit: true,
+		eventBorderColor: "#4CAE4C",
+		eventBackgroundColor: "rgba(76, 174, 76, .5)",
+				header: {
+			left: 'prev,next',
+			center: '',
+			right: ''
+		}
+	});
 });
-
-var events = [
-	{
-		title: 'Hard Coded',
-		start: '2017-02-28T10:30:00',
-		end: '2017-02-28T12:30:00'
-	}
-];
 
 function defaultView() {
 	if ($("body").is("#tutorBody")) {
@@ -117,11 +144,11 @@ function defaultView() {
 
 function defineAvailability(start, end, jsEvent, view) {
 	var availability = [];
-	if (end.diff(start)/(1000*60*60) % 1 !== 0) {
+	if (end.diff(start) / (1000 * 60 * 60) % 1 !== 0) {
 		end.add(30, 'minutes');
 	}
 	if ($("body").is("#tutorBody")) {
-		var timeSpan = end.diff(start)/(1000*60*60); //Returns the number of hours per selected availablespan.
+		var timeSpan = end.diff(start) / (1000 * 60 * 60); //Returns the number of hours per selected availablespan.
 		var infoArray = [];
 		var startTime = start.clone();
 		var endTime = end.clone();
@@ -140,7 +167,7 @@ function defineAvailability(start, end, jsEvent, view) {
 				// end: newEnd.format('H:mm:ss'),
 				color: null,
 				rendering: 'background',
-				// hourBottom: newEnd,
+				hourBottom: newEnd,
 				title: "Available Timeslot"
 			};
 			infoArray.push(newAvailability);
@@ -151,8 +178,8 @@ function defineAvailability(start, end, jsEvent, view) {
 			availability.push(displayStart.format('YYYY-MM-DD'));
 			for (var i = 0; i < infoArray.length; i++) {
 				availability.push(infoArray[i].hourTop);
+				// availability.push(infoArray[i].hourBottom);
 			}
-			availability.push(displayEnd.format('H:mm:ss'));
 			events.push(availability);
 			parseData(availability);
 		}
@@ -161,7 +188,7 @@ function defineAvailability(start, end, jsEvent, view) {
 }
 
 function selectAppointment(start, end, jsEvent, view) {
-	if (end.diff(start)/(1000*60*60) % 1 !== 0) {
+	if (end.diff(start) / (1000 * 60 * 60) % 1 !== 0) {
 		end.add(30, 'minutes');
 	}
 	// //Use starting and ending for passing into Calendar
@@ -169,7 +196,7 @@ function selectAppointment(start, end, jsEvent, view) {
 	var ending = end.clone();
 
 	if ($("body").is("#studentBody")) {
-		var timeSpan = end.diff(start)/(1000*60*60); //Returns the number of hours per selected availablespan.
+		var timeSpan = end.diff(start) / (1000 * 60 * 60); //Returns the number of hours per selected availablespan.
 		var infoArray = [];
 		var startTime = start.clone();
 		var endTime = end.clone();
@@ -201,43 +228,14 @@ function selectAppointment(start, end, jsEvent, view) {
 	}
 }
 
-// function eventDestroy( event, element, view ) {
-// 	console.log("Appointment on " + event.start.format("MMM DD, YYYY") + " at " + event.start.format("h:mm T") + "M to be deleted");
-// 	$("#calendar").fullCalendar("removeEvent", event);
-// 	//@Create a delete function for database
-// }
 function parseData(localArr) {
 
-	// var thisDate = localArr[0];
-	// var endTime = localArr.slice(-1)[0];
-	// endTime = thisDate + "T" + endTime;
-	// localArr.pop();
-	// var eachStart = localArr;
-		// for (var i = 1; localArr.length; i++) {
-		// 	eachStart = thisDate + "T" + localArr[i];
-	// 		var availabilityAsEvent = {
-	// 			start: eachStart,
-	// 			end: endTime,
-	// 			rendering: 'background'
-			// }
-	// 	events.push(availabilityAsEvent);
-	// console.log(thisDate, eachStart, endTime);
-	// }
 	if ($("body").is("#tutorBody")) {
-		$.post("/createTutorAvailability", {tutorUserName: $(".lead").text().trim(), dates: localArr}).done(function(result) {
-			// if(result.reload){
-			// 	location.reload();
-			// }
+		$.post("/createTutorAvailability", { tutorUserName: $(".lead").text().trim(), dates: localArr }).done(function (result) {
+			if(result.reload){
+				// location.reload();
+				$('#calendar').fullCalendar('renderEvents', events);
+			}
 		});
 	}
-
-		// if ($("body").is("#studentBody")) {
-		// 	var pointer = url.indexOf("tutor/");
-		// 	var userName = url.substring(pointer+6);
-		// 	pointer = userName.indexOf(".edu");
-		// 	userName = userName.substring(0, pointer+4);
-		// 	$.post("/scheduledAppointments", {studentUserName: userName, date: stringJoined).done(function(result) {
-		// 	});
-		// }
-	// }
 }

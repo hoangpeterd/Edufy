@@ -46,6 +46,7 @@ CREATE TABLE IF NOT EXISTS appointments (
 	, studentUserName VARCHAR(100) NOT NULL
 	, subject VARCHAR(100) NOT NULL
 	, date VARCHAR(100) NOT NULL
+  , endTimes VARCHAR(100) NOT NULL
 
   ,FOREIGN KEY (tutorUserName)
 		REFERENCES tutors(tutorUserName) ON DELETE CASCADE

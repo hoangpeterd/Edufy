@@ -167,9 +167,21 @@ module.exports = function(app){
   });
 
   app.post("/scheduledAppointments", function(req, res) {
-    console.log("Hello");
     db.appointments.findAll({where: req.body}).then(function(result) {
-      console.log(results[0].dataValues);
+      var apptArr = [];
+      for (var i = 0; i < result.length; i++) {
+        var startDate = new Date(result[i].dataValues.date);
+        var endDate = new Date(result[i].dataValues.endTimes);
+        var subject = result[i].dataValues.subject;
+        var apptObj = {
+          title: (result[i].dataValues.tutorUserName + ", " + result[i].dataValues.studentUserName),
+          subject: subject,
+          start: startDate.toISOString('YYYY-MM-DD H:mm:ss'),
+          end: startDate.toISOString('YYYY-MM-DD H:mm:ss')
+        }
+        apptArr.push(apptObj)
+      }
+        res.send(apptArr);
     });
   });
 
