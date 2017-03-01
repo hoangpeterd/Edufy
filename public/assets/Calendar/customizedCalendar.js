@@ -10,7 +10,7 @@ var fc = {
 	slotDuration: '00:30:00',
 	minTime: '06:00:00',
 	defaultTimedEventDuration: '01:00:00',
-	slotLabelFormat: 'HH:mm',
+	slotLabelFormat: 'hh:mm',
 	header: {
 		left: 'title',
 		center: '',
@@ -29,13 +29,20 @@ var fc = {
 	eventClick: function (data, jsEvent, view) {
 		if ($("body").is("#studentBody")) {
 			selectAppointment(start, end, jsEvent, view);
-		// } else
-		// 	if ($("body").is("#tutorBody")) {
-		// 		if (confirm("delete?")) {
-		// 			eventDestroy(data, jsEvent, view);
-		// 			// 		//@DAN DELETE THIS EVENT
-		// 		}
+		} else if ($("body").is("#tutorBody")) {
+			if (confirm("delete?")) {
+				if ($("body").is("#tutorBody")) {
+					var id = $(this).params.id
+					console.log(id);
+					$.ajax({
+						method: "DELETE",
+						url: "/tutorAvailability/" + id
+					}).done(function(result) {
+
+					});
+				}
 			}
+		}
 	},
 	select: function (start, end, jsEvent, view) {
 		if ($("body").is("#tutorBody")) {
@@ -71,7 +78,7 @@ $(function () { // document ready
 			stick: true // maintain when user navigates (see docs on the renderEvent method)
 		});
 	});
-// fs.writeFile('events.json', data[, options]
+	// fs.writeFile('events.json', data[, options]
 	if ($("body").is("#tutorBody")) {
 		$.post("/tutorAvailability", { tutorUserName: $(".lead").text().trim() }).done(function (result) {
 			for (var i = 0; i < result.length; i++) {
@@ -85,7 +92,7 @@ $(function () { // document ready
 				var actualTitle = result[i].title.split(", ");
 				var subject = result[i].subject;
 				actualTitle = actualTitle[1];
-				result[i].title = actualTitle + " - " + subject;;
+				result[i].title = actualTitle + " - " + subject;
 			}
 			events.push(result);
 		});
@@ -98,7 +105,7 @@ $(function () { // document ready
 				var actualTitle = result[i].title.split(", ");
 				actualTitle = actualTitle[0];
 				result[i].title = actualTitle + " - " + subject;
-			};
+			}
 			events.push(result);
 			appoint.events = result;
 			console.log(result);
@@ -113,18 +120,18 @@ $(function () { // document ready
 
 
 
-// 	$("#listMonth").fullCalendar({
-// 		aspectRatio: 1.25,
-// 		eventSources: ['/tutorAvailability', events],
-// 		eventLimit: true,
-// 		eventBorderColor: "#4CAE4C",
-// 		eventBackgroundColor: "rgba(76, 174, 76, .5)",
-// 				header: {
-// 			left: 'prev,next',
-// 			center: '',
-// 			right: ''
-// 		}
-// 	});
+	// 	$("#listMonth").fullCalendar({
+	// 		aspectRatio: 1.25,
+	// 		eventSources: ['/tutorAvailability', events],
+	// 		eventLimit: true,
+	// 		eventBorderColor: "#4CAE4C",
+	// 		eventBackgroundColor: "rgba(76, 174, 76, .5)",
+	// 				header: {
+	// 			left: 'prev,next',
+	// 			center: '',
+	// 			right: ''
+	// 		}
+	// 	});
 });
 
 function defaultView() {
@@ -164,7 +171,7 @@ function defineAvailability(start, end, jsEvent, view) {
 		}
 		var displayStart = start.clone();
 		var displayEnd = end.clone();
-		if (confirm("are you free between " + displayStart.format('HH:mm T') + "M and " + displayEnd.format('HH:mm T') + "M?")) {
+		if (confirm("are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?")) {
 			availability.push(displayStart.format('YYYY-MM-DD'));
 			for (var i = 0; i < infoArray.length; i++) {
 				availability.push(infoArray[i].hourTop);
@@ -221,7 +228,7 @@ function parseData(localArr) {
 
 	if ($("body").is("#tutorBody")) {
 		$.post("/createTutorAvailability", { tutorUserName: $(".lead").text().trim(), dates: localArr }).done(function (result) {
-			if(result.reload){
+			if (result.reload) {
 				location.reload();
 			}
 		});
