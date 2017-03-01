@@ -137,6 +137,13 @@ module.exports = function(app){
   });
 
   //getting rating information and sending the information so the tutor has there rating
+  // app.post("/findRating", function (req, res) {
+  //   db.tutors.findOne({ where: {tutorUserName: req.body.userName} }).then(function(result){
+  //     res.send({rating: result.rating, sessions: result.sessions});
+  //   });
+  // });
+
+  //getting rating information and sending the information so the tutor has there rating
   app.post("/findRating", function (req, res) {
     db.tutors.findOne({ where: {tutorUserName: req.body.userName} }).then(function(result){
       res.send({rating: result.rating, sessions: result.sessions});
