@@ -17,10 +17,6 @@ div.br-widget {
 	margin-top: 20px;
 }
 
-h1.display-3 {
-	margin-top: 8%;
-	color: #ffffff !important;
-}
 span.fc-list-heading-main {
 	color: #222;
 }
@@ -34,8 +30,8 @@ canvas{
     -ms-user-select: none;no
 }
 #tutorBody {
-	background-color: #222;
-	padding-bottom: 110px;
+	background-color: #ffffff;
+	padding-bottom: 20px;
 }
 
 #studentBody {
@@ -56,8 +52,8 @@ canvas{
 	margin-top: 20px;
 	padding: 0;
 	font-size: 14px;
-	color: white;
-	background-color: #222;
+	color: #404040;
+	background-color: #fff;
 }
 
 div.fc-list-empty {
@@ -134,7 +130,7 @@ button#modalSignIn.btn.btn-success:hover {
 
 /*changes modal header color to match color scheme of page, border radius change gives rounded edges*/
 .modal-header {
-  background-color: #222222;
+  background-color: #404040;
   color: #ffffff;
   border-radius: 4px 4px 0px 0px;
 }
@@ -201,7 +197,6 @@ div.modal-body {
 	padding: 10px;
 	background: #449d44;
 	color: #222;
-	border-radius: 6px;
 }
 
 .grid-item:hover {
@@ -269,8 +264,10 @@ textarea.form-control {
 
 /*jumbotron changes*/
 h1.display-3 {
-	margin-top: 65px;
+	margin-top: 40px;
+	margin-bottom: 0;
 	padding-left: 15px;
+	color: #ffffff !important;
 }
 
 div.col-xs-3 {
@@ -287,21 +284,19 @@ div.jumbotron.jumbotron-fluid {
 	font: "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-align: center;
   display: table;
+	float: right;
 }
 
 .counter {
   display: table-cell;
   margin:1.5%;
   font-size:50px;
-  background-color: #222;
   width:180px;
-  border-radius: 8px;
-  height:180px;
+	height:180px;
   vertical-align: middle;
 }
 
 p.lead {
-	margin-top: 10px;
 	padding-left: 15px;
 	color: #ffffff;
 }
@@ -315,7 +310,7 @@ p.lead {
   position: relative;
   text-align: center;
   cursor: default;
-  background: #449d44;
+	background: #5cb85c;
 }
 
 .hovereffect .overlayGrid {
@@ -393,4 +388,17 @@ p.lead {
   filter: alpha(opacity=100);
   -webkit-transform: translate3d(0,0,0);
   transform: translate3d(0,0,0);
+}
+
+div.col-xs-6 {
+	padding-left: 0;
+	width: 80px;
+}
+
+div.col-xs-12 {
+	padding-left: 10px;
+}
+
+.jumbotron p {
+	margin-bottom: 0 !important;
 }
