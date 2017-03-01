@@ -8,7 +8,7 @@ const db = require("../models");
 module.exports = function (app) {
 
   app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname + "/../public", "index.html"));
+    res.sendFile(path.join(__dirname + "/../public", "dex.html"));
   });
 
   app.get("/:user/:id", function (req, res) {
