@@ -1,4 +1,4 @@
-//requiring files
+  //requiring files
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -8,26 +8,26 @@ const db = require("../models");
 module.exports = function(app){
 
   app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname + "/../public", "index.html"));
+    res.sendFile(path.join(__dirname + "/../public", "dex.html"));
   });
 
-  app.get("/:user/:id", function(req, res) {
-    if (req.params.user == 'student') {
-      db.students.findOne({where: {studentUserName: req.params.id}}).then(function(data) {
-        if (!data) {res.sendStatus(404); return true}
-        data = data.get({plain: true})
-        res.render('student', data)
-      })
-    } else if (req.params.user == 'tutor'){
-      db.tutors.findOne({where: {tutorUserName: req.params.id}}).then(function(data) {
-        if (!data) {res.sendStatus(404); return true}
-        data = data.get({plain: true})
-        res.render('tutor', data)
-      })
-    }
-  });
-
-  //Nodemailer for email notifications, and cookie npm package. --YASHA
+//  app.get("/:user/:id", function(req, res) {
+//    if (req.params.user == 'student') {
+//      db.students.findOne({where: {studentUserName: req.params.id}}).then(function(data) {
+//        if (!data) {res.sendStatus(404); return true}
+//        data = data.get({plain: true})
+//        res.render('student', data)
+//      })
+//    } else if (req.params.user == 'tutor'){
+//      db.tutors.findOne({where: {tutorUserName: req.params.id}}).then(function(data) {
+//        if (!data) {res.sendStatus(404); return true}
+//        data = data.get({plain: true})
+//        res.render('tutor', data)
+//      })
+//    }
+//  });
+//
+//  //Nodemailer for email notifications, and cookie npm package. --YASHA
   //Login needs to be looked at before presentation because that's where all the security is. SUPER IMPORTANT.
   app.post('/uploadProfileImage', function(req, res) {
 
