@@ -7,22 +7,23 @@ const ensureLI = require('connect-ensure-login');
 //creating different routes for special events. along with that we are using the models directory (sequelize)
 module.exports = function(app, passport){
 
-//  app.get("/", function(req, res) {
-//    console.log(req.user)
-//    if (req.user) {console.log('somebody')}
-//    //res.sendFile(path.join(__dirname + "/../public", "index.html"));
-//  });
+  app.get("/", function(req, res) {
+    console.log(req.user)
+    console.log(req.body.username)
+    if (req.user) {console.log('somebody')}
+    res.sendFile(path.join(__dirname + "/../public", "dex.html"));
+  });
 
   //If incorrect/false info, will refresh page, maybe tooltips, something else; upon correct info
   //will redirect to index page with user info, making index dynamic.
-  app.post("/sign-in", passport.authenticate('local', {failureRedirect: '/'}), function(req, res) {
+  app.post("/sign-in", passport.authenticate('local', {successRedirect: '/', failureRedirect: '/', failureFlash: true}), function(req, res) {
     console.log(req.body.username)
     console.log('this works')
     res.redirect('/')
   });
   
   //creating a new tutor in the tutor table and sending information to redirect the page
-  app.post("/sign-up", function(req, res) {
+  app.post("/sign-up", passport.authenticate('local-signup', {successRedirect: '/', failureRedirect: '/', failureFlash: true}), function(req, res) {
     
     if (!(req.body.username && req.body.firstName && req.body.lastName && req.body.accountType)) {
       res.redirect('/')
@@ -46,7 +47,8 @@ module.exports = function(app, passport){
               firstName: req.body.firstName,
               lastName: req.body.lastName,
             }).then(function(data) {
-              res.redirect('/sign-in')
+              console.log('this far')
+              res.redirect('/')
             });
           }
         })

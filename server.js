@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy
+const flash = require('connect-flash')
 const bcrypt = require('bcryptjs');
 const db = require("./models");
 const app = express();
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }))
 app.use(require('express-fileupload')());
+app.use(flash())
 
 app.engine('handlebars', require('express-handlebars')({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars');
@@ -41,6 +43,47 @@ passport.use(new Strategy(
 			})
 		})
 	}
+))
+
+passport.use(
+  'local-signup', 
+  new Strategy({
+    passReqToCallback: true
+  }, 
+  function(req, username, password, cb) {
+    console.log(req.body.firstName, username, password)
+    db.users.findOne({where: {userName: username}}).then(function(user) {
+      
+			if (user) {
+        console.log('anot working'); return cb(null, false, req.flash('signupMessage', 'Account already exists')); 
+      }
+      
+      bcrypt.genSalt(7, function(err, salt) {
+        bcrypt.hash(req.body.password, salt, function(err, hash) {
+          db.users.findOrCreate({ 
+            where: {
+              username: req.body.username
+            },
+            defaults: {
+              password: hash,
+              account_type: req.body.accountType
+            }
+          }).spread(function(user, created) {
+            if (created) {
+              db[user.account_type + 's'].create({
+                studentUserName: user.username,
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+              }).then(function(data) {
+                console.log('this far')
+                res.redirect('/')
+              }) 
+		        }
+          })
+        })
+      })
+    })
+  }
 ))
 
 passport.serializeUser(function(user, cb) {
