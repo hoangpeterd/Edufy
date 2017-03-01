@@ -3,8 +3,7 @@ CREATE DATABASE IF NOT EXISTS edufy;
 USE edufy;
 
 CREATE TABLE IF NOT EXISTS users (
-  id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  username VARCHAR(60) NOT NULL FOREIGN KEY,
+  username VARCHAR(60) NOT NULL PRIMARY KEY,
   password VARCHAR(65) NOT NULL,
   accountType SET('student', 'tutor') NOT NULL,
 )
@@ -25,37 +24,31 @@ CREATE TABLE IF NOT EXISTS tutors (
   computerScience BOOLEAN NOT NULL DEFAULT FALSE,
   geology BOOLEAN NOT NULL DEFAULT FALSE,
   physics BOOLEAN NOT NULL DEFAULT FALSE,
-  specificClasses TEXT NOT NULL
+  specificClasses TEXT DEFAULT NULL,
+  FOREIGN KEY (username) REFERENCES users (username)
 );
 
 CREATE TABLE IF NOT EXISTS students (
 	username VARCHAR(100) PRIMARY KEY NOT NULL,
   firstName VARCHAR(100) NOT NULL,
   lastName VARCHAR(100) NOT NULL,
-  picUrl VARCHAR(100) DEFAULT NULL
+  picUrl VARCHAR(100) DEFAULT NULL,
+  FOREIGN KEY (username) REFERENCES users (username)
 );
 
 CREATE TABLE IF NOT EXISTS availability (
-	id INT (100) AUTO_INCREMENT NOT NULL PRIMARY KEY,
   tutorUserName VARCHAR(100) NOT NULL,
   date VARCHAR(100) NOT NULL,
-  startTimes TEXT NOT NULL
-
-  , FOREIGN KEY (tutorUserName)
-		REFERENCES tutors(tutorUserName) ON DELETE CASCADE
+  startTimes TEXT NOT NULL,
+  FOREIGN KEY (tutorUserName) REFERENCES tutors (username)
 );
 
 CREATE TABLE IF NOT EXISTS appointments (
-	id INT (100) AUTO_INCREMENT NOT NULL PRIMARY KEY,
   tutorUserName VARCHAR(100) NOT NULL,
   studentUserName VARCHAR(100) NOT NULL,
   subject VARCHAR(100) NOT NULL,
   date VARCHAR(100) NOT NULL,
-  endTimes VARCHAR(100) NOT NULL
-
-  ,FOREIGN KEY (tutorUserName)
-		REFERENCES tutors(tutorUserName) ON DELETE CASCADE
-
-	,FOREIGN KEY (studentUserName)
-		REFERENCES students(studentUserName) ON DELETE CASCADE
+  endTimes VARCHAR(100) NOT NULL,
+  FOREIGN KEY (tutorUserName) REFERENCES tutors (username),
+  FOREIGN KEY (studentUserName) REFERENCES students (username)
 );
