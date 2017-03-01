@@ -30,13 +30,12 @@ module.exports = function(app, passport){
   app.post('/uploadProfileImage', function(req, res) {
 
     if (!req.files) {
-      res.send('No files were uploaded');
+      res.redirect('back');
       return;
     }
 
     let upload = req.files.imageUpload;
-    let newFileName = req.body.user.replace(/\.|@/g,'')
-    let filePath = '/uploadFiles/' + newFileName
+    let filePath = '/uploadFiles/' + req.body.user.replace(/\.|@/g,'')
     console.log(filePath)
 
     upload.mv(path.join(__dirname + '/../private' + filePath), function (err) {
@@ -99,41 +98,9 @@ module.exports = function(app, passport){
   });
 
   //signing into the user. and sending iformation to the Client-side so it can be redirected
-  app.post("/signing", passport.authenticate('local', {failureRedirect: '/'}), function(req, res) {
+  app.post("/sign-in", passport.authenticate('local', {failureRedirect: '/'}), function(req, res) {
 		
-		res.redirect('/student/DanTran@uh.edu')
-//    db.tutors.count({ where: { tutorUserName: req.body.userName } }).then(count => {
-//        if (count === 0) {
-//          db.students.count({where: {studentUserName: req.body.userName} }).then(count => {
-//            if(count === 0){
-//              console.log("not a real user");  //going to change this console.log to do something special***********
-//            } else {
-//              db.students.findOne({ where: {studentUserName: req.body.userName} }).then(function(result) {
-//                if(req.body.password !== result.pass){
-//                  console.log("not your password"); //going to change this console.log to do something special***********
-//                } else {
-//                  /**
-//                   * @todo: find out why res.direct wont work
-//                   */
-//                  res.send({redirect: "/student/" + req.body.userName});
-//                }
-//              });
-//            }
-//          });
-//          console.log("not a real user");  //going to change this console.log to do something special***********
-//        } else {
-//          db.tutors.findOne({ where: {tutorUserName: req.body.userName} }).then(function(result) {
-//            if(req.body.password !== result.pass){
-//              console.log("not your password"); //going to change this console.log to do something special***********
-//            } else {
-//              /**
-//               * @todo: find out why res.direct wont work
-//               */
-//              res.send({redirect: "/tutor"});
-//            }
-//          });
-//        }
-//    });
+
   });
 
   //getting rating information and sending the information so the tutor has there rating

@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/hoangpeterd/Edufy#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.16.1",
     "bootstrap": "^3.3.7",
     "bootstrap-datepicker": "^1.6.4",

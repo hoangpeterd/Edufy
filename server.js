@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy
+const bcrypt = require('bcryptjs');
 const db = require("./models");
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -23,13 +24,19 @@ app.set('view engine', 'handlebars');
 
 app.use(require('express-session')({secret: 'santa', resave:false, saveUnitialized: false}))
 
+// This sets up how passport will find and determine is valid user or not.
+// The cb function will set up user on the request, meaning once logged in, 
+// we can trace user through our routes with req.user
 passport.use(new Strategy(
 	function(username, password, cb) {
-		console.log('hit');
 		db.users.findOne({where: {userName: username}}).then(function(user) {
 			if (!user) {return cb(null, false); }
 			user = user.get({plain: true})
-			if (user.pass != password) {return cb(null, false); }
+			
+			bcrypt.compare(password, user.password, function(err, res) {
+				if (!res) {return cb(null, false); }
+			})
+			
 			return cb(null, user)
 		})
 	}
@@ -57,6 +64,24 @@ app.use(passport.session());
 
 //requiring and calling the function that was exported from the controllers file. It will get the webpage and post it in the local host. At the same time it will listen for certain request so i can edit the DB and then refresh the page
 require("./controllers/users_controllers.js")(app, passport);
+
+//bcrypt.genSalt(7, function(err, salt) {
+//	bcrypt.hash('lol', salt, function(err, hash) {
+//		db.users.create({
+//			id: null,
+//			username: 'l',
+//			password: hash,
+//			ccount_type: 'student'
+//		})
+//	})	
+//})
+
+db.users.findOne({where: {id: 3}}).then(function(data) {
+	data = data.get({plain: true})
+	bcrypt.compare('lol', data.password, function(err, res) {
+	console.log(res)
+})
+})
 
 
 //after connecting to the DB base with sequelize, it will create a localhost so the user can view the page
