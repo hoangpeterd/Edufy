@@ -405,3 +405,7 @@ div.col-xs-12 {
 .jumbotron p {
 	margin-bottom: 0 !important;
 }
+
+#tutorRating {
+	margin-left: 15px;
+}
