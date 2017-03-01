@@ -172,7 +172,28 @@ module.exports = function(app){
 
   app.post("/tutorAvailability", function(req, res) {
     db.availability.findAll({where: req.body}).then(function(result) {
-      console.log(result.dataValues);
+     var resultsArr = [];
+      for (var i = 0; i < result.length; i++) {
+        resultsArr.push(result[i].dataValues);
+      }
+    console.log(resultsArr);
+// var thisDate = result[0].dataValues;
+	// var endTime = localArr.slice(-1)[0];
+	// endTime = thisDate + "T" + endTime;
+	// localArr.pop();
+	// var eachStart = localArr;
+		// for (var i = 1; localArr.length; i++) {
+		// 	eachStart = thisDate + "T" + localArr[i];
+	// 		var availabilityAsEvent = {
+	// 			start: eachStart,
+	// 			end: endTime,
+	// 			rendering: 'background'
+			// }
+	// 	events.push(availabilityAsEvent);
+	// console.log(thisDate, eachStart, endTime);
+	// }
+
+
     })
   });
 }
