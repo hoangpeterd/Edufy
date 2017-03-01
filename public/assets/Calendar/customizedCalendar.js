@@ -1,4 +1,4 @@
-var FC = {
+var fc = {
 	schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
 	selectable: true,
 	selectHelper: true,
@@ -10,7 +10,7 @@ var FC = {
 	slotDuration: '00:30:00',
 	minTime: '06:00:00',
 	defaultTimedEventDuration: '01:00:00',
-	slotLabelFormat: 'h:mm',
+	slotLabelFormat: 'hh:mm',
 	header: {
 		left: 'title',
 		center: '',
@@ -44,19 +44,8 @@ var FC = {
 	}
 };
 
-var businessHours = [
-	{
-		title: 'Hard Coded',
-		start: '2017-02-28T10:30:00',
-		rending: 'background'
-	}
-];
-var events = [
-	{
-		title: 'Hard Coded',
-		start: '2017-02-28T10:30:00'
-	}
-];
+var businessHours = [];
+var events = [];
 $(function () { // document ready
 	/* initialize the external events
 	-----------------------------------------------------------------*/
@@ -72,7 +61,8 @@ $(function () { // document ready
 			for (var i = 0; i < result.length; i++) {
 				businessHours.push(result[i]);
 			}
-			console.log(businessHours);
+			fc.events = businessHours;
+			$('#calendar').fullCalendar(fc);
 		});
 		$.post("/scheduledAppointments", { tutorUserName: $(".lead").text().trim() }).done(function (result) {
 			for (var i = 0; i < result.length; i++) {
@@ -150,14 +140,11 @@ function defineAvailability(start, end, jsEvent, view) {
 			if (j >= 1) k = 1;
 			startTime = startTime.add(k, 'hour');
 			var newEnd = startTime.clone();
-			// startingAt = startTime.format('H:mm');
 			newEnd = newEnd.add(1, 'hour');
-			// newEnd = newEnd.format('H:mm');
 			var newAvailability = {
 				dow: [start.day()],
-				hourTop: startTime.format('H:mm:ss'),
+				hourTop: startTime.format('hh:mm:ss'),
 				start: startTime.toISOString(),
-				// end: newEnd.format('H:mm:ss'),
 				color: null,
 				rendering: 'background',
 				hourBottom: newEnd,
@@ -167,11 +154,10 @@ function defineAvailability(start, end, jsEvent, view) {
 		}
 		var displayStart = start.clone();
 		var displayEnd = end.clone();
-		if (confirm("are you free between " + displayStart.format('h:mm T') + "M and " + displayEnd.format('h:mm T') + "M?")) {
+		if (confirm("are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?")) {
 			availability.push(displayStart.format('YYYY-MM-DD'));
 			for (var i = 0; i < infoArray.length; i++) {
 				availability.push(infoArray[i].hourTop);
-				// availability.push(infoArray[i].hourBottom);
 			}
 			events.push(availability);
 			parseData(availability);
@@ -203,7 +189,7 @@ function selectAppointment(start, end, jsEvent, view) {
 			// newEnd = newEnd.format('H:mm:00');
 			var newEvent = {
 				// dow: start.day(),
-				hourTop: startTime.format('H:mm:ss'),
+				hourTop: startTime.format('hh:mm:ss'),
 				start: startTime.toISOString(),
 				// end: newEnd.format('H:mm:ss'),
 				// hourBottom: newEnd,
@@ -213,7 +199,7 @@ function selectAppointment(start, end, jsEvent, view) {
 			parseData(start, end);
 		}
 		var displayStart = start.clone();
-		if (confirm("Schedule this appointment on " + displayStart.format('MMMM DD YYYY') + " at " + displayStart.format('h:mm T') + "M?")) {
+		if (confirm("Schedule this appointment on " + displayStart.format('MMMM DD YYYY') + " at " + displayStart.format('hh:mm T') + "M?")) {
 			for (var i = 0; i < infoArray.length; i++) {
 				events.push(infoArray[i]);
 			}
@@ -226,8 +212,7 @@ function parseData(localArr) {
 	if ($("body").is("#tutorBody")) {
 		$.post("/createTutorAvailability", { tutorUserName: $(".lead").text().trim(), dates: localArr }).done(function (result) {
 			if(result.reload){
-				// location.reload();
-				$('#calendar').fullCalendar('renderEvents', events);
+				location.reload();
 			}
 		});
 	}
