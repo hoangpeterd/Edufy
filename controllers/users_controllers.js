@@ -194,26 +194,23 @@ module.exports = function(app){
 
   app.post("/tutorAvailability", function(req, res) { //Something about this one being GET did something new
     db.availability.findAll({where: req.body}).then(function(result) {
-     var resultsArr = [];
      var parsedArr = [];
+
       for (var i = 0; i < result.length; i++) {
         var split = result[i].startTimes.split(", ");
         var thisDate = result[i].date;
         var endTime = split[split.length - 1];
         split.pop();
-
+        for (var j = 0; j < split.length; j++){
+          var start = thisDate + "T" + split[j];
+          var holdObj = {
+            start: start,
+            title: "Available"
+          }
+          parsedArr.push(holdObj);
+        }
       }
-        for (var j = 0; j < split.length; j++) {
-        var availabilityAsEvent = {
-          title: 'Available Timeslot',
-          start: null,
-          // end: endTime,
-          rendering: 'background'
-        }
-          var eachStart = split[j];
-          availabilityAsEvent.start = thisDate + "T" +  eachStart;
-          parsedArr.push(availabilityAsEvent);
-        }
+
 
     res.send(parsedArr);
     });
