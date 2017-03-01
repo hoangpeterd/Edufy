@@ -10,7 +10,7 @@ var fc = {
 	slotDuration: '00:30:00',
 	minTime: '06:00:00',
 	defaultTimedEventDuration: '01:00:00',
-	slotLabelFormat: 'hh:mm',
+	slotLabelFormat: 'HH:mm',
 	header: {
 		left: 'title',
 		center: '',
@@ -42,6 +42,18 @@ var fc = {
 			defineAvailability(start, end);
 		}
 	}
+};
+
+var appoint = {
+	schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+	header: {
+		left: 'prev, today, next',
+		center: '',
+		right: ''
+	},
+	defaultView: 'listMonth',
+	eventBorderColor: "#4CAE4C",
+	eventBackgroundColor: "rgba(76, 174, 76, .5)"
 };
 
 var businessHours = [];
@@ -78,6 +90,7 @@ $(function () { // document ready
 			events.push(result);
 		});
 	}
+
 	if ($("body").is("#studentBody")) {
 		$.post("/scheduledAppointments", { studentUserName: $(".lead").text().trim() }).done(function (result) {
 			for (var i = 0; i < result.length; i++) {
@@ -87,6 +100,10 @@ $(function () { // document ready
 				result[i].title = actualTitle + " - " + subject;
 			};
 			events.push(result);
+			appoint.events = result;
+			console.log(result);
+			$("#sessions").fullCalendar(appoint);
+
 		});
 	}
 
@@ -94,31 +111,20 @@ $(function () { // document ready
 	-----------------------------------------------------------------*/
 
 
-	$("#sessions").fullCalendar({
-		schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-		header: {
-			left: 'prev, today, next',
-			center: '',
-			right: ''
-		},
-		defaultView: 'listMonth',
-		events: events,
-		eventBorderColor: "#4CAE4C",
-		eventBackgroundColor: "rgba(76, 174, 76, .5)",
-	});
 
-	$("#listMonth").fullCalendar({
-		aspectRatio: 1.25,
-		eventSources: ['/tutorAvailability', events],
-		eventLimit: true,
-		eventBorderColor: "#4CAE4C",
-		eventBackgroundColor: "rgba(76, 174, 76, .5)",
-				header: {
-			left: 'prev,next',
-			center: '',
-			right: ''
-		}
-	});
+
+// 	$("#listMonth").fullCalendar({
+// 		aspectRatio: 1.25,
+// 		eventSources: ['/tutorAvailability', events],
+// 		eventLimit: true,
+// 		eventBorderColor: "#4CAE4C",
+// 		eventBackgroundColor: "rgba(76, 174, 76, .5)",
+// 				header: {
+// 			left: 'prev,next',
+// 			center: '',
+// 			right: ''
+// 		}
+// 	});
 });
 
 function defaultView() {
@@ -147,7 +153,7 @@ function defineAvailability(start, end, jsEvent, view) {
 			newEnd = newEnd.add(1, 'hour');
 			var newAvailability = {
 				dow: [start.day()],
-				hourTop: startTime.format('hh:mm:ss'),
+				hourTop: startTime.format('HH:mm:ss'),
 				start: startTime.toISOString(),
 				color: null,
 				rendering: 'background',
@@ -158,7 +164,7 @@ function defineAvailability(start, end, jsEvent, view) {
 		}
 		var displayStart = start.clone();
 		var displayEnd = end.clone();
-		if (confirm("are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?")) {
+		if (confirm("are you free between " + displayStart.format('HH:mm T') + "M and " + displayEnd.format('HH:mm T') + "M?")) {
 			availability.push(displayStart.format('YYYY-MM-DD'));
 			for (var i = 0; i < infoArray.length; i++) {
 				availability.push(infoArray[i].hourTop);
@@ -193,7 +199,7 @@ function selectAppointment(start, end, jsEvent, view) {
 			// newEnd = newEnd.format('H:mm:00');
 			var newEvent = {
 				// dow: start.day(),
-				hourTop: startTime.format('hh:mm:ss'),
+				hourTop: startTime.format('HH:mm:ss'),
 				start: startTime.toISOString(),
 				// end: newEnd.format('H:mm:ss'),
 				// hourBottom: newEnd,
@@ -203,7 +209,7 @@ function selectAppointment(start, end, jsEvent, view) {
 			parseData(start, end);
 		}
 		var displayStart = start.clone();
-		if (confirm("Schedule this appointment on " + displayStart.format('MMMM DD YYYY') + " at " + displayStart.format('hh:mm T') + "M?")) {
+		if (confirm("Schedule this appointment on " + displayStart.format('MMMM DD YYYY') + " at " + displayStart.format('HH:mm T') + "M?")) {
 			for (var i = 0; i < infoArray.length; i++) {
 				events.push(infoArray[i]);
 			}
