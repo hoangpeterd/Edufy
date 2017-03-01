@@ -8,10 +8,11 @@ $(function() { // document ready
 			stick: true // maintain when user navigates (see docs on the renderEvent method)
 		});
 	});
-
-	// $.post("/tutorAvailability", availability).done(function(result) {
-	// 	console.log(result);
-	// });
+	if ($("body").is("#tutorBody")) {
+		$.post("/tutorAvailability", {tutorUserName: $(".lead").text().trim()} ).done(function(result) {
+			
+		});
+	}
 
 	// $.post("/scheduledAppointments", events).done(function(result) {
 	// 	console.log(result);
@@ -91,11 +92,6 @@ var events = [
 		title: 'Hard Coded',
 		start: '2017-02-28T10:30:00',
 		end: '2017-02-28T12:30:00'
-	},
-	{
-		title: 'Available',
-		start: '2017-02-02T10:30:00',
-		end: '2017-02-02T12:30:00'
 	}
 ];
 
@@ -132,7 +128,7 @@ function defineAvailability(start, end, jsEvent, view) {
 				// end: newEnd.format('H:mm:ss'),
 				color: null,
 				rendering: 'background',
-				// hourBottom: newEnd,
+				hourBottom: newEnd,
 				title: "Available Timeslot"
 			};
 			infoArray.push(newAvailability);
@@ -140,10 +136,11 @@ function defineAvailability(start, end, jsEvent, view) {
 		var displayStart = start.clone();
 		var displayEnd = end.clone();
 		if (confirm("are you free between " + displayStart.format('h:mm T') + "M and " + displayEnd.format('h:mm T') + "M?")) {
-				availability.push(displayStart.format('YYYY-MM-DD'));
+			availability.push(displayStart.format('YYYY-MM-DD'));
 			for (var i = 0; i < infoArray.length; i++) {
 				availability.push(infoArray[i].hourTop);
 			}
+			availability.push(displayEnd.format('H:mm:ss'));
 			parseData(availability);
 		}
 	}
@@ -204,23 +201,24 @@ function selectAppointment(start, end, jsEvent, view) {
 // 	//@Create a delete function for database
 // }
 function parseData(localArr) {
-	//Use stringStart and StringEnd to pass to Database
-	// var stringStart = start.format("MMM DD YYYY H:mm:ss").toString();
-	// var stringEnd = end.format("MMM DD YYYY H:mm:ss").toString();
-	// //@SEND TO DAN
-	// var stringJoined = stringStart + " " + stringEnd;
-	// // @SEND TO DAN
-	// var thisStartDate = stringJoined.substring(0, 11); //start date
-	// var thisStartTime = stringJoined.substring(12, 20); //start time
-	// var thisEndDate = stringJoined.substring(20, 32); //end date
-	// var thisEndTime = stringJoined.substring(32, 41); //end time
 
-	// var availableObj = {
-	// 	date: thisStartDate,
-
+	// var thisDate = localArr[0];
+	// var endTime = localArr.slice(-1)[0];
+	// endTime = thisDate + "T" + endTime;
+	// localArr.pop();
+	// var eachStart = localArr;
+		// for (var i = 1; localArr.length; i++) {
+		// 	eachStart = thisDate + "T" + localArr[i];
+	// 		var availabilityAsEvent = {
+	// 			start: eachStart,
+	// 			end: endTime,
+	// 			rendering: 'background'
+			// }
+	// 	events.push(availabilityAsEvent);
+	// console.log(thisDate, eachStart, endTime);
 	// }
 	if ($("body").is("#tutorBody")) {
-		$.post("/tutorAvailability", {tutorUserName: $(".lead").text().trim(), dates: localArr}).done(function(result) {
+		$.post("/createTutorAvailability", {tutorUserName: $(".lead").text().trim(), dates: localArr}).done(function(result) {
 			if(result.reload){
 				location.reload();
 			}

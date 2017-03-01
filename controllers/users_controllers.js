@@ -143,7 +143,7 @@ module.exports = function(app){
     });
   });
 
-  app.post("/tutorAvailability", function(req, res) {
+  app.post("/createTutorAvailability", function(req, res) {
     var tutorUserName = req.body.tutorUserName;
     var date = req.body.dates[0];
     var startTimes = req.body.dates[1];
@@ -169,7 +169,15 @@ module.exports = function(app){
   app.post("/scheduledAppointments", function(req, res) {
     // console.log(req.body);
   });
+
+  app.post("/tutorAvailability", function(req, res) {
+    db.availability.findAll({where: req.body}).then(function(result) {
+      console.log(result.dataValues);
+    })
+  });
 }
+
+
 
 //ignore these. some codes i might wanna use in the future
 // ...
