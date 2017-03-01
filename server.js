@@ -69,14 +69,17 @@ passport.use(
               account_type: req.body.accountType
             }
           }).spread(function(user, created) {
+            user = user.get({plain: true})
+            console.log('taht far', user)
             if (created) {
               db[user.account_type + 's'].create({
                 studentUserName: user.username,
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
               }).then(function(data) {
-                console.log('this far')
-                res.redirect('/')
+                data = data.get({plain: true})
+                console.log(data)
+                return cb(null, user)
               }) 
 		        }
           })

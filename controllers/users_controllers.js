@@ -9,29 +9,16 @@ module.exports = function(app, passport){
 
   app.get("/", function(req, res) {
     console.log(req.user)
-    console.log(req.body.username)
-    if (req.user) {console.log('somebody')}
     res.sendFile(path.join(__dirname + "/../public", "dex.html"));
   });
 
   //If incorrect/false info, will refresh page, maybe tooltips, something else; upon correct info
   //will redirect to index page with user info, making index dynamic.
-  app.post("/sign-in", passport.authenticate('local', {successRedirect: '/', failureRedirect: '/', failureFlash: true}), function(req, res) {
-    console.log(req.body.username)
-    console.log('this works')
-    res.redirect('/')
-  });
+  app.post("/sign-in", passport.authenticate('local', {successRedirect: '/', failureRedirect: '/', failureFlash: true}));
   
   //creating a new tutor in the tutor table and sending information to redirect the page
-  app.post("/sign-up", passport.authenticate('local-signup', {successRedirect: '/', failureRedirect: '/', failureFlash: true}), function(req, res) {
-    
-    if (!(req.body.username && req.body.firstName && req.body.lastName && req.body.accountType)) {
-      console.log('Got here')
-      res.redirect('/')
-      return;
-    }
-  });
-asdfasdfasdfasdfasdfasdf
+  app.post("/sign-up", passport.authenticate('local-signup', {successRedirect: '/', failureRedirect: '/', failureFlash: true}));
+  
   //Login needs to be looked at before presentation because that's where all the security is. SUPER IMPORTANT.
   app.post('/uploadProfileImage', function(req, res) {
 
