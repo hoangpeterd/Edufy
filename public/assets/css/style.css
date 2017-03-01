@@ -19,6 +19,7 @@ div.br-widget {
 
 h1.display-3 {
 	margin-top: 8%;
+	color: #ffffff !important;
 }
 span.fc-list-heading-main {
 	color: #222;
@@ -38,7 +39,7 @@ canvas{
 }
 
 #studentBody {
-	background-color: #222;
+	background-color: #ffffff;
 	padding-bottom: 50px;
 }
 
@@ -47,8 +48,8 @@ canvas{
 }
 
 .headers {
-	color: white;
-	padding-bottom: 30px;
+	color: #404040;
+	padding-bottom: 40px;
 }
 
 .calendar-body {
@@ -234,8 +235,6 @@ div.modal-body {
 	width: 100%;
 	height: 0;
 	transition: .5s ease;
-	border-bottom-left-radius: 6px;
-	border-bottom-right-radius: 6px;
 }
 
 .profilePic:hover .overlay {
@@ -270,7 +269,16 @@ textarea.form-control {
 
 /*jumbotron changes*/
 h1.display-3 {
-	margin-top: 20px;
+	margin-top: 65px;
+	padding-left: 15px;
+}
+
+div.col-xs-3 {
+	width: 210px !important;
+}
+
+div.jumbotron.jumbotron-fluid {
+	background-color: #404040;
 }
 
 /*counter*/
@@ -294,6 +302,8 @@ h1.display-3 {
 
 p.lead {
 	margin-top: 10px;
+	padding-left: 15px;
+	color: #ffffff;
 }
 
 /*hover effect*/
