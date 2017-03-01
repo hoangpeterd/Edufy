@@ -30,12 +30,12 @@ app.use(require('express-session')({secret: 'santa', resave:false, saveUnitializ
 passport.use(new Strategy(
 	function(username, password, cb) {
 		db.users.findOne({where: {userName: username}}).then(function(user) {
+      
 			if (!user) {console.log('anot working'); return cb(null, false); }
 			user = user.get({plain: true})
-			console.log(user)
+      
 			bcrypt.compare(password, user.password, function(err, res) {
 				if (!res) {console.log('bnot working', res); return cb(null, false); }
-        console.log(username, password)
 			  console.log('cnot working');
         return cb(null,user)
 			})
@@ -65,17 +65,6 @@ app.use(passport.session());
 
 //requiring and calling the function that was exported from the controllers file. It will get the webpage and post it in the local host. At the same time it will listen for certain request so i can edit the DB and then refresh the page
 require("./controllers/users_controllers.js")(app, passport);
-
-//bcrypt.genSalt(7, function(err, salt) {
-//	bcrypt.hash('lol', salt, function(err, hash) {
-//		db.users.create({
-//			id: null,
-//			username: 'l',
-//			password: hash,
-//			ccount_type: 'student'
-//		})
-//	})	
-//})
 
 //db.users.findOne({where: {id: 3}}).then(function(data) {
 //	data = data.get({plain: true})

@@ -7,28 +7,51 @@ const ensureLI = require('connect-ensure-login');
 //creating different routes for special events. along with that we are using the models directory (sequelize)
 module.exports = function(app, passport){
 
-  app.get("/", function(req, res) {
-    console.log('nobody')
-    if (req.user) {console.log('somebody')}
-    res.sendFile(path.join(__dirname + "/../public", "index.html"));
-  });
+//  app.get("/", function(req, res) {
+//    console.log(req.user)
+//    if (req.user) {console.log('somebody')}
+//    //res.sendFile(path.join(__dirname + "/../public", "index.html"));
+//  });
 
   //If incorrect/false info, will refresh page, maybe tooltips, something else; upon correct info
   //will redirect to index page with user info, making index dynamic.
   app.post("/sign-in", passport.authenticate('local', {failureRedirect: '/'}), function(req, res) {
+    console.log(req.body.username)
+    console.log('this works')
     res.redirect('/')
   });
   
   //creating a new tutor in the tutor table and sending information to redirect the page
   app.post("/sign-up", function(req, res) {
-    bcrypt.
     
-    db.users.create({
-      id: null,
-      username: req.body.username,
-      password: '',
-      account_type: ''
-    }).then
+    if (!(req.body.username && req.body.firstName && req.body.lastName && req.body.accountType)) {
+      res.redirect('/')
+      return;
+    }
+    
+    bcrypt.genSalt(7, function(err, salt) {
+      bcrypt.hash(req.body.password, salt, function(err, hash) {
+        db.users.findOrCreate({ 
+          where: {
+            username: req.body.username
+          },
+          defaults: {
+            password: hash,
+            account_type: req.body.accountType
+          }
+        }).spread(function(user, created) {
+          if (created) {
+            db[user.account_type + 's'].create({
+              studentUserName: user.username,
+              firstName: req.body.firstName,
+              lastName: req.body.lastName,
+            }).then(function(data) {
+              res.redirect('/sign-in')
+            });
+          }
+        })
+      })
+    })
   });
 
   //Login needs to be looked at before presentation because that's where all the security is. SUPER IMPORTANT.
