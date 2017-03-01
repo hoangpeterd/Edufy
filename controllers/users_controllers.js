@@ -15,14 +15,12 @@ module.exports = function(app){
     if (req.params.user == 'student') {
       db.students.findOne({where: {studentUserName: req.params.id}}).then(function(data) {
         if (!data) {res.sendStatus(404); return true}
-        console.log(data)
         data = data.get({plain: true})
         res.render('student', data)
       })
     } else if (req.params.user == 'tutor'){
       db.tutors.findOne({where: {tutorUserName: req.params.id}}).then(function(data) {
         if (!data) {res.sendStatus(404); return true}
-        console.log(data)
         data = data.get({plain: true})
         res.render('tutor', data)
       })
@@ -145,22 +143,62 @@ module.exports = function(app){
     });
   });
 
-  app.post("/tutorAvailability", function(req, res) {
-    console.log(req.body);
-    db.availability.create(req.body).then(function(){
+  app.post("/createTutorAvailability", function(req, res) {
+    var tutorUserName = req.body.tutorUserName;
+    var date = req.body.dates[0];
+    var startTimes = req.body.dates[1];
+
+    for(var i = 2; i<req.body.dates.length; i++){
+      startTimes = startTimes + ", " + req.body.dates[i] ;
+    }
+
+    var availableObj = {
+      tutorUserName: tutorUserName,
+      date: date,
+      startTimes: startTimes
+    }
+
+    db.availability.create(availableObj).then(function(result){
       /**
        * @todo: find out why res.direct wont work
        */
       res.send({reload: true});
-
-      //location.reload(); to refresh
     });
   });
 
   app.post("/scheduledAppointments", function(req, res) {
-    console.log(req.body);
+    // console.log(req.body);
+  });
+
+  app.post("/tutorAvailability", function(req, res) {
+    db.availability.findAll({where: req.body}).then(function(result) {
+     var resultsArr = [];
+      for (var i = 0; i < result.length; i++) {
+        resultsArr.push(result[i].dataValues);
+      }
+    console.log(resultsArr);
+// var thisDate = result[0].dataValues;
+	// var endTime = localArr.slice(-1)[0];
+	// endTime = thisDate + "T" + endTime;
+	// localArr.pop();
+	// var eachStart = localArr;
+		// for (var i = 1; localArr.length; i++) {
+		// 	eachStart = thisDate + "T" + localArr[i];
+	// 		var availabilityAsEvent = {
+	// 			start: eachStart,
+	// 			end: endTime,
+	// 			rendering: 'background'
+			// }
+	// 	events.push(availabilityAsEvent);
+	// console.log(thisDate, eachStart, endTime);
+	// }
+
+
+    })
   });
 }
+
+
 
 //ignore these. some codes i might wanna use in the future
 // ...
