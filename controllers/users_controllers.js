@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 //requiring files
+=======
+  //requiring files
+const express = require("express");
+const app = express();
+>>>>>>> master
 const path = require("path");
 const db = require("../models");
 const bcrypt = require("bcryptjs");
@@ -9,28 +15,10 @@ module.exports = function(app, passport){
 
   app.get("/", function(req, res) {
     
-//    req.user = req.user || null
-//    if (!req.user) {
-      res.sendFile(path.join(__dirname + "/../public", "dex.html"));
-//      return;
-//    }
-//    
-//    if (/student/.test(req.user.accountType)) {
-//      console.log(req.user)
-//      res.render('student', req.user);
-//      return;
-//    }
-//    if (/tutor/.test(req.user.accountType)) {
-//      res.render('tutor', req.user)
-//      return;
-//    }
-    
+    res.sendFile(path.join(__dirname + "/../public", "dex.html"));
   });
   
   app.get('/profile', ensureLogin.ensureLoggedIn(), function(req, res) {
-    console.log(req.user.accountType)
-    console.log(typeof req.user.accountType)
-    console.log(/tutor/.test(req.user.account_typeype))
 
     if (/student/.test(req.user.account_type)) {
       console.log(req.user)
@@ -78,13 +66,20 @@ module.exports = function(app, passport){
   })
   
   //getting rating information and sending the information so the tutor has there rating
+  // app.post("/findRating", function (req, res) {
+  //   db.tutors.findOne({ where: {tutorUserName: req.body.userName} }).then(function(result){
+  //     res.send({rating: result.rating, sessions: result.sessions});
+  //   });
+  // });
+
+  //getting rating information and sending the information so the tutor has there rating
   app.post("/findRating", function (req, res) {
     db.tutors.findOne({ where: {tutorUserName: req.body.userName} }).then(function(result){
       res.send({rating: result.rating, sessions: result.sessions});
     });
   });
 
-  app.post("/tutorAvailability", function(req, res) {
+  app.post("/createTutorAvailability", function(req, res) {
     var tutorUserName = req.body.tutorUserName;
     var date = req.body.dates[0];
     var startTimes = req.body.dates[1];
@@ -108,9 +103,50 @@ module.exports = function(app, passport){
   });
 
   app.post("/scheduledAppointments", function(req, res) {
-    // console.log(req.body);
+    db.appointments.findAll({where: req.body}).then(function(result) {
+      var apptArr = [];
+      for (var i = 0; i < result.length; i++) {
+        var startDate = new Date(result[i].dataValues.date);
+        var endDate = new Date(result[i].dataValues.endTimes);
+        var subject = result[i].dataValues.subject;
+        var apptObj = {
+          title: (result[i].dataValues.tutorUserName + ", " + result[i].dataValues.studentUserName),
+          subject: subject,
+          start: startDate.toISOString('YYYY-MM-DD H:mm:ss'),
+          end: startDate.toISOString('YYYY-MM-DD H:mm:ss')
+        }
+        apptArr.push(apptObj)
+      }
+        res.send(apptArr);
+    });
+  });
+
+  app.post("/tutorAvailability", function(req, res) { //Something about this one being GET did something new
+    db.availability.findAll({where: req.body}).then(function(result) {
+     var parsedArr = [];
+
+      for (var i = 0; i < result.length; i++) {
+        var split = result[i].startTimes.split(", ");
+        var thisDate = result[i].date;
+        var endTime = split[split.length - 1];
+        split.pop();
+        for (var j = 0; j < split.length; j++){
+          var start = thisDate + "T" + split[j];
+          var holdObj = {
+            start: start,
+            title: "Available"
+          }
+          parsedArr.push(holdObj);
+        }
+      }
+
+
+    res.send(parsedArr);
+    });
   });
 }
+
+
 
 //ignore these. some codes i might wanna use in the future
 // ...

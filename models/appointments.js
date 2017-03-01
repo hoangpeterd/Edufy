@@ -11,13 +11,13 @@ module.exports = function(sequelize, DataTypes){
     studentUserName: {
       type: DataTypes.STRING
     },
-    start: {
+    date: {
       type: DataTypes.STRING
     },
-    end: {
+    endTimes: {
       type: DataTypes.STRING
     },
-    title: {
+    subject: {
       type: DataTypes.STRING
     }
   }, {
