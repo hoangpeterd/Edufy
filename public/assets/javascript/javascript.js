@@ -71,6 +71,7 @@ function creatingTutor(){
     $.post("/signupTutor", createObject).done(function(result) {
       if(result.redirect){
         window.location = result.redirect;
+        $("#tutorClasses").modal();
       }
     });
   }
@@ -98,7 +99,6 @@ function creatingStudent (){
   //this will check for all the information that is required to create an account. if it is a tutor a second modal will pop up for further quetioning other then that it will push the student iformation to the backend so it can create new inofrmation in the database
   if(email !== "" && password!== "" && fName !== "" && lName !== ""){
     if($(".chb:checked").val() === "tutor") {
-      $("#tutorClasses").modal();
 
     } else if ($(".chb:checked").val() === "student") {
       var createObject = {
