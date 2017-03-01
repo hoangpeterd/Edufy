@@ -17,7 +17,7 @@ console.log(events);
 $(function () { // document ready
 	/* initialize the external events
 	-----------------------------------------------------------------*/
-	$("#calendar").fullCalendar('refetchEvents', availability);
+	// $("#calendar").fullCalendar('refetchEvents', availability);
 
 	$('#external-events .fc-event').each(function () {
 		// store data so the calendar knows to render an event upon drop
@@ -120,7 +120,7 @@ $(function () { // document ready
 		eventBorderColor: "#4CAE4C",
 		eventBackgroundColor: "rgba(76, 174, 76, .5)",
 	});
-	
+
 	$("#listMonth").fullCalendar({
 		aspectRatio: 1.25,
 		eventSources: ['/tutorAvailability', events],
