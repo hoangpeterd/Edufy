@@ -36,6 +36,11 @@ module.exports = function(app, passport){
     }
 
   })
+
+  router.get("/favicon.ico", function(req, res){
+  res.send(204);
+  });
+
   //Login needs to be looked at before presentation because that's where all the security is. SUPER IMPORTANT.
   app.post('/uploadProfileImage', function(req, res) {
 
