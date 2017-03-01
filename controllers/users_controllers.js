@@ -26,36 +26,12 @@ module.exports = function(app, passport){
   app.post("/sign-up", passport.authenticate('local-signup', {successRedirect: '/', failureRedirect: '/', failureFlash: true}), function(req, res) {
     
     if (!(req.body.username && req.body.firstName && req.body.lastName && req.body.accountType)) {
+      console.log('Got here')
       res.redirect('/')
       return;
     }
-    
-    bcrypt.genSalt(7, function(err, salt) {
-      bcrypt.hash(req.body.password, salt, function(err, hash) {
-        db.users.findOrCreate({ 
-          where: {
-            username: req.body.username
-          },
-          defaults: {
-            password: hash,
-            account_type: req.body.accountType
-          }
-        }).spread(function(user, created) {
-          if (created) {
-            db[user.account_type + 's'].create({
-              studentUserName: user.username,
-              firstName: req.body.firstName,
-              lastName: req.body.lastName,
-            }).then(function(data) {
-              console.log('this far')
-              res.redirect('/')
-            });
-          }
-        })
-      })
-    })
   });
-
+asdfasdfasdfasdfasdfasdf
   //Login needs to be looked at before presentation because that's where all the security is. SUPER IMPORTANT.
   app.post('/uploadProfileImage', function(req, res) {
 
