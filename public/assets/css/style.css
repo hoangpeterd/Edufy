@@ -44,7 +44,7 @@ canvas{
 }
 
 .headers {
-	color: #404040;
+	color: #222;
 	padding-bottom: 40px;
 }
 
@@ -52,7 +52,7 @@ canvas{
 	margin-top: 20px;
 	padding: 0;
 	font-size: 14px;
-	color: #404040;
+	color: #222;
 	background-color: #fff;
 }
 
@@ -130,7 +130,7 @@ button#modalSignIn.btn.btn-success:hover {
 
 /*changes modal header color to match color scheme of page, border radius change gives rounded edges*/
 .modal-header {
-  background-color: #404040;
+  background-color: #222;
   color: #ffffff;
   border-radius: 4px 4px 0px 0px;
 }
@@ -275,7 +275,7 @@ div.col-xs-3 {
 }
 
 div.jumbotron.jumbotron-fluid {
-	background-color: #404040;
+	background-color: #222;
 }
 
 /*counter*/
