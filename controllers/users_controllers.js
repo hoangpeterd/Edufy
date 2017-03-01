@@ -8,8 +8,17 @@ const ensureLI = require('connect-ensure-login');
 module.exports = function(app, passport){
 
   app.get("/", function(req, res) {
-    console.log(req.user)
-    res.sendFile(path.join(__dirname + "/../public", "dex.html"));
+    
+    req.user = req.user || null
+    if (!req.user) {
+      res.sendFile(path.join(__dirname + "/../public", "dex.html"));
+      return;
+    }
+    
+    if (/student/.test(req.user.accountType)) {res.render('student', req.user)}
+    if (/tutor/.test(req.user.accountType)) {res.render('tutor', req.user)}
+    
+    
   });
 
   //If incorrect/false info, will refresh page, maybe tooltips, something else; upon correct info
