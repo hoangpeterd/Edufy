@@ -19,19 +19,17 @@ module.exports = function(app, passport){
   //creating a new tutor in the tutor table and sending information to redirect the page
   app.post("/sign-up", passport.authenticate('local-signup', {successRedirect: '/profile', failureRedirect: '/', failureFlash: true}));
   
-  app.get('/profile', ensureLogin.ensureLoggedIn(), function(req, res) {
+  app.get('/profile', ensureLogin.ensureLoggedIn('/'), function(req, res) {
 
     if (/student/.test(req.user.account_type)) {
       
       db.students.findOne({where: {username: req.user.username}}).then(function(data) {
-        console.log(data)
         res.render('student', data = data.get({plain: true}));
       })
       return;
     }
     if (/tutor/.test(req.user.account_type)) {
       db.tutors.findOne({where: {username: req.user.username}}).then(function(data) {
-        console.log(data)
         res.render('tutor', data = data.get({plain: true}))
       })
       return;
@@ -45,23 +43,28 @@ module.exports = function(app, passport){
       res.redirect('back');
       return;
     }
-
+    
     let upload = req.files.imageUpload;
-    let filePath = '/uploadFiles/' + req.body.user.replace(/\.|@/g,'')
+    let filePath = '/uploadFiles/' + req.user.username.replace(/\.|@/g,'') + req.user.id.toString()
     console.log(filePath)
-
+    console.log(req.files.mimetype)
+    console.log(req.files.data)
     upload.mv(path.join(__dirname + '/../private' + filePath), function (err) {
       if (err) {res.status(500).send(err); return true;}
-      else {console.log('File uploaded!')}
+      
+      if (/student/.test(req.user.account_type)) {
+        db.students.update({picUrl: filePath}, {where : {username: req.user.username}})
+      }
+    
+      if (/tutor/.test(req.user.account_type)) {
+        db.tutors.update({picUrl: filePath}, {where : {username: req.user.username}})
+      }  
     })
-
-    if (req.body.userType == 'student') {
-      db.students.update({picUrl: filePath}, {where : {studentUserName: req.body.user}}).then(res.redirect('/student/' + req.body.user))
-
-    } else {
-      db.tutors.update({picUrl: filePath}, {where : {tutorUserName: req.body.user}}).then(res.redirect('/tutor/' + req.body.user))
-
-    }
+    
+    setTimeout(function(){
+      res.redirect('/profile')
+    }, 1000)
+    
   })
   
   //getting rating information and sending the information so the tutor has there rating
@@ -143,6 +146,10 @@ module.exports = function(app, passport){
     res.send(parsedArr);
     });
   });
+  
+  app.use(function(req, res){
+       res.sendStatus(404);
+   });
 }
 
 
