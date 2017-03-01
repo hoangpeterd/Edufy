@@ -1,29 +1,34 @@
 //requiring files
 const path = require("path");
 const db = require("../models");
+const bcrypt = require("bcryptjs");
 const ensureLI = require('connect-ensure-login');
 
 //creating different routes for special events. along with that we are using the models directory (sequelize)
 module.exports = function(app, passport){
 
   app.get("/", function(req, res) {
+    console.log('nobody')
+    if (req.user) {console.log('somebody')}
     res.sendFile(path.join(__dirname + "/../public", "index.html"));
   });
 
-  app.get("/:user/:id", function(req, res) {
-    if (req.params.user == 'student') {
-      db.students.findOne({where: {studentUserName: req.params.id}}).then(function(data) {
-        if (!data) {res.sendStatus(404); return true}
-        data = data.get({plain: true})
-        res.render('student', data)
-      })
-    } else if (req.params.user == 'tutor'){
-      db.tutors.findOne({where: {tutorUserName: req.params.id}}).then(function(data) {
-        if (!data) {res.sendStatus(404); return true}
-        data = data.get({plain: true})
-        res.render('tutor', data)
-      })
-    }
+  //If incorrect/false info, will refresh page, maybe tooltips, something else; upon correct info
+  //will redirect to index page with user info, making index dynamic.
+  app.post("/sign-in", passport.authenticate('local', {failureRedirect: '/'}), function(req, res) {
+    res.redirect('/')
+  });
+  
+  //creating a new tutor in the tutor table and sending information to redirect the page
+  app.post("/sign-up", function(req, res) {
+    bcrypt.
+    
+    db.users.create({
+      id: null,
+      username: req.body.username,
+      password: '',
+      account_type: ''
+    }).then
   });
 
   //Login needs to be looked at before presentation because that's where all the security is. SUPER IMPORTANT.
@@ -51,58 +56,7 @@ module.exports = function(app, passport){
 
     }
   })
-
-  //creating a new tutor in the tutor table and sending information to redirect the page
-  app.post("/signupTutor", function(req, res) {
-    db.tutors.count({ where: { tutorUserName: req.body.tutorUserName } }).then(count => {
-      if(count === 0){
-        db.students.count({ where: { studentUserName: req.body.studentUserName } }).then(count => {
-          if(count === 0){
-            console.log(req.body.specificClasses);
-            db.tutors.create(req.body).then(function(){
-              /**
-               * @todo: find out why res.direct wont work
-               */
-              res.send({userName: req.body.tutorUserName});
-            });
-          } else {
-            console.log("User has been created1");
-          }
-        });
-      } else {
-        console.log("User has been created2");
-      }
-    });
-  });
-
-  //creating a new student in the student table and sending information to redirect the page
-  app.post("/signupStudent", function(req, res) {
-    db.tutors.count({ where: { tutorUserName: req.body.tutorUserName } }).then(count => {
-      if(count === 0){
-        db.students.count({ where: { studentUserName: req.body.studentUserName } }).then(count => {
-          if(count === 0){
-            db.students.create(req.body).then(function(){
-              /**
-               * @todo: find out why res.direct wont work
-               */
-              res.send({redirect: "/student/" + req.body.studentUserName});
-            });
-          } else {
-            console.log("User has been created");
-          }
-        });
-      } else {
-        console.log("User has been created");
-      }
-    });
-  });
-
-  //signing into the user. and sending iformation to the Client-side so it can be redirected
-  app.post("/sign-in", passport.authenticate('local', {failureRedirect: '/'}), function(req, res) {
-		
-
-  });
-
+  
   //getting rating information and sending the information so the tutor has there rating
   app.post("/findRating", function (req, res) {
     db.tutors.findOne({ where: {tutorUserName: req.body.userName} }).then(function(result){

@@ -30,14 +30,15 @@ app.use(require('express-session')({secret: 'santa', resave:false, saveUnitializ
 passport.use(new Strategy(
 	function(username, password, cb) {
 		db.users.findOne({where: {userName: username}}).then(function(user) {
-			if (!user) {return cb(null, false); }
+			if (!user) {console.log('anot working'); return cb(null, false); }
 			user = user.get({plain: true})
-			
+			console.log(user)
 			bcrypt.compare(password, user.password, function(err, res) {
-				if (!res) {return cb(null, false); }
+				if (!res) {console.log('bnot working', res); return cb(null, false); }
+        console.log(username, password)
+			  console.log('cnot working');
+        return cb(null,user)
 			})
-			
-			return cb(null, user)
 		})
 	}
 ))
@@ -76,12 +77,12 @@ require("./controllers/users_controllers.js")(app, passport);
 //	})	
 //})
 
-db.users.findOne({where: {id: 3}}).then(function(data) {
-	data = data.get({plain: true})
-	bcrypt.compare('lol', data.password, function(err, res) {
-	console.log(res)
-})
-})
+//db.users.findOne({where: {id: 3}}).then(function(data) {
+//	data = data.get({plain: true})
+//	bcrypt.compare('lol', data.password, function(err, res) {
+//	console.log(res)
+//})
+//})
 
 
 //after connecting to the DB base with sequelize, it will create a localhost so the user can view the page
