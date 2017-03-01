@@ -310,7 +310,7 @@ p.lead {
   position: relative;
   text-align: center;
   cursor: default;
-  background: #449d44;
+	background: #5cb85c;
 }
 
 .hovereffect .overlayGrid {
