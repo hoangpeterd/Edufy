@@ -15,15 +15,15 @@ module.exports = function(app){
     if (req.params.user == 'student') {
       db.students.findOne({where: {studentUserName: req.params.id}}).then(function(data) {
         if (!data) {res.sendStatus(404); return true}
-        data = data.get({plain: true})
-        res.render('student', data)
-      })
+        data = data.get({plain: true});
+        res.render('student', data);
+      });
     } else if (req.params.user == 'tutor'){
       db.tutors.findOne({where: {tutorUserName: req.params.id}}).then(function(data) {
         if (!data) {res.sendStatus(404); return true}
-        data = data.get({plain: true})
-        res.render('tutor', data)
-      })
+        data = data.get({plain: true});
+        res.render('tutor', data);
+      });
     }
   });
 
@@ -167,34 +167,37 @@ module.exports = function(app){
   });
 
   app.post("/scheduledAppointments", function(req, res) {
-    // console.log(req.body);
+    console.log("Hello");
+    db.appointments.findAll({where: req.body}).then(function(result) {
+      console.log(results[0].dataValues);
+    });
   });
 
-  app.post("/tutorAvailability", function(req, res) {
+  app.post("/tutorAvailability", function(req, res) { //Something about this one being GET did something new
     db.availability.findAll({where: req.body}).then(function(result) {
      var resultsArr = [];
+     var parsedArr = [];
       for (var i = 0; i < result.length; i++) {
-        resultsArr.push(result[i].dataValues);
+        var split = result[i].startTimes.split(", ");
+        var thisDate = result[i].date;
+        var endTime = split[split.length - 1];
+        split.pop();
+
       }
-    console.log(resultsArr);
-// var thisDate = result[0].dataValues;
-	// var endTime = localArr.slice(-1)[0];
-	// endTime = thisDate + "T" + endTime;
-	// localArr.pop();
-	// var eachStart = localArr;
-		// for (var i = 1; localArr.length; i++) {
-		// 	eachStart = thisDate + "T" + localArr[i];
-	// 		var availabilityAsEvent = {
-	// 			start: eachStart,
-	// 			end: endTime,
-	// 			rendering: 'background'
-			// }
-	// 	events.push(availabilityAsEvent);
-	// console.log(thisDate, eachStart, endTime);
-	// }
+        for (var j = 0; j < split.length; j++) {
+        var availabilityAsEvent = {
+          title: 'Available Timeslot',
+          start: null,
+          // end: endTime,
+          rendering: 'background'
+        }
+          var eachStart = split[j];
+          availabilityAsEvent.start = thisDate + "T" +  eachStart;
+          parsedArr.push(availabilityAsEvent);
+        }
 
-
-    })
+    res.send(parsedArr);
+    });
   });
 }
 

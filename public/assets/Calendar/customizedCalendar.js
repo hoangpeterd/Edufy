@@ -10,7 +10,18 @@ $(function() { // document ready
 	});
 	if ($("body").is("#tutorBody")) {
 		$.post("/tutorAvailability", {tutorUserName: $(".lead").text().trim()} ).done(function(result) {
-			
+			console.log(result);
+			for (var i = 0; i < result.length; i++) {
+				events.push(result[i]);
+			}
+			console.log(events);
+		
+		});
+	}
+
+	if ($("body").is("#studentBody")) {
+		 $.post("/scheduledAppointments", {studentUserName: $(".lead").text().trim()} ).done(function(result) {
+		// console.log(req.body);
 		});
 	}
 
@@ -43,7 +54,8 @@ $(function() { // document ready
 				eventLimit: 3,
 			}
 		},
-		events: events,
+		// events: events,
+		eventSources: ['/tutorAvailability', events],
 		eventLimit: true,
 		eventBorderColor: "#4CAE4C",
 		eventBackgroundColor: "rgba(76, 174, 76, .5)",
@@ -65,9 +77,9 @@ $(function() { // document ready
 			if ($("body").is("#tutorBody")) {
 				defineAvailability(start, end);
 			}
-			if ($("body").is("#studentBody")) {
-				selectAppointment(start, end, jsEvent, view);
-			}
+			// if ($("body").is("#studentBody")) {
+			// 	selectAppointment(start, end, jsEvent, view);
+			// }
 		}
 	};
 
@@ -128,7 +140,7 @@ function defineAvailability(start, end, jsEvent, view) {
 				// end: newEnd.format('H:mm:ss'),
 				color: null,
 				rendering: 'background',
-				hourBottom: newEnd,
+				// hourBottom: newEnd,
 				title: "Available Timeslot"
 			};
 			infoArray.push(newAvailability);
@@ -141,11 +153,10 @@ function defineAvailability(start, end, jsEvent, view) {
 				availability.push(infoArray[i].hourTop);
 			}
 			availability.push(displayEnd.format('H:mm:ss'));
+			events.push(availability);
 			parseData(availability);
 		}
 	}
-	$("#calendar").fullCalendar("refetchEvents", availability);
-	$("#sessions").fullCalendar("refetchEvents", availability);
 	availability = [];
 }
 
@@ -157,7 +168,7 @@ function selectAppointment(start, end, jsEvent, view) {
 	var starting = start.clone();
 	var ending = end.clone();
 
-	// if ($("body").is("#studentBody")) {
+	if ($("body").is("#studentBody")) {
 		var timeSpan = end.diff(start)/(1000*60*60); //Returns the number of hours per selected availablespan.
 		var infoArray = [];
 		var startTime = start.clone();
@@ -187,12 +198,7 @@ function selectAppointment(start, end, jsEvent, view) {
 				events.push(infoArray[i]);
 			}
 		}
-	// }
-	$("#calendar").fullCalendar("renderEvents", events);
-	$("#calendar").fullCalendar("addEventSource", events);
-	$("#calendar").fullCalendar("refetchEvents", events);
-	$("#calendar").fullCalendar("updateEvents", events);
-	$("#sessions").fullCalendar("refetchEvents", events);
+	}
 }
 
 // function eventDestroy( event, element, view ) {
@@ -219,9 +225,9 @@ function parseData(localArr) {
 	// }
 	if ($("body").is("#tutorBody")) {
 		$.post("/createTutorAvailability", {tutorUserName: $(".lead").text().trim(), dates: localArr}).done(function(result) {
-			if(result.reload){
-				location.reload();
-			}
+			// if(result.reload){
+			// 	location.reload();
+			// }
 		});
 	}
 
