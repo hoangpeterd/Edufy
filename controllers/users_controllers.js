@@ -12,20 +12,6 @@ module.exports = function(app, passport){
     res.sendFile(path.join(__dirname + "/../public", "dex.html"));
   });
   
-  app.get('/profile', ensureLogin.ensureLoggedIn(), function(req, res) {
-
-    if (/student/.test(req.user.account_type)) {
-      console.log(req.user)
-      res.render('student', req.user);
-      return;
-    }
-    if (/tutor/.test(req.user.account_type)) {
-      res.render('tutor', req.user)
-      return;
-    }
-    
-  })
-
   //If incorrect/false info, will refresh page, maybe tooltips, something else; upon correct info
   //will redirect to index page with user info, making index dynamic.
   app.post("/sign-in", passport.authenticate('local', {successRedirect: '/profile', failureRedirect: '/', failureFlash: true}));
@@ -33,6 +19,25 @@ module.exports = function(app, passport){
   //creating a new tutor in the tutor table and sending information to redirect the page
   app.post("/sign-up", passport.authenticate('local-signup', {successRedirect: '/profile', failureRedirect: '/', failureFlash: true}));
   
+  app.get('/profile', ensureLogin.ensureLoggedIn(), function(req, res) {
+
+    if (/student/.test(req.user.account_type)) {
+      
+      db.students.findOne({where: {username: req.user.username}}).then(function(data) {
+        console.log(data)
+        res.render('student', data = data.get({plain: true}));
+      })
+      return;
+    }
+    if (/tutor/.test(req.user.account_type)) {
+      db.tutors.findOne({where: {username: req.user.username}}).then(function(data) {
+        console.log(data)
+        res.render('tutor', data = data.get({plain: true}))
+      })
+      return;
+    }
+    
+  })
   //Login needs to be looked at before presentation because that's where all the security is. SUPER IMPORTANT.
   app.post('/uploadProfileImage', function(req, res) {
 

@@ -10,7 +10,14 @@
               <form id='uploadImage' action='/uploadProfileImage' method='POST' encType="multipart/form-data">
                 <label for='imageUpload'>
                   <div class="profilePic">
-                  <img class="img-rounded" id='profileImage' width="180" height="180" src="assets/images/placeholder.png">
+                    
+                    {{#if this.picUrl}}
+                    <img class="img-rounded" id='profileImage' width="180" height="180" src={{this.picUrl}}>
+                    {{/if}}
+                    {{#unless this.picUrl}}
+                    <img class="img-rounded" id='profileImage' width="180" height="180" src='/assets/images/placeholder.png'>
+                    {{/unless}}
+                    
                   <div class="overlay">
                     <div class="text"><span class="glyphicon glyphicon-camera"></span> update profile picture</div>
                   </div>
@@ -21,7 +28,7 @@
             </div>
             <div class="col-xs-7">
               <div class="row">
-                  <h1 class="display-3">Peter Hoang</h1>
+                  <h1 class="display-3">{{this.firstName}} {{this.lastName}}</h1>
               </div>
               <div class="row">
                 <div id="tutorRating"></div>
