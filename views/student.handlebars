@@ -1,104 +1,268 @@
-<body id="studentBody">
+  <body id="studentBody">
 
-  <!-- jumbotron -->
-  <div class="jumbotron jumbotron-fluid">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12">
-          <form id='uploadImage' action='/uploadProfileImage' method='POST' encType="multipart/form-data">
-            <label for='imageUpload'>
-              <div class="profilePic">
-               
-                {{#if this.picUrl}}
-                <img class="img-rounded" id='profileImage' width="180" height="180" src={{this.picUrl}}>
-                {{/if}}
-                {{#unless this.picUrl}}
-                <img class="img-rounded" id='profileImage' width="180" height="180" src='/assets/images/placeholder.png'>
-                {{/unless}}
-                
-                <div class="overlay">
-                  <div class="text"><span class="glyphicon glyphicon-camera"></span> update profile picture</div>
+    <!-- jumbotron -->
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <div class="row">
+          <div class="row">
+          <div class="col-xs-12" align="left">
+            <div class="col-xs-3">
+              <form id='uploadImage' action='/uploadProfileImage' method='POST' encType="multipart/form-data">
+                <label for='imageUpload'>
+                  <div class="profilePic">
+                  <img class="img-rounded" id='profileImage' width="180" height="180" src="assets/images/placeholder.png">
+                  <div class="overlay">
+                    <div class="text"><span class="glyphicon glyphicon-camera"></span> update profile picture</div>
+                  </div>
+                  </div>
+                </label>
+                <input type='file' id='imageUpload' name='imageUpload'>
+              </form>
+            </div>
+              <div class="col-xs-8 text-left">
+                <div class="row">
+                  <h1 class="display-3">Peter Hoang</h1>
+                </div>
+                <div class="row">
+                  <p class="lead">The University of Texas at Austin</p>
                 </div>
               </div>
-            </label>
-            <input type='text' name='userType' value='student' hidden>
-            <input type='text' name='user' hidden>
-            <input type='file' id='imageUpload' name='imageUpload'>
-          </form>
-<h1 class="display-3">{{this.firstName}} {{this.lastName}}</h1>
-          <p class="lead">{{this.studentUserName}}</p>
+              <div class="row">
+                <img src="assets/images/edufyIcon.png" width="15%">
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
     <!-- end jumbotron -->
 
     <!-- main content -->
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-6">
-        <h1 class="headers text-center">subjects</h1>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6">
+          <h1 class="headers text-left">subjects</h1>
           <div class="grid">
-            <div class="grid-item">writing</div>
-            <div class="grid-item">natural science</div>
-            <div class="grid-item">mathematics</div>
-            <div class="grid-item">humanities</div>
+            <div class="grid-sizer"></div>
+            <div class="grid-item" value="liberalArts">
+              <div class="hovereffect">
+                <img class="img-responsive" src="assets/images/liberalArts.gif" alt="">
+                  <div class="overlayGrid">
+                    <h2>liberal arts</h2>
+              				<p>show tutors</p>
+                  </div>
+              </div>
+            </div>
+            <div class="grid-item" value="business">
+              <div class="hovereffect">
+                <img class="img-responsive" src="assets/images/business.gif" alt="">
+                  <div class="overlayGrid">
+                    <h2>business</h2>
+                      <p>show tutors</p>
+                  </div>
+              </div>
+            </div>
+            <div class="grid-item" value="engineering">
+              <div class="hovereffect">
+                <img class="img-responsive" src="assets/images/engineering.gif" alt="">
+                  <div class="overlayGrid">
+                    <h2>engineering</h2>
+                      <p>show tutors</p>
+                  </div>
+              </div>
+            </div>
+            <div class="grid-item" value="mathematics">
+              <div class="hovereffect">
+                <img class="img-responsive" src="assets/images/mathematics.gif" alt="">
+                  <div class="overlayGrid">
+                    <h2>mathematics</h2>
+                      <p>show tutors</p>
+                  </div>
+              </div>
+            </div>
+            <div class="grid-item" value="biology">
+              <div class="hovereffect">
+                <img class="img-responsive" src="assets/images/biology.gif" alt="">
+                  <div class="overlayGrid">
+                    <h2>biology</h2>
+                      <p>show tutors</p>
+                  </div>
+              </div>
+            </div>
+            <div class="grid-item" value="chemistry">
+              <div class="hovereffect">
+                <img class="img-responsive" src="assets/images/chemistry.gif" alt="">
+                  <div class="overlayGrid">
+                    <h2>chemistry</h2>
+                      <p>show tutors</p>
+                  </div>
+              </div>
+            </div>
+            <div class="grid-item" value="computerScience">
+              <div class="hovereffect">
+                <img class="img-responsive" src="assets/images/computerScience.gif" alt="">
+                  <div class="overlayGrid">
+                    <h2>computer science</h2>
+                      <p>show tutors</p>
+                  </div>
+              </div>
+            </div>
+            <div class="grid-item" value="geology">
+              <div class="hovereffect">
+                <img class="img-responsive" src="assets/images/geology.gif" alt="">
+                  <div class="overlayGrid">
+                    <h2>geology</h2>
+                      <p>show tutors</p>
+                  </div>
+              </div>
+            </div>
+            <div class="grid-item" value="physics">
+              <div class="hovereffect">
+                <img class="img-responsive" src="assets/images/physics.gif" alt="">
+                  <div class="overlayGrid">
+                    <h2>physics</h2>
+                      <p>show tutors</p>
+                  </div>
+              </div>
+            </div>
           </div>
-      </div>
-      <div class="col-sm-6">
-          <h1 class="headers text-center">sessions</h1>
+        </div>
+        <div class="col-sm-6">
+          <h1 class="headers text-left">sessions</h1>
           <div id="sessions"></div>
+        </div>
       </div>
     </div>
-  </div>
     <!-- end main content -->
 
     <!-- tutorList modal -->
-  <div class="modal fade" id="tutorList" role="dialog">
-    <div class="modal-dialog modal-sm" align="center">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title"><img src="/assets/images/edufyIcon.png" alt="edufy icon" height="30px" width="30px"> tutor list</h4>
-        </div>
-        <div class="modal-body star-rating star-ratings-main">
-
-        </div>
-        <!-- <div class="modal-footer">
-            <button id="modalSignUp" type="button" class="btn btn-default btn-block" data-dismiss="modal">sign up</button>
+    <div class="modal fade" id="tutorList" role="dialog">
+      <div class="modal-dialog modal-md" align="center">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><img src="assets/images/edufyIcon.png" alt="edufy icon" height="30px" width="30px"> tutor subject</h4>
+            </div>
+            <div class="modal-body">
+              <!-- accordian -->
+              <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <div class="row">
+                        <div class="col-xs-12" align="left">
+                          <div class="col-xs-6">
+                            <img class="img-rounded"id='profileImage' width="55" height="55" src="assets/images/placeholder.png">
+                          </div>
+                            <div class="col-xs-6">
+                              <div class="row">
+                                tutor name
+                              </div>
+                              <div class="row">
+                                rating
+                              </div>
+                              <div class="row">
+                                classes
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body text-left">
+                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    </div>
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+                      <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <div class="row">
+                        <div class="col-xs-12" align="left">
+                          <div class="col-xs-6">
+                            <img class="img-rounded" id='profileImage' width="55" height="55" src="assets/images/placeholder.png">
+                          </div>
+                            <div class="col-xs-6">
+                              <div class="row">
+                                tutor name
+                              </div>
+                              <div class="row">
+                                rating
+                              </div>
+                              <div class="row">
+                                classes
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="panel-body text-left">
+                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    </div>
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="headingThree">
+                    <h4 class="panel-title">
+                      <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        <div class="row">
+                        <div class="col-xs-12" align="left">
+                          <div class="col-xs-6">
+                            <img class="img-rounded"id='profileImage' width="55" height="55" src="assets/images/placeholder.png">
+                          </div>
+                            <div class="col-xs-6">
+                              <div class="row">
+                                tutor name
+                              </div>
+                              <div class="row">
+                                rating
+                              </div>
+                              <div class="row">
+                                classes
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                    <div class="panel-body text-left">
+                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- end accordian -->
+            </div>
+            <!-- <div class="modal-footer">
+              <button id="modalSignUp" type="button" class="btn btn-default btn-block" data-dismiss="modal">sign up</button>
             </div> -->
+          </div>
       </div>
     </div>
-  </div>
     <!-- end tutorList modal -->
 
-   <!-- calendar modal -->
-  <div class="modal fade" id="calendarModal" role="dialog">
-  	<div class="modal-dialog modal-sm" align="center">
-  	  <div class="modal-content">
-  		  <div class="modal-header">
-  		    <h4 class="modal-title">
-  		      <img src="/assets/images/edufyIcon.png" alt="edufy icon" height="30px" width="30px"> availability
-  		    </h4>
-  			</div>
-  		  <div id="calendar" class="modal-body">
-  		  </div>
-  		</div>
-  	</div>
-	</div>
-  	<!-- end calendar modal -->
-
-  <div id="calendar" class="calendar-body"></div>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <!-- linking bootstrap JS -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  <!-- linking JS file -->
-  <script type="text/javascript" src="/assets/javascript/javascript.js"></script>
-  <!-- full calendar -->
-  <script src='/assets/Calendar/lib/moment.min.js'></script>
-  <script src='/assets/Calendar/lib/jquery.min.js'></script>
-  <script src='/assets/Calendar/lib/fullcalendar.min.js'></script>
-  <script src='/assets/Calendar/scheduler.min.js'></script>
-  <script src="/assets/Calendar/customizedCalendar.js"></script>
-  <!-- Isotope -->
-  <script src="/assets/Isotope/isotope.pkgd.js"></script>
-</body>
+    <!-- linking jQuery -->
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  	<!-- linking bootstrap JS -->
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- linking JS file -->
+  	<script type="text/javascript" src="assets/javascript/javascript.js"></script>
+    <!-- full calendar -->
+    <script src='assets/Calendar/lib/moment.min.js'></script>
+    <script src='assets/Calendar/lib/jquery.min.js'></script>
+    <script src='assets/Calendar/lib/fullcalendar.min.js'></script>
+    <script src='assets/Calendar/scheduler.min.js'></script>
+    <script src="assets/Calendar/customizedCalendar.js"></script>
+    <!--star Rating -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"></script>
+    <!-- Isotope -->
+    <script src="assets/Isotope/isotope.pkgd.js"></script>
+  </body>
