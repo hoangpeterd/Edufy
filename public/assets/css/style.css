@@ -118,14 +118,14 @@ div.container-fluid {
 }
 
 /*home page buttons*/
-button#modalSignIn.btn.btn-success {
+#modalSignIn {
 	margin-top: 13px;
 	margin-left: 14px;
 	background-color: #222 !important;
 	border-radius: 20px;
 }
 
-button#modalSignIn.btn.btn-success:hover {
+#modalSignIn:hover {
   background-color: #449d44 !important;
 }
 
