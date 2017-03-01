@@ -34,8 +34,8 @@ canvas{
     -ms-user-select: none;no
 }
 #tutorBody {
-	background-color: #222;
-	padding-bottom: 110px;
+	background-color: #ffffff;
+	padding-bottom: 20px;
 }
 
 #studentBody {
@@ -56,8 +56,8 @@ canvas{
 	margin-top: 20px;
 	padding: 0;
 	font-size: 14px;
-	color: white;
-	background-color: #222;
+	color: #404040;
+	background-color: #fff;
 }
 
 div.fc-list-empty {
@@ -201,7 +201,6 @@ div.modal-body {
 	padding: 10px;
 	background: #449d44;
 	color: #222;
-	border-radius: 6px;
 }
 
 .grid-item:hover {
@@ -293,10 +292,8 @@ div.jumbotron.jumbotron-fluid {
   display: table-cell;
   margin:1.5%;
   font-size:50px;
-  background-color: #222;
   width:180px;
-  border-radius: 8px;
-  height:180px;
+	height:180px;
   vertical-align: middle;
 }
 
