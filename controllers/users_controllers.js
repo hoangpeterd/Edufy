@@ -18,7 +18,12 @@ module.exports = function(app, passport){
 
   //creating a new tutor in the tutor table and sending information to redirect the page
   app.post("/sign-up", passport.authenticate('local-signup', {successRedirect: '/profile', failureRedirect: '/', failureFlash: true}));
-
+  
+  app.get('/logout', function(req, res) {
+    req.logout()
+    res.redirect('/')
+  })
+  
   app.get('/profile', ensureLogin.ensureLoggedIn('/'), function(req, res) {
 
     if (/student/.test(req.user.account_type)) {
