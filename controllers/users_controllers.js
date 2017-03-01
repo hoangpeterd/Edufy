@@ -183,8 +183,8 @@ module.exports = function(app){
         var apptObj = {
           title: (result[i].dataValues.tutorUserName + ", " + result[i].dataValues.studentUserName),
           subject: subject,
-          start: startDate.toISOString('YYYY-MM-DD H:mm:ss'),
-          end: startDate.toISOString('YYYY-MM-DD H:mm:ss')
+          start: startDate.toISOString('YYYY-MM-DD H:mm:ss')
+          // end: startDate.toISOString('YYYY-MM-DD H:mm:ss')
         }
         apptArr.push(apptObj)
       }
