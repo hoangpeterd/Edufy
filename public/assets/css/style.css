@@ -134,7 +134,7 @@ button#modalSignIn.btn.btn-success:hover {
 
 /*changes modal header color to match color scheme of page, border radius change gives rounded edges*/
 .modal-header {
-  background-color: #222222;
+  background-color: #404040;
   color: #ffffff;
   border-radius: 4px 4px 0px 0px;
 }
@@ -390,4 +390,13 @@ p.lead {
   filter: alpha(opacity=100);
   -webkit-transform: translate3d(0,0,0);
   transform: translate3d(0,0,0);
+}
+
+div.col-xs-6 {
+	padding-left: 0;
+	width: 80px;
+}
+
+div.col-xs-12 {
+	padding-left: 10px;
 }
