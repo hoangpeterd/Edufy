@@ -2,31 +2,54 @@
 const path = require("path");
 const db = require("../models");
 const bcrypt = require("bcryptjs");
-const ensureLI = require('connect-ensure-login');
+const ensureLogin = require('connect-ensure-login');
 
 //creating different routes for special events. along with that we are using the models directory (sequelize)
 module.exports = function(app, passport){
 
   app.get("/", function(req, res) {
     
-    req.user = req.user || null
-    if (!req.user) {
+//    req.user = req.user || null
+//    if (!req.user) {
       res.sendFile(path.join(__dirname + "/../public", "dex.html"));
+//      return;
+//    }
+//    
+//    if (/student/.test(req.user.accountType)) {
+//      console.log(req.user)
+//      res.render('student', req.user);
+//      return;
+//    }
+//    if (/tutor/.test(req.user.accountType)) {
+//      res.render('tutor', req.user)
+//      return;
+//    }
+    
+  });
+  
+  app.get('/profile', ensureLogin.ensureLoggedIn(), function(req, res) {
+    console.log(req.user.accountType)
+    console.log(typeof req.user.accountType)
+    console.log(/tutor/.test(req.user.account_typeype))
+
+    if (/student/.test(req.user.account_type)) {
+      console.log(req.user)
+      res.render('student', req.user);
+      return;
+    }
+    if (/tutor/.test(req.user.account_type)) {
+      res.render('tutor', req.user)
       return;
     }
     
-    if (/student/.test(req.user.accountType)) {res.render('student', req.user)}
-    if (/tutor/.test(req.user.accountType)) {res.render('tutor', req.user)}
-    
-    
-  });
+  })
 
   //If incorrect/false info, will refresh page, maybe tooltips, something else; upon correct info
   //will redirect to index page with user info, making index dynamic.
-  app.post("/sign-in", passport.authenticate('local', {successRedirect: '/', failureRedirect: '/', failureFlash: true}));
+  app.post("/sign-in", passport.authenticate('local', {successRedirect: '/profile', failureRedirect: '/', failureFlash: true}));
   
   //creating a new tutor in the tutor table and sending information to redirect the page
-  app.post("/sign-up", passport.authenticate('local-signup', {successRedirect: '/', failureRedirect: '/', failureFlash: true}));
+  app.post("/sign-up", passport.authenticate('local-signup', {successRedirect: '/profile', failureRedirect: '/', failureFlash: true}));
   
   //Login needs to be looked at before presentation because that's where all the security is. SUPER IMPORTANT.
   app.post('/uploadProfileImage', function(req, res) {

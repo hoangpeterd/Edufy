@@ -1,7 +1,7 @@
 //creating a virtue table so sequelize can run properly
 module.exports = function(sequelize, DataTypes){
   var Students = sequelize.define("students", {
-    studentUserName: {
+    username: {
       type: DataTypes.STRING,
       primaryKey: true
     },
@@ -9,9 +9,6 @@ module.exports = function(sequelize, DataTypes){
       type: DataTypes.STRING
     },
     lastName: {
-      type: DataTypes.STRING
-    },
-    pass: {
       type: DataTypes.STRING
     },
     picUrl: {

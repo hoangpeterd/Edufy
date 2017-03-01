@@ -39,7 +39,7 @@ passport.use(new Strategy(
 			bcrypt.compare(password, user.password, function(err, res) {
 				if (!res) {console.log('bnot working', res); return cb(null, false); }
 			  console.log('cnot working');
-        return cb(null,user)
+        return cb(null, user)
 			})
 		})
 	}
@@ -70,15 +70,13 @@ passport.use(
             }
           }).spread(function(user, created) {
             user = user.get({plain: true})
-            console.log('taht far', user)
             if (created) {
               db[user.account_type + 's'].create({
-                studentUserName: user.username,
+                username: user.username,
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
               }).then(function(data) {
                 data = data.get({plain: true})
-                console.log(data)
                 return cb(null, user)
               }) 
 		        }
