@@ -11,23 +11,23 @@ module.exports = function(app){
     res.sendFile(path.join(__dirname + "/../public", "dex.html"));
   });
 
-//  app.get("/:user/:id", function(req, res) {
-//    if (req.params.user == 'student') {
-//      db.students.findOne({where: {studentUserName: req.params.id}}).then(function(data) {
-//        if (!data) {res.sendStatus(404); return true}
-//        data = data.get({plain: true})
-//        res.render('student', data)
-//      })
-//    } else if (req.params.user == 'tutor'){
-//      db.tutors.findOne({where: {tutorUserName: req.params.id}}).then(function(data) {
-//        if (!data) {res.sendStatus(404); return true}
-//        data = data.get({plain: true})
-//        res.render('tutor', data)
-//      })
-//    }
-//  });
-//
-//  //Nodemailer for email notifications, and cookie npm package. --YASHA
+  app.get("/:user/:id", function(req, res) {
+    if (req.params.user == 'student') {
+      db.students.findOne({where: {studentUserName: req.params.id}}).then(function(data) {
+        if (!data) {res.sendStatus(404); return true}
+        data = data.get({plain: true});
+        res.render('student', data);
+      });
+    } else if (req.params.user == 'tutor'){
+      db.tutors.findOne({where: {tutorUserName: req.params.id}}).then(function(data) {
+        if (!data) {res.sendStatus(404); return true}
+        data = data.get({plain: true});
+        res.render('tutor', data);
+      });
+    }
+  });
+
+  //Nodemailer for email notifications, and cookie npm package. --YASHA
   //Login needs to be looked at before presentation because that's where all the security is. SUPER IMPORTANT.
   app.post('/uploadProfileImage', function(req, res) {
 
@@ -137,6 +137,13 @@ module.exports = function(app){
   });
 
   //getting rating information and sending the information so the tutor has there rating
+  // app.post("/findRating", function (req, res) {
+  //   db.tutors.findOne({ where: {tutorUserName: req.body.userName} }).then(function(result){
+  //     res.send({rating: result.rating, sessions: result.sessions});
+  //   });
+  // });
+
+  //getting rating information and sending the information so the tutor has there rating
   app.post("/findRating", function (req, res) {
     db.tutors.findOne({ where: {tutorUserName: req.body.userName} }).then(function(result){
       res.send({rating: result.rating, sessions: result.sessions});
@@ -167,34 +174,49 @@ module.exports = function(app){
   });
 
   app.post("/scheduledAppointments", function(req, res) {
-    // console.log(req.body);
+    db.appointments.findAll({where: req.body}).then(function(result) {
+      var apptArr = [];
+      for (var i = 0; i < result.length; i++) {
+        var startDate = new Date(result[i].dataValues.date);
+        var endDate = new Date(result[i].dataValues.endTimes);
+        var subject = result[i].dataValues.subject;
+        var apptObj = {
+          title: (result[i].dataValues.tutorUserName + ", " + result[i].dataValues.studentUserName),
+          subject: subject,
+          start: startDate.toISOString('YYYY-MM-DD H:mm:ss'),
+          end: startDate.toISOString('YYYY-MM-DD H:mm:ss')
+        }
+        apptArr.push(apptObj)
+      }
+        res.send(apptArr);
+    });
   });
 
-  app.post("/tutorAvailability", function(req, res) {
+  app.post("/tutorAvailability", function(req, res) { //Something about this one being GET did something new
     db.availability.findAll({where: req.body}).then(function(result) {
      var resultsArr = [];
+     var parsedArr = [];
       for (var i = 0; i < result.length; i++) {
-        resultsArr.push(result[i].dataValues);
+        var split = result[i].startTimes.split(", ");
+        var thisDate = result[i].date;
+        var endTime = split[split.length - 1];
+        split.pop();
+
       }
-    console.log(resultsArr);
-// var thisDate = result[0].dataValues;
-	// var endTime = localArr.slice(-1)[0];
-	// endTime = thisDate + "T" + endTime;
-	// localArr.pop();
-	// var eachStart = localArr;
-		// for (var i = 1; localArr.length; i++) {
-		// 	eachStart = thisDate + "T" + localArr[i];
-	// 		var availabilityAsEvent = {
-	// 			start: eachStart,
-	// 			end: endTime,
-	// 			rendering: 'background'
-			// }
-	// 	events.push(availabilityAsEvent);
-	// console.log(thisDate, eachStart, endTime);
-	// }
+        for (var j = 0; j < split.length; j++) {
+        var availabilityAsEvent = {
+          title: 'Available Timeslot',
+          start: null,
+          // end: endTime,
+          rendering: 'background'
+        }
+          var eachStart = split[j];
+          availabilityAsEvent.start = thisDate + "T" +  eachStart;
+          parsedArr.push(availabilityAsEvent);
+        }
 
-
-    })
+    res.send(parsedArr);
+    });
   });
 }
 

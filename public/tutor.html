@@ -26,8 +26,8 @@
       <div class="container">
         <div class="row">
           <div class="row">
-          <div class="col-xs-12" align="center">
-            <div class="col-xs-4">
+          <div class="col-xs-12" align="left">
+            <div class="col-xs-3">
               <form id='uploadImage' action='/uploadProfileImage' method='POST' encType="multipart/form-data">
                 <label for='imageUpload'>
                   <div class="profilePic">
@@ -40,7 +40,7 @@
                 <input type='file' id='imageUpload' name='imageUpload'>
               </form>
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-7">
               <div class="row">
                   <h1 class="display-3">Peter Hoang</h1>
               </div>
@@ -48,10 +48,10 @@
                 <div id="tutorRating"></div>
               </div>
               <div class="row">
-                <p class="lead">The University of Texas</p>
+                <p class="lead">The University of Texas at Austin</p>
               </div>
             </div>
-                <div class="col-xs-4">
+                <div class="row">
                   <div class="countDown">
                   <div class="counter" data-count="200"><p>total earnings</p>$200</div>
                   </div>
@@ -66,22 +66,12 @@
 
     <div class="container">
       <div class="row">
+        <div class="col-sm-3">
+          <h1 class="headers text-left">appointments</h1>
+            <div id="listMonth"></div>
+        </div>
         <div class="col-sm-9">
           <div id="calendar" class="calendar-body"></div>
-        </div>
-        <div class="col-sm-3">
-          <h1 class="headers text-center">subjects</h1>
-          <div class="grid">
-            <div class="grid-tab">liberal arts</div>
-            <div class="grid-tab">business</div>
-            <div class="grid-tab">engineering</div>
-            <div class="grid-tab">mathematics</div>
-            <div class="grid-tab">biology</div>
-            <div class="grid-tab">chemistry</div>
-            <div class="grid-tab">computer science</div>
-            <div class="grid-tab">geography</div>
-            <div class="grid-tab">physics</div>
-          </div>
         </div>
       </div>
     </div>

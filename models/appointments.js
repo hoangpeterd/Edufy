@@ -14,6 +14,9 @@ module.exports = function(sequelize, DataTypes){
     date: {
       type: DataTypes.STRING
     },
+    endTimes: {
+      type: DataTypes.STRING
+    },
     subject: {
       type: DataTypes.STRING
     }
