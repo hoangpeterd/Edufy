@@ -27,21 +27,7 @@ module.exports = function(app, passport){
   app.get('/profile', ensureLogin.ensureLoggedIn('/'), function(req, res) {
 		
 		console.log(req.user)
-		
-    if (/student/.test(req.user.account_type)) {
-
-      db.students.findOne({where: {username: req.user.username}}).then(function(data) {
-        res.render('student', data = data.get({plain: true}));
-      })
-      return;
-    }
-    if (/tutor/.test(req.user.account_type)) {
-      db.tutors.findOne({where: {username: req.user.username}}).then(function(data) {
-        res.render('tutor', data = data.get({plain: true}))
-      })
-      return;
-    }
-
+		res.render(req.user.accountType , req.user)
   })
 
   app.get("/favicon.ico", function(req, res){
@@ -50,27 +36,20 @@ module.exports = function(app, passport){
 
   //Login needs to be looked at before presentation because that's where all the security is. SUPER IMPORTANT.
   app.post('/uploadProfileImage', function(req, res) {
-
+		
+		user = req.user
     if (!req.files) {
       res.redirect('back');
       return;
     }
 
     let upload = req.files.imageUpload;
-    let filePath = '/uploadFiles/' + req.user.username.replace(/\.|@/g,'') + req.user.id.toString()
-    console.log(filePath)
+    let filePath = '/uploadFiles/' + user.username.replace(/\.|@/g,'') + user.user_id.toString()
     console.log(req.files.mimetype)
     console.log(req.files.data)
     upload.mv(path.join(__dirname + '/../private' + filePath), function (err) {
       if (err) {res.status(500).send(err); return true;}
-
-      if (/student/.test(req.user.account_type)) {
-        db.students.update({picUrl: filePath}, {where : {username: req.user.username}})
-      }
-
-      if (/tutor/.test(req.user.account_type)) {
-        db.tutors.update({picUrl: filePath}, {where : {username: req.user.username}})
-      }
+			db.[user.accountType].update.({picUrl: filePath}, {where: {id: user.user_id}})
     })
 
     setTimeout(function(){

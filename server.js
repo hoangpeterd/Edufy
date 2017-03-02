@@ -95,11 +95,11 @@ passport.use('local-signup', new Strategy({passReqToCallback: true},
 ))
 
 passport.serializeUser(function(user, cb) {
-	cb(null, user.username);
+	cb(null, user.id);
 });
 
-passport.deserializeUser(function(username, cb) {
-	db.users.findOne({where: {username: username}}).then(function(data) {
+passport.deserializeUser(function(id, cb) {
+	db.users.findOne({where: {user_id: id}}).then(function(data) {
 		data = data.get({plain: true});
 		cb(null, data)
 	})

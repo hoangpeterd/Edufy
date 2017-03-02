@@ -15,59 +15,77 @@ module.exports = function(sequelize, DataTypes){
     user_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-			isClassStyle: isClassStyle
     },
 		liberalArts: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(130),
 			defaultValue: null,
-			isClassStyle: isClassStyle
+			validate : {
+				isClassStyle: isClassStyle
+			}	
     },
     business: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(130),
 			defaultValue: null,
-			isClassStyle: isClassStyle
+			validate : {
+				isClassStyle: isClassStyle
+			}	
     },
     engineering: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(130),
 			defaultValue: null,
-			isClassStyle: isClassStyle
+			validate : {
+				isClassStyle: isClassStyle
+			}
     },
     mathematics: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(130),
 			defaultValue: null,
-			isClassStyle: isClassStyle
+			validate : {
+				isClassStyle: isClassStyle
+			}
     },
     biology: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(130),
 			defaultValue: null,
-			isClassStyle: isClassStyle
+			validate : {
+				isClassStyle: isClassStyle
+			}	
     },
     chemistry: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(130),
 			defaultValue: null,
-			isClassStyle: isClassStyle
+			validate : {
+				isClassStyle: isClassStyle
+			}	
     },
     compSci: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(130),
 			defaultValue: null,
-			isClassStyle: isClassStyle
+			validate : {
+				isClassStyle: isClassStyle
+			}	
     },
     geology: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(130),
 			defaultValue: null,
-			isClassStyle: isClassStyle
+			validate : {
+				isClassStyle: isClassStyle
+			}	
     },
     physics: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(130),
 			defaultValue: null,
-			isClassStyle: isClassStyle
+			validate : {
+				isClassStyle: isClassStyle
+			}			
     }
   }, {
     timestamps: false
   }, {
     classMethod:{
       associate: function(models) {
-        Classes.hasMany(model.availability, {
+        Classes.belongsTo(model.tutors, {
+					foreignKey: 'user_id',
           onDelete: "cascade"
         });
       }

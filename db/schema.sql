@@ -15,16 +15,7 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS tutors (
 	user_id INTEGER PRIMARY KEY NOT NULL,
   rating FLOAT(12) NOT NULL DEFAULT 5,
-  sessions INT(12) NOT NULL DEFAULT 1,
-  liberalArts BOOLEAN NOT NULL DEFAULT FALSE,
-  business BOOLEAN NOT NULL DEFAULT FALSE,
-  engineering BOOLEAN NOT NULL DEFAULT FALSE,
-  mathematics BOOLEAN NOT NULL DEFAULT FALSE,
-  biology BOOLEAN NOT NULL DEFAULT FALSE,
-  chemistry BOOLEAN NOT NULL DEFAULT FALSE,
-  compSci BOOLEAN NOT NULL DEFAULT FALSE,
-  geology BOOLEAN NOT NULL DEFAULT FALSE,
-  physics BOOLEAN NOT NULL DEFAULT FALSE,
+  sessions INT(12) NOT NULL DEFAULT 1
   FOREIGN KEY fk_tutor_user (user_id) REFERENCES users(user_id)
 );
 
@@ -54,56 +45,16 @@ CREATE TABLE IF NOT EXISTS appointments (
   #FOREIGN KEY fk_app_students (student_id) REFERENCES students (user_id)
 );
 
-CREATE TABLE IF NOT EXISTS liberalArts (
+CREATE TABLE IF NOT EXISTS classes (
 	tutor_id INTEGER PRIMARY KEY NOT NULL,
-	classes VARCHAR(100) NOT NULL,
-	FOREIGN KEY fk_tutor_ (tutor_id) REFERENCES tutors (user_id)
-);
-
-CREATE TABLE IF NOT EXISTS business (
-	tutor_id INTEGER PRIMARY KEY NOT NULL,
-	classes VARCHAR(100) NOT NULL,
-	FOREIGN KEY fk_tutor_ (tutor_id) REFERENCES tutors (user_id)
-);
-
-CREATE TABLE IF NOT EXISTS engineering (
-	tutor_id INTEGER PRIMARY KEY NOT NULL,
-	classes VARCHAR(100) NOT NULL,
-	FOREIGN KEY fk_tutor_ (tutor_id) REFERENCES tutors (user_id)
-);
-
-CREATE TABLE IF NOT EXISTS biology (
-	tutor_id INTEGER PRIMARY KEY NOT NULL,
-	classes VARCHAR(100) NOT NULL,
-	FOREIGN KEY fk_tutor_ (tutor_id) REFERENCES tutors (user_id)
-);
-
-CREATE TABLE IF NOT EXISTS mathematics (
-	tutor_id INTEGER PRIMARY KEY NOT NULL,
-	classes VARCHAR(100) NOT NULL,
-	FOREIGN KEY fk_tutor_ (tutor_id) REFERENCES tutors (user_id)
-);
-
-CREATE TABLE IF NOT EXISTS geology (
-	tutor_id INTEGER PRIMARY KEY NOT NULL,
-	classes VARCHAR(100) NOT NULL,
-	FOREIGN KEY fk_tutor_ (tutor_id) REFERENCES tutors (user_id)
-);
-
-CREATE TABLE IF NOT EXISTS chemistry (
-	tutor_id INTEGER PRIMARY KEY NOT NULL,
-	classes VARCHAR(100) NOT NULL,
-	FOREIGN KEY fk_tutor_ (tutor_id) REFERENCES tutors (user_id)
-);
-
-CREATE TABLE IF NOT EXISTS physics (
-	tutor_id INTEGER PRIMARY KEY NOT NULL,
-	classes VARCHAR(100) NOT NULL,
-	FOREIGN KEY fk_tutor_ (tutor_id) REFERENCES tutors (user_id)
-);
-
-CREATE TABLE IF NOT EXISTS compSci (
-	tutor_id INTEGER PRIMARY KEY NOT NULL,
-	classes VARCHAR(100) NOT NULL,
-	FOREIGN KEY fk_tutor_ (tutor_id) REFERENCES tutors (user_id)
+	mathematics VARCHAR(130) DEFAULT NULL,
+	geology VARCHAR(130) DEFAULT NULL,
+	biology VARCHAR(130) DEFAULT NULL,
+	physics VARCHAR(130) DEFAULT NULL,
+	compSci VARCHAR(130) DEFAULT NULL,
+	engineering VARCHAR(130) DEFAULT NULL,
+	liberalArts VARCHAR(130) DEFAULT NULL,
+	business VARCHAR(130) DEFAULT NULL,
+	chemistry VARCHAR(130) DEFAULT NULL,
+	FOREIGN KEY fk_classes_tutors (tutor_id) REFERENCES tutors (user_id)
 );
