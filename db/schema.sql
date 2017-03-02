@@ -4,16 +4,16 @@ USE edufy;
 
 CREATE TABLE IF NOT EXISTS users (
 	user_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  username VARCHAR(50) NOT NULL
+  username VARCHAR(50) NOT NULL,
   password VARCHAR(65) NOT NULL,
 	firstName VARCHAR(12) NOT NULL,
   lastName VARCHAR(20) NOT NULL,
 	picUrl VARCHAR(100) DEFAULT NULL,
-  accountType SET('student', 'tutor') NOT NULL,
-)
+  accountType SET('student', 'tutor') NOT NULL
+);
 
 CREATE TABLE IF NOT EXISTS tutors (
-	user_id PRIMARY KEY NOT NULL,
+	user_id INTEGER PRIMARY KEY NOT NULL,
   rating FLOAT(12) NOT NULL DEFAULT 5,
   sessions INT(12) NOT NULL DEFAULT 1,
   liberalArts BOOLEAN NOT NULL DEFAULT FALSE,
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS appointments (
   student_id INTEGER NOT NULL,
   subject VARCHAR(100) NOT NULL,
   date VARCHAR(100) NOT NULL,
-  FOREIGN KEY fk_app_tutors (tutor_id) REFERENCES tutors (user_id),
+  FOREIGN KEY fk_app_tutors (tutor_id) REFERENCES tutors (user_id)
   #FOREIGN KEY fk_app_students (student_id) REFERENCES students (user_id)
 );
 
