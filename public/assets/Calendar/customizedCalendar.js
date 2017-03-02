@@ -126,18 +126,19 @@ $(function () { // document ready
 
 
 
-	// 	$("#listMonth").fullCalendar({
-	// 		aspectRatio: 1.25,
-	// 		eventSources: ['/tutorAvailability', events],
-	// 		eventLimit: true,
-	// 		eventBorderColor: "#4CAE4C",
-	// 		eventBackgroundColor: "rgba(76, 174, 76, .5)",
-	// 				header: {
-	// 			left: 'prev,next',
-	// 			center: '',
-	// 			right: ''
-	// 		}
-	// 	});
+		$("#listMonth").fullCalendar({
+			aspectRatio: 1.25,
+			eventSources: ['/tutorAvailability', events],
+			eventLimit: true,
+			eventBorderColor: "#4CAE4C",
+			eventBackgroundColor: "rgba(76, 174, 76, .5)",
+					header: {
+				left: 'prev,next',
+				center: '',
+				right: ''
+			},
+		defaultView: "listMonth"
+		});
 });
 
 function defaultView() {
