@@ -150,6 +150,16 @@ module.exports = function(app, passport){
   app.use(function(req, res){
        res.sendStatus(404);
    });
+
+   app.delete("/tutorAvailability/:id", function(req, res) {
+        db.availability.destroy({
+            where: {
+                id: req.params.id
+            }
+        }).then(function(result) {
+            console.log(done);
+        });
+    });
 }
 
 
