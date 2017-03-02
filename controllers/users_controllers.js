@@ -49,7 +49,7 @@ module.exports = function(app, passport){
     console.log(req.files.data)
     upload.mv(path.join(__dirname + '/../private' + filePath), function (err) {
       if (err) {res.status(500).send(err); return true;}
-			db.[user.accountType].update.({picUrl: filePath}, {where: {id: user.user_id}})
+			db[user.accountType].update({picUrl: filePath}, {where: {id: user.user_id}})
     })
 
     setTimeout(function(){
@@ -103,7 +103,7 @@ module.exports = function(app, passport){
         var endDate = new Date(result[i].dataValues.endTimes);
         var subject = result[i].dataValues.subject;
         var apptObj = {
-          title: (result[i].dataValues.tutorUserName + ", " + result[i].dataValues.studentUserName),
+          title: (result[i].dataValues.tutor_id + ", " + result[i].dataValues.student_id),
           subject: subject,
           start: startDate.toISOString('YYYY-MM-DD H:mm:ss'),
           end: startDate.toISOString('YYYY-MM-DD H:mm:ss')

@@ -72,21 +72,22 @@ passport.use('local-signup', new Strategy({passReqToCallback: true},
               password: hash,
 							firstName: req.body.firstName,
 							lastName: req.body.lastName,
-              account_type: req.body.accountType
+              accountType: req.body.accountType
             }
           }).spread(function(user, created) {
 						
             user = user.get({plain: true})
+						user.password = null
+						
 						//Read schema for details.
             if (created && /tutor/.test(req.body.accountType)) {
               db.tutors.create({
-                user_id: user.id,
+                user_id: user.user_id,
               }).then(function() {
 								
-                return cb(null, user)
-								
-              }) 
-		        }
+                return cb(null, user)	
+              })
+		        } else {return cb(null, user)}
           })
         })
       })
@@ -95,7 +96,7 @@ passport.use('local-signup', new Strategy({passReqToCallback: true},
 ))
 
 passport.serializeUser(function(user, cb) {
-	cb(null, user.id);
+	cb(null, user.user_id);
 });
 
 passport.deserializeUser(function(id, cb) {
@@ -124,9 +125,15 @@ require("./controllers/users_controllers.js")(app, passport);
 //})
 //})
 
-db.users.findOne({where:{username: 'lol'}}).then(function(data) {
-  console.log(data.get('firstName'))
-})
+//------------------------------------------------------------------------------
+//USE THIS SPOT FOR TESTING HOW SEQUELIZE WILL RETRIEVE DATA. WILL RUN FIRST.
+//------------------------------------------------------------------------------
+//db.users.findOne({where:{username: 'lol'}}).then(function(data) {
+//  console.log(data || 'Empty data')
+//})
+//------------------------------------------------------------------------------
+
+
 //after connecting to the DB base with sequelize, it will create a localhost so the user can view the page
 db.sequelize.sync().then(function(){
 	app.listen(PORT);

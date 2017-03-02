@@ -1,7 +1,7 @@
 //creating a virtue table so sequelize can run properly
 module.exports = function(sequelize, DataTypes){
   var Appointments = sequelize.define("appointments", {
-    id: {
+    app_id: {
       type: DataTypes.INTEGER,
 			autoIncrement: true,
       primaryKey: true

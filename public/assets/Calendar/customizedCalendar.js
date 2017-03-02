@@ -79,41 +79,47 @@ $(function () { // document ready
 		});
 	});
 	// fs.writeFile('events.json', data[, options]
-	if ($("body").is("#tutorBody")) {
-		$.post("/tutorAvailability", { tutorUserName: $(".lead").text().trim() }).done(function (result) {
-			for (var i = 0; i < result.length; i++) {
-				businessHours.push(result[i]);
-			}
-			fc.events = businessHours;
-			$('#calendar').fullCalendar(fc);
-		});
-		$.post("/scheduledAppointments", { tutorUserName: $(".lead").text().trim() }).done(function (result) {
-			for (var i = 0; i < result.length; i++) {
-				var actualTitle = result[i].title.split(", ");
-				var subject = result[i].subject;
-				actualTitle = actualTitle[1];
-				result[i].title = actualTitle + " - " + subject;
-			}
-			events.push(result);
-		});
-	}
-
-	if ($("body").is("#studentBody")) {
-		$.post("/scheduledAppointments", { studentUserName: $(".lead").text().trim() }).done(function (result) {
-			for (var i = 0; i < result.length; i++) {
-				var subject = result[i].subject;
-				var actualTitle = result[i].title.split(", ");
-				actualTitle = actualTitle[0];
-				result[i].title = actualTitle + " - " + subject;
-			}
-			events.push(result);
-			appoint.events = result;
-			console.log(result);
-			$("#sessions").fullCalendar(appoint);
-
-		});
-	}
-
+	
+//No idea what's going on here, but calling for text from .lead is pulling "The University of Austin", 
+//causing sequelize errors.
+//-----------------------------------------------------------------------------------------------
+//	if ($("body").is("#tutorBody")) {
+//		$.post("/tutorAvailability", { tutorUserName: $(".lead").text().trim() }).done(function (result) {
+//			for (var i = 0; i < result.length; i++) {
+//				businessHours.push(result[i]);
+//			}
+//			fc.events = businessHours;
+//			$('#calendar').fullCalendar(fc);
+//		});
+//		$.post("/scheduledAppointments", { tutorUserName: $(".lead").text().trim() }).done(function (result) {
+//			for (var i = 0; i < result.length; i++) {
+//				var actualTitle = result[i].title.split(", ");
+//				var subject = result[i].subject;
+//				actualTitle = actualTitle[1];
+//				result[i].title = actualTitle + " - " + subject;
+//			}
+//			events.push(result);
+//		});
+//	}
+	
+//	if ($("body").is("#studentBody")) {
+//		$.post("/scheduledAppointments", { studentUserName: $(".lead").text().trim() }).done(function (result) {
+//			for (var i = 0; i < result.length; i++) {
+//				var subject = result[i].subject;
+//				var actualTitle = result[i].title.split(", ");
+//				actualTitle = actualTitle[0];
+//				result[i].title = actualTitle + " - " + subject;
+//			}
+//			events.push(result);
+//			appoint.events = result;
+//			console.log(result);
+//			$("#sessions").fullCalendar(appoint);
+//
+//		});
+//	}
+//-----------------------------------------------------------------------------------------------
+	
+	
 	/* initialize the calendar
 	-----------------------------------------------------------------*/
 
