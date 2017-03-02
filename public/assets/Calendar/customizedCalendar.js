@@ -231,12 +231,14 @@ function selectAppointment(start, end, jsEvent, view) {
 }
 
 function parseData(localArr) {
+	
+// .lead issue here!	
 
-	if ($("body").is("#tutorBody")) {
-		$.post("/createTutorAvailability", { tutorUserName: $(".lead").text().trim(), dates: localArr }).done(function (result) {
-			if (result.reload) {
-				location.reload();
-			}
-		});
-	}
-}
+//	if ($("body").is("#tutorBody")) {
+//		$.post("/createTutorAvailability", { tutorUserName: $(".lead").text().trim(), dates: localArr }).done(function (result) {
+//			if (result.reload) {
+//				location.reload();
+//			}
+//		});
+//	}
+//}
