@@ -25,7 +25,9 @@ module.exports = function(app, passport){
   })
   
   app.get('/profile', ensureLogin.ensureLoggedIn('/'), function(req, res) {
-
+		
+		console.log(req.user)
+		
     if (/student/.test(req.user.account_type)) {
 
       db.students.findOne({where: {username: req.user.username}}).then(function(data) {
@@ -84,7 +86,7 @@ module.exports = function(app, passport){
   //   });
   // });
 
-  //getting rating information and sending the information so the tutor has there rating
+  //getting rating information and sending the information so the tutor has their rating
   app.post("/findRating", function (req, res) {
     db.tutors.findOne({ where: {tutorUserName: req.body.userName} }).then(function(result){
       res.send({rating: result.rating, sessions: result.sessions});

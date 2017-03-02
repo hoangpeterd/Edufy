@@ -88,11 +88,11 @@ passport.use(
 ))
 
 passport.serializeUser(function(user, cb) {
-	cb(null, user.id);
+	cb(null, user.username);
 });
 
-passport.deserializeUser(function(id, cb) {
-	db.users.findOne({where: {id: id}}).then(function(data) {
+passport.deserializeUser(function(username, cb) {
+	db.users.findOne({where: {username: username}}).then(function(data) {
 		data = data.get({plain: true});
 		cb(null, data)
 	})
