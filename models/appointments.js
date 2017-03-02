@@ -1,24 +1,26 @@
 //creating a virtue table so sequelize can run properly
 module.exports = function(sequelize, DataTypes){
   var Appointments = sequelize.define("appointments", {
-    id: {
+    app_id: {
       type: DataTypes.INTEGER,
+			autoIncrement: true,
       primaryKey: true
     },
-    tutorUserName: {
-      type: DataTypes.STRING
+    tutor_id: {
+      type: DataTypes.INTEGER,
+			allowNull: false
     },
-    studentUserName: {
-      type: DataTypes.STRING
+    student_id: {
+      type: DataTypes.INTEGER,
+			allowNull: false
     },
     date: {
-      type: DataTypes.STRING
-    },
-    endTimes: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING(100),
+			allowNull: false
     },
     subject: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING(100),
+			allowNull: false
     }
   }, {
     timestamps: false
@@ -26,15 +28,7 @@ module.exports = function(sequelize, DataTypes){
     classMethods: {
       associate: function(models) {
         Appointments.belongsTo(models.tutors, {
-          foreignKey: 'tutorUserName'
-        });
-      }
-    }
-  }, {
-    classMethods: {
-      associate: function(models) {
-        Appointments.belongsTo(models.students, {
-          foreignKey: 'studentUserName'
+          foreignKey: 'user_id'
         });
       }
     }

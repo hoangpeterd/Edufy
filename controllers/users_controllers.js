@@ -18,47 +18,38 @@ module.exports = function(app, passport){
 
   //creating a new tutor in the tutor table and sending information to redirect the page
   app.post("/sign-up", passport.authenticate('local-signup', {successRedirect: '/profile', failureRedirect: '/', failureFlash: true}));
-
-  app.get('/profile', ensureLogin.ensureLoggedIn('/'), function(req, res) {
-
-    if (/student/.test(req.user.account_type)) {
-
-      db.students.findOne({where: {username: req.user.username}}).then(function(data) {
-        res.render('student', data = data.get({plain: true}));
-      })
-      return;
-    }
-    if (/tutor/.test(req.user.account_type)) {
-      db.tutors.findOne({where: {username: req.user.username}}).then(function(data) {
-        res.render('tutor', data = data.get({plain: true}))
-      })
-      return;
-    }
-
+  
+  app.get('/logout', function(req, res) {
+    req.logout()
+    res.redirect('/')
   })
+  
+  app.get('/profile', ensureLogin.ensureLoggedIn('/'), function(req, res) {
+		
+		console.log(req.user)
+		res.render(req.user.accountType , req.user)
+  })
+
+  app.get("/favicon.ico", function(req, res){
+  res.send(204);
+  });
+
   //Login needs to be looked at before presentation because that's where all the security is. SUPER IMPORTANT.
   app.post('/uploadProfileImage', function(req, res) {
-
+		
+		user = req.user
     if (!req.files) {
       res.redirect('back');
       return;
     }
 
     let upload = req.files.imageUpload;
-    let filePath = '/uploadFiles/' + req.user.username.replace(/\.|@/g,'') + req.user.id.toString()
-    console.log(filePath)
+    let filePath = '/uploadFiles/' + user.username.replace(/\.|@/g,'') + user.user_id.toString()
     console.log(req.files.mimetype)
     console.log(req.files.data)
     upload.mv(path.join(__dirname + '/../private' + filePath), function (err) {
       if (err) {res.status(500).send(err); return true;}
-
-      if (/student/.test(req.user.account_type)) {
-        db.students.update({picUrl: filePath}, {where : {username: req.user.username}})
-      }
-
-      if (/tutor/.test(req.user.account_type)) {
-        db.tutors.update({picUrl: filePath}, {where : {username: req.user.username}})
-      }
+			db[user.accountType].update({picUrl: filePath}, {where: {id: user.user_id}})
     })
 
     setTimeout(function(){
@@ -74,7 +65,7 @@ module.exports = function(app, passport){
   //   });
   // });
 
-  //getting rating information and sending the information so the tutor has there rating
+  //getting rating information and sending the information so the tutor has their rating
   app.post("/findRating", function (req, res) {
     db.tutors.findOne({ where: {tutorUserName: req.body.userName} }).then(function(result){
       res.send({rating: result.rating, sessions: result.sessions});
@@ -112,7 +103,7 @@ module.exports = function(app, passport){
         var endDate = new Date(result[i].dataValues.endTimes);
         var subject = result[i].dataValues.subject;
         var apptObj = {
-          title: (result[i].dataValues.tutorUserName + ", " + result[i].dataValues.studentUserName),
+          title: (result[i].dataValues.tutor_id + ", " + result[i].dataValues.student_id),
           subject: subject,
           start: startDate.toISOString('YYYY-MM-DD H:mm:ss'),
           end: startDate.toISOString('YYYY-MM-DD H:mm:ss')

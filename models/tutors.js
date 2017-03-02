@@ -1,54 +1,19 @@
 //creating a virtue table so sequelize can run properly
 module.exports = function(sequelize, DataTypes){
   var Tutors = sequelize.define("tutors", {
-    username: {
-      type: DataTypes.STRING,
+    user_id: {
+      type: DataTypes.INTEGER,
       primaryKey: true
     },
-    firstName: {
-      type: DataTypes.STRING
-    },
-    lastName: {
-      type: DataTypes.STRING
-    }, 
     rating: {
-      type: DataTypes.FLOAT
+      type: DataTypes.FLOAT(12),
+			defaultValue: 5,
+			allowNull: false
     },
     sessions: {
-      type: DataTypes.INTEGER
-    },
-    picUrl: {
-      type:DataTypes.STRING
-    },
-    liberalArts: {
-      type: DataTypes.BOOLEAN
-    },
-    business: {
-      type: DataTypes.BOOLEAN
-    },
-    engineering: {
-      type: DataTypes.BOOLEAN
-    },
-    mathematics: {
-      type: DataTypes.BOOLEAN
-    },
-    biology: {
-      type: DataTypes.BOOLEAN
-    },
-    chemistry: {
-      type: DataTypes.BOOLEAN
-    },
-    computerScience: {
-      type: DataTypes.BOOLEAN
-    },
-    geology: {
-      type: DataTypes.BOOLEAN
-    },
-    physics: {
-      type: DataTypes.BOOLEAN
-    },
-    specificClasses: {
-      type: DataTypes.STRING
+      type: DataTypes.INTEGER(12),
+			defaultValue: 1,
+			allowNull: false
     }
   }, {
     timestamps: false

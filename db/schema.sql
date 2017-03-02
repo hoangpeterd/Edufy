@@ -2,55 +2,59 @@ CREATE DATABASE IF NOT EXISTS edufy;
 
 USE edufy;
 
-CREATE TABLE IF NOT EXISTS tutors (
-	tutorUserName VARCHAR(100) PRIMARY KEY NOT NULL
-	, firstName VARCHAR(100) NOT NULL
-	, lastName VARCHAR(100) NOT NULL
-  , pass VARCHAR(100) NOT NULL
-  , rating FLOAT(12) NOT NULL DEFAULT 5
-  , sessions INT(12) NOT NULL DEFAULT 1
-	, picUrl VARCHAR(100) DEFAULT NULL
-	, liberalArts BOOLEAN NOT NULL DEFAULT FALSE
-	, business BOOLEAN NOT NULL DEFAULT FALSE
-	, engineering BOOLEAN NOT NULL DEFAULT FALSE
-	, mathematics BOOLEAN NOT NULL DEFAULT FALSE
-	, biology BOOLEAN NOT NULL DEFAULT FALSE
-	, chemistry BOOLEAN NOT NULL DEFAULT FALSE
-	, computerScience BOOLEAN NOT NULL DEFAULT FALSE
-	, geology BOOLEAN NOT NULL DEFAULT FALSE
-	, physics BOOLEAN NOT NULL DEFAULT FALSE
-	, specificClasses TEXT NOT NULL
+CREATE TABLE IF NOT EXISTS users (
+	user_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  username VARCHAR(50) NOT NULL,
+  password VARCHAR(65) NOT NULL,
+	firstName VARCHAR(12) NOT NULL,
+  lastName VARCHAR(20) NOT NULL,
+	picUrl VARCHAR(100) DEFAULT NULL,
+  accountType SET('student', 'tutor') NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS students (
-	studentUserName VARCHAR(100) PRIMARY KEY NOT NULL
-	, firstName VARCHAR(100) NOT NULL
-	, lastName VARCHAR(100) NOT NULL
-  , pass VARCHAR(100) NOT NULL
-	, picUrl VARCHAR(100) DEFAULT NULL
+CREATE TABLE IF NOT EXISTS tutors (
+	user_id INTEGER PRIMARY KEY NOT NULL,
+  rating FLOAT(12) NOT NULL DEFAULT 5,
+  sessions INT(12) NOT NULL DEFAULT 1
+  FOREIGN KEY fk_tutor_user (user_id) REFERENCES users(user_id)
 );
+
+#CREATE TABLE IF NOT EXISTS students (
+	#user_id PRIMARY KEY NOT NULL,
+  #FOREIGN KEY fk_students_user (user_id) REFERENCES users(user_id)
+	
+	#Would be awesome if we could figure out stuff the students could have. Table looks small :(
+	#Actually there is a lot I could think of, but implementation time at this point = Eh.
+	
+#);
 
 CREATE TABLE IF NOT EXISTS availability (
-	id INT (100) AUTO_INCREMENT NOT NULL PRIMARY KEY
-	, tutorUserName VARCHAR(100) NOT NULL
-	, date VARCHAR(100) NOT NULL
-	, startTimes TEXT NOT NULL
-
-  , FOREIGN KEY (tutorUserName)
-		REFERENCES tutors(tutorUserName) ON DELETE CASCADE
+  tutor_id INTEGER PRIMARY KEY NOT NULL,
+  date VARCHAR(100) NOT NULL,
+  startTimes TEXT NOT NULL,
+  FOREIGN KEY fk_avail_tutor (tutor_id) REFERENCES tutors (user_id)
 );
 
 CREATE TABLE IF NOT EXISTS appointments (
-	id INT (100) AUTO_INCREMENT NOT NULL PRIMARY KEY
-	, tutorUserName VARCHAR(100) NOT NULL
-	, studentUserName VARCHAR(100) NOT NULL
-	, subject VARCHAR(100) NOT NULL
-	, date VARCHAR(100) NOT NULL
-  , endTimes VARCHAR(100) NOT NULL
+  app_id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  tutor_id INTEGER NOT NULL,
+  student_id INTEGER NOT NULL,
+  subject VARCHAR(100) NOT NULL,
+  date VARCHAR(100) NOT NULL,
+  FOREIGN KEY fk_app_tutors (tutor_id) REFERENCES tutors (user_id)
+  #FOREIGN KEY fk_app_students (student_id) REFERENCES students (user_id)
+);
 
-  ,FOREIGN KEY (tutorUserName)
-		REFERENCES tutors(tutorUserName) ON DELETE CASCADE
-
-	,FOREIGN KEY (studentUserName)
-		REFERENCES students(studentUserName) ON DELETE CASCADE
+CREATE TABLE IF NOT EXISTS classes (
+	tutor_id INTEGER PRIMARY KEY NOT NULL,
+	mathematics VARCHAR(130) DEFAULT NULL,
+	geology VARCHAR(130) DEFAULT NULL,
+	biology VARCHAR(130) DEFAULT NULL,
+	physics VARCHAR(130) DEFAULT NULL,
+	compSci VARCHAR(130) DEFAULT NULL,
+	engineering VARCHAR(130) DEFAULT NULL,
+	liberalArts VARCHAR(130) DEFAULT NULL,
+	business VARCHAR(130) DEFAULT NULL,
+	chemistry VARCHAR(130) DEFAULT NULL,
+	FOREIGN KEY fk_classes_tutors (tutor_id) REFERENCES tutors (user_id)
 );
