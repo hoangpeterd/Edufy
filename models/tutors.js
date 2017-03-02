@@ -1,54 +1,55 @@
 //creating a virtue table so sequelize can run properly
 module.exports = function(sequelize, DataTypes){
   var Tutors = sequelize.define("tutors", {
-    username: {
-      type: DataTypes.STRING,
+    user_id: {
+      type: DataTypes.INTEGER,
       primaryKey: true
     },
-    firstName: {
-      type: DataTypes.STRING
-    },
-    lastName: {
-      type: DataTypes.STRING
-    }, 
     rating: {
-      type: DataTypes.FLOAT
+      type: DataTypes.FLOAT(12),
+			defaultValue: 5,
+			allowNull: false
     },
     sessions: {
-      type: DataTypes.INTEGER
-    },
-    picUrl: {
-      type:DataTypes.STRING
+      type: DataTypes.INTEGER(12),
+			defaultValue: 1,
+			allowNull: false
     },
     liberalArts: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.BOOLEAN,
+			defaultValue: false
     },
     business: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.BOOLEAN,
+			defaultValue: false
     },
     engineering: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.BOOLEAN,
+			defaultValue: false
     },
     mathematics: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.BOOLEAN,
+			defaultValue: false
     },
     biology: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.BOOLEAN,
+			defaultValue: false
     },
     chemistry: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.BOOLEAN,
+			defaultValue: false
     },
     computerScience: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.BOOLEAN,
+			defaultValue: false
     },
     geology: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.BOOLEAN,
+			defaultValue: false
     },
     physics: {
-      type: DataTypes.BOOLEAN
-    },
-    specificClasses: {
-      type: DataTypes.STRING
+      type: DataTypes.BOOLEAN,
+			defaultValue: false
     }
   }, {
     timestamps: false

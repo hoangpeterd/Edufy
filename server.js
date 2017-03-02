@@ -124,7 +124,9 @@ require("./controllers/users_controllers.js")(app, passport);
 //})
 //})
 
-
+db.users.findOne({where:{username: 'lol'}}).then(function(data) {
+  console.log(data.get('firstName'))
+})
 //after connecting to the DB base with sequelize, it will create a localhost so the user can view the page
 db.sequelize.sync().then(function(){
 	app.listen(PORT);
