@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS tutors (
 	user_id INTEGER PRIMARY KEY NOT NULL,
   rating FLOAT(12) NOT NULL DEFAULT 5,
-  sessions INT(12) NOT NULL DEFAULT 1
+  sessions INT(12) NOT NULL DEFAULT 1,
   FOREIGN KEY fk_tutor_user (user_id) REFERENCES users(user_id)
 );
 

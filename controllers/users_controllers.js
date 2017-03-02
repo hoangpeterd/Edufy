@@ -49,7 +49,7 @@ module.exports = function(app, passport){
     console.log(req.files.data)
     upload.mv(path.join(__dirname + '/../private' + filePath), function (err) {
       if (err) {res.status(500).send(err); return true;}
-			db[user.accountType].update({picUrl: filePath}, {where: {id: user.user_id}})
+			db.users.update({picUrl: filePath}, {where: {user_id: user.user_id}})
     })
 
     setTimeout(function(){
@@ -58,22 +58,15 @@ module.exports = function(app, passport){
 
   })
 
-  //getting rating information and sending the information so the tutor has there rating
-  // app.post("/findRating", function (req, res) {
-  //   db.tutors.findOne({ where: {tutorUserName: req.body.userName} }).then(function(result){
-  //     res.send({rating: result.rating, sessions: result.sessions});
-  //   });
-  // });
-
   //getting rating information and sending the information so the tutor has their rating
   app.post("/findRating", function (req, res) {
-    db.tutors.findOne({ where: {tutorUserName: req.body.userName} }).then(function(result){
+    db.tutors.findOne({ where: {user_id: req.user.user_id} }).then(function(result){
       res.send({rating: result.rating, sessions: result.sessions});
     });
   });
 
   app.post("/createTutorAvailability", function(req, res) {
-    var tutorUserName = req.body.tutorUserName;
+    var user_id = req.body.tutorUserName;
     var date = req.body.dates[0];
     var startTimes = req.body.dates[1];
 
@@ -82,7 +75,7 @@ module.exports = function(app, passport){
     }
 
     var availableObj = {
-      tutorUserName: tutorUserName,
+      tutor_id: tutorUserName,
       date: date,
       startTimes: startTimes
     }
