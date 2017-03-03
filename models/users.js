@@ -34,7 +34,17 @@ module.exports = function(sequelize, DataTypes){
 		}
   }, {
     timestamps: false
-  });
+  }, {
+		instanceMethods: {
+    	toJSON: function () {
+				var values = Object.assign({}, this.get());
+
+				delete values.password;
+      	return values;
+			}
+  	}
+	}
+);
 
   return Users;
 };
