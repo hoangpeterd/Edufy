@@ -23,15 +23,15 @@ module.exports = function(sequelize, DataTypes){
 			allowNull: false
     }
   }, {
-    timestamps: false
-  }, {
     classMethods: {
       associate: function(models) {
         Appointments.belongsTo(models.tutors, {
           foreignKey: 'user_id'
+        
         });
       }
-    }
+    },
+    timestamps: false
   });
 
   return Appointments;

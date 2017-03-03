@@ -19,17 +19,17 @@ module.exports = function(sequelize, DataTypes){
       allowNull: false
     },
   }, {
-    timestamps: false
-    , freezeTableName: true
-  }, {
     classMethods: {
       associate: function(models) {
         Availability.belongsTo(models.tutors, {
-          foreignKey: 'user_id',
-          primaryKey: true
+          foreignKey: {
+            name:'tutor_id',
+            allowNull: false
+          }  
         });
       }
-    }
+    },
+    timestamps: false
   });
 
   return Availability;

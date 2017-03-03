@@ -4,10 +4,10 @@ module.exports = function(sequelize, DataTypes){
     user_id: {
       type: DataTypes.INTEGER,
       primaryKey: true
-    }
-  }, {
+    },
     timestamps: false
   });
 
   return Students;
 };
+  

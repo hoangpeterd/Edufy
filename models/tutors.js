@@ -1,5 +1,5 @@
 //creating a virtue table so sequelize can run properly
-module.exports = function(sequelize, DataTypes){
+module.exports = function (sequelize, DataTypes) {
   var Tutors = sequelize.define("tutors", {
     user_id: {
       type: DataTypes.INTEGER,
@@ -7,25 +7,28 @@ module.exports = function(sequelize, DataTypes){
     },
     rating: {
       type: DataTypes.FLOAT(12),
-			defaultValue: 5,
-			allowNull: false
+      defaultValue: 5,
+      allowNull: false
     },
     sessions: {
       type: DataTypes.INTEGER(12),
-			defaultValue: 1,
-			allowNull: false
+      defaultValue: 1,
+      allowNull: false
     }
   }, {
-    timestamps: false
-  }, {
-    classMethod:{
-      associate: function(models) {
-        Tutors.hasMany(model.availability, {
-          onDelete: "cascade"
-        });
-      }
-    }
-  });
+      classMethods: {
+        associate: function (models) {
+          Tutors.hasMany(models.availability, {
+            foreignKey: {
+              name: "user_id",
+              onDelete: "cascade"
+            }
+          });
+        }
+      },
+      timestamps: false
+    });
+
 
   return Tutors;
 };
