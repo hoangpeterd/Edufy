@@ -118,7 +118,6 @@ app.post("/tutorAvailability", function (req, res) { //Something about this one 
         parsedArr.push(holdObj);
     }
 
-    console.log(parsedArr);
     res.send(parsedArr);
   });
 });
