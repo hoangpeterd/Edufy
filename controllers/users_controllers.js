@@ -107,17 +107,17 @@ app.post("/scheduledAppointments", function (req, res) {
 app.post("/tutorAvailability", function (req, res) { //Something about this one being GET did something new
   db.availability.findAll({tutor_id: req.user.user_id}).then(function (result) {
     var parsedArr = [];
-    for (var i = 0; i < result.length; i++) {
-        var dow = result[i].dataValues.dow;
-        var start = result[i].dataValues.start;
-        var holdObj = {
-          start: start,
-          dow: dow,
-          title: "Available"
-        }
-        parsedArr.push(holdObj);
+    console.log(result[0].dataValues);
+    console.log(result[1].dataValues);
+    console.log(result[2].dataValues);
+for (var i = 0; i < result.length; i++) {
+        availableObj = {
+        title: "Available",
+        start: result[i].dataValues.start
+      }
+        parsedArr.push(availableObj);
     }
-
+  
     res.send(parsedArr);
   });
 });
