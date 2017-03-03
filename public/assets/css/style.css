@@ -73,34 +73,6 @@ div#sessions.fc.fc-unthemed.fc-ltr {
 	font-size: 36px;
 }
 
-button.fc-today-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right {
-	margin-top: 8px;
-}
-
-button.fc-prev-button.fc-button.fc-state-default.fc-corner-left {
-	margin-top: 8px;
-}
-
-button.fc-next-button.fc-button.fc-state-default.fc-corner-right {
-	margin-top: 8px;
-}
-
-button.fc-agendaDay-button.fc-button.fc-state-default.fc-corner-left {
-	margin-top: 8px;
-}
-
-button.fc-agendaWeek-button.fc-button.fc-state-default {
-	margin-top: 8px;
-}
-
-button.fc-month-button.fc-button.fc-state-default {
-	margin-top: 8px;
-}
-
-button.fc-listMonth-button.fc-button.fc-state-default.fc-corner-right {
-	margin-top: 8px;
-}
-
 div.fc-toolbar.fc-header-toolbar {
 	padding-bottom: 30px;
 	margin-bottom: 5px;
@@ -192,12 +164,12 @@ div.modal-body {
 
 .grid-tab {
 	position: relative;
-	width: auto;
-	height: 70px;
-	margin: 5px;
-	padding: 10px;
+	width: 130px;
+	height: 120px;
+	margin-bottom: 30px;
 	background: #449d44;
 	color: #222;
+	border-radius: 6px;
 }
 
 .grid-item:hover {
@@ -208,6 +180,7 @@ div.modal-body {
 .grid-tab:hover {
   background: #5cb85c;
   cursor: pointer;
+	border-radius: 6px;
 }
 
 /*upload profile pic*/
@@ -422,4 +395,22 @@ div.col-xs-12 {
 
 label {
 	font-weight: 400 !important;
+}
+
+#tutorClasses {
+	width: 500px;
+}
+
+#h2tab {
+	margin-top: 0px !important;
+	padding-top: 0px !important;
+	font-size: 15px !important;
+}
+
+.btn-primary {
+	padding-bottom: 15px;
+}
+
+button#nextButton.btn.btn-primary.btn-block {
+	margin-bottom: 15px;
 }
