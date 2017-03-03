@@ -29,9 +29,10 @@ CREATE TABLE IF NOT EXISTS tutors (
 #);
 
 CREATE TABLE IF NOT EXISTS availability (
-  tutor_id INTEGER PRIMARY KEY NOT NULL,
-  date VARCHAR(100) NOT NULL,
-  startTimes TEXT NOT NULL,
+  id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  tutor_id INTEGER NOT NULL,
+  start VARCHAR(100) NOT NULL,
+  dow VARCHAR(100) NOT NULL,
   FOREIGN KEY fk_avail_tutor (tutor_id) REFERENCES tutors (user_id)
 );
 

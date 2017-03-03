@@ -1,20 +1,23 @@
 //creating a virtue table so sequelize can run properly
 module.exports = function(sequelize, DataTypes){
   var Availability = sequelize.define("availability", {
-    tutor_id: {
-      type: DataTypes.STRING,
-			allowNull: false,
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
       primaryKey: true
     },
-    date: {
-      type: DataTypes.STRING(100),
-			isAlphanumeric: true,
+    tutor_id: {
+      type: DataTypes.STRING,
 			allowNull: false
     },
-    startTimes: {
-      type: DataTypes.TEXT,
+    start: {
+      type: DataTypes.STRING,
 			allowNull: false
-    }
+    },
+    dow: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
   }, {
     timestamps: false
     , freezeTableName: true
@@ -22,7 +25,8 @@ module.exports = function(sequelize, DataTypes){
     classMethods: {
       associate: function(models) {
         Availability.belongsTo(models.tutors, {
-          foreignKey: 'user_id'
+          foreignKey: 'user_id',
+          primaryKey: true
         });
       }
     }
