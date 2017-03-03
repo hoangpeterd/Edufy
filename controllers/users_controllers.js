@@ -115,7 +115,7 @@ app.post("/scheduledAppointments", function (req, res) {
   });
 });
 
-app.post("/tutorAvailability", function (req, res) { //Something about this one being GET did something new
+app.get("/tutorAvailability", function (req, res) { //Something about this one being GET did something new
   db.availability.findAll({tutor_id: req.user.user_id}).then(function (result) {
     var parsedArr = [];
     console.log(result[0].dataValues);
@@ -147,29 +147,3 @@ app.delete("/tutorAvailability/:id", function (req, res) {
   });
 });
 }
-
-
-
-//ignore these. some codes i might wanna use in the future
-// ...
-//     retStatus = 'Success';
-//     // res.redirect('/team');
-//     res.send({
-//       retStatus : retStatus,
-//       redirectTo: '/team',
-//       msg : 'Just go there please' // this should help
-//     });
-// ...
-// Client-side in $.post('/team/' ...
-//
-// ...
-//     $.post('/team/' + teamId, { _method : 'delete' }, function(response) {
-//         console.log(response);
-//         if(response.retStatus === 'Success') {
-//             // not sure what did you mean by ('/team' && '/team' !== "")
-//             // if('/team' && '/team' !== "") {
-//             if (response.redirectTo && response.msg == 'Just go there please') {
-//                 window.location = response.redirectTo;
-//             }
-//         }
-//     });

@@ -98,7 +98,7 @@ $(function () { // document ready
 	//causing sequelize errors.
 	//-----------------------------------------------------------------------------------------------
 	if ($("body").is("#tutorBody")) {
-		$.post("/tutorAvailability", { tutor_id: 1 }).done(function (result) {
+		$.get("/tutorAvailability", { tutor_id: 1 }).done(function (result) {
 
 			fc.events = result;
 			$('#calendar').fullCalendar(fc);
