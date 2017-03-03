@@ -65,22 +65,6 @@ module.exports = function (app, passport) {
   //  }
   // });
   // // UPDATE post SET updatedAt = null WHERE deletedAt NOT NULL;
-  app.get('/class/:class', function (req, res) {
-    var subjectObj = {};
-    subjectObj[req.params.class] = { $ne: null };
-    db.classes.findAll({ raw: true, where: subjectObj, include: [db.availability] }).then(function (data) {
-
-      // for (let i = 0; i < data.length; i++) {
-      // 	data[i].password = null
-      // }
-      console.log(data);
-      // res.send(data)
-    });
-  });
-  app.post('/class/:class', function (req, res) {
-      
-      res.send(req.params.class, req.body.classList)
-  });
 
   //Login needs to be looked at before presentation because that's where all the security is. SUPER IMPORTANT.
   app.post('/uploadProfileImage', function (req, res) {
@@ -107,6 +91,8 @@ module.exports = function (app, passport) {
 
   //getting rating information and sending the information so the tutor has their rating
   app.get("/findRating", function (req, res) {
+    
+    if (!req.user) {return}
     db.tutors.findOne({ where: { user_id: req.user.user_id } }).then(function (result) {
       res.send({ rating: result.rating, sessions: result.sessions });
     });

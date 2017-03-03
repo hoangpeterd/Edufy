@@ -99,26 +99,8 @@ $(function () { // document ready
 
 	//-----------------------------------------------------------------------------------------------
 	if ($("body").is("#tutorBody")) {
-		$.post("/tutorAvailability", { tutor_id: 1 }).done(function (result) {
-
-			fc.events = result;
-			$('#calendar').fullCalendar(fc);
-		});
-
-		$.post("/scheduledAppointments", { tutor_id: $(".lead").text().trim() }).done(function (result) {
-			for (var i = 0; i < result.length; i++) {
-				var actualTitle = result[i].title.split(", ");
-				var subject = result[i].subject;
-				actualTitle = actualTitle[1];
-				result[i].title = actualTitle + " - " + subject;
-			}
-			events.push(result);
-		});
-	}
-
-	if ($("body").is("#tutorBody")) {
-		$.post("/tutorAvailability", { tutor_id: 1 }).done(function (result) {
-
+		$.post("/tutorAvailability", { tutor_id: 2 }).done(function (result) {
+      console.log(result)
 			fc.events = result;
 			$('#calendar').fullCalendar(fc);
 		});

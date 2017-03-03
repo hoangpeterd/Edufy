@@ -1,6 +1,15 @@
 $(document).ready(function() {
+  
+  function isClassStyle(classList) {
+
+		arr = classList.trim().replace(/\s+/g, '').toUpperCase().split(',');
+		for (let i = 0; i < arr.length; i++) {
+			if (!(/^[A-Z]{3,5}\d+$/.test(arr[i]))) {
+				throw new Error('Incorrect Syntax. If not provided, follow this example: MATH2001, ...etc');
+			}
+		}
+	}
 	//getting the url to send it to the back in to query the username so the DB can send back the rating information
-<<<<<<< HEAD
   $.get("/findRating").done(function(result){
       //when a page is loaded. wait for a tutor page to load up and run the rating search to create a start rating for the tutor
     var rating = result.rating/result.sessions;
@@ -14,27 +23,6 @@ $(document).ready(function() {
           }
         });
   });
-=======
-  function findRating (userName, cb){
-    $.post("/findRating", {userName: userName}).done(function(result){
-      var rating = result.rating/result.sessions;
-      
-      cb(rating);
-    });
-  }
-  
-  function isClassStyle(classList) {
-
-		arr = classList.trim().replace(/\s+/g, '').toUpperCase().split(',');
-		for (let i = 0; i < arr.length; i++) {
-			if (!(/^[A-Z]{3,5}\d+$/.test(arr[i]))) {
-        return false
-				//throw new Error('Incorrect Syntax. If not provided, follow this example: MATH2001, ...etc');
-			}
-		}
-    return true;
-	}
->>>>>>> b59c56731bc6f2c0752b81d5548cb187a6adcc1c
   
   $('.grid-item').on('click', function() {
 
@@ -140,9 +128,6 @@ $(document).ready(function() {
   $('.classModal').on('click', function() {
     a = $(this).attr('value')
   })
-<<<<<<< HEAD
-
-=======
   
   $('#tutorClassesSubmit').on('click', function() {
     
@@ -157,20 +142,4 @@ $(document).ready(function() {
     }
   })
       
-  //when a page is loaded. wait for a tutor page to load up and run the rating search to create a start rating for the tutor
-  if ($("body").is("#tutorBody")) {
-    findRating($(".lead").text().trim(), function(data){
-      $(function () {
-        $("#tutorRating").rateYo({
-          rating: data,
-          readOnly: true,
-          multiColor: {
-            "startColor": "#000000", //black
-            "endColor"  : "#5cb85c"  //successgreen
-          }
-        });
-      });
-    });
-  }
->>>>>>> b59c56731bc6f2c0752b81d5548cb187a6adcc1c
 });
