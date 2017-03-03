@@ -26,9 +26,10 @@ module.exports = function(app, passport){
   
   app.get('/profile', ensureLogin.ensureLoggedIn('/'), function(req, res) {
 		
-		console.log(req.user)
-		res.render(req.user.accountType , req.user)
-  })
+		console.log(req.user);
+    
+		res.render(req.user.accountType , req.user);
+  });
 
   app.get("/favicon.ico", function(req, res){
   res.send(204);
@@ -37,7 +38,7 @@ module.exports = function(app, passport){
   //Login needs to be looked at before presentation because that's where all the security is. SUPER IMPORTANT.
   app.post('/uploadProfileImage', function(req, res) {
 		
-		user = req.user
+		user = req.user;
     if (!req.files) {
       res.redirect('back');
       return;
@@ -45,8 +46,8 @@ module.exports = function(app, passport){
 
     let upload = req.files.imageUpload;
     let filePath = '/uploadFiles/' + user.username.replace(/\.|@/g,'') + user.user_id.toString()
-    console.log(req.files.mimetype)
-    console.log(req.files.data)
+    // console.log(req.files.mimetype)
+    // console.log(req.files.data)
     upload.mv(path.join(__dirname + '/../private' + filePath), function (err) {
       if (err) {res.status(500).send(err); return true;}
 			db.users.update({picUrl: filePath}, {where: {user_id: user.user_id}})
@@ -66,7 +67,9 @@ module.exports = function(app, passport){
   });
 
   app.post("/createTutorAvailability", function(req, res) {
-    var user_id = req.body.tutorUserName;
+    var user_id = req.user.user_id;
+    console.log(user_id);
+    console.log(req.body);
     var date = req.body.dates[0];
     var startTimes = req.body.dates[1];
 
@@ -75,7 +78,7 @@ module.exports = function(app, passport){
     }
 
     var availableObj = {
-      tutor_id: tutorUserName,
+      tutor_id: user_id,
       date: date,
       startTimes: startTimes
     }
@@ -85,7 +88,9 @@ module.exports = function(app, passport){
        * @todo: find out why res.direct wont work
        */
       res.send({reload: true});
-    });
+    }).catch(function(err) {
+      console.log(err);
+  });
   });
 
   app.post("/scheduledAppointments", function(req, res) {
@@ -108,7 +113,7 @@ module.exports = function(app, passport){
   });
 
   app.post("/tutorAvailability", function(req, res) { //Something about this one being GET did something new
-    db.availability.findAll({where: req.body}).then(function(result) {
+    db.availability.findAll(/*{where: req.body}*/).then(function(result) {
      var parsedArr = [];
 
       for (var i = 0; i < result.length; i++) {
