@@ -20,6 +20,7 @@ module.exports = function (app, passport) {
   app.post("/sign-up", passport.authenticate('local-signup', { successRedirect: '/profile', failureRedirect: '/', failureFlash: true }));
 
   app.get('/logout', function (req, res) {
+    
     req.logout()
     res.redirect('/')
   })
@@ -31,7 +32,7 @@ module.exports = function (app, passport) {
     res.render(req.user.accountType, req.user);
   });
   
-  app.get('/class/:class' , function(req, res) {
+  app.get('/class/:class', function(req, res) {
     
     console.log(req.params.class)
 		db.users.findAll({raw: true}).then(function(data) {
@@ -41,6 +42,16 @@ module.exports = function (app, passport) {
 			res.send(data)
 		})
 	})
+  
+  app.post('/class/:class', function(req, res) {
+    
+    let a = {}
+    a[req.params.class] = req.body.courses
+    db.classes.update(a, {where: {tutor_id: req.user.user_id}}).then(function(results) {
+      console.log(results)
+      res.send(results)
+    })
+  })
 
   app.get("/favicon.ico", function (req, res) {
     res.send(204);
@@ -146,4 +157,9 @@ app.delete("/tutorAvailability/:id", function (req, res) {
     // console.log(done);
   });
 });
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> ab7886faa4ee91a719bc47728cc1e3d1fbaaf8ae

@@ -36,33 +36,6 @@ function findRating (userName, cb){
   }) 
   	
 
-//Handlebars.getTemplate = function(name) {
-//if (Handlebars.templates === undefined || Handlebars.templates[name] === undefined)    {
-//    $.ajax({
-//        url : name + '.handlebars',
-//        success : function(data) {
-//            if (Handlebars.templates === undefined) {
-//                Handlebars.templates = {};
-//            }
-//            Handlebars.templates[name] = Handlebars.compile(data);
-//        },
-//        async : false
-//    });
-//}
-//return Handlebars.templates[name];
-//};
-  
-$('#textaa').on('click', function() {
-	console.log($(this).data('value'))
-	$.get('/class').done(function(data) {
-	console.log(data)
-})
-})
-
-
-
-
-
   //when clicked on the signin button a modal will show up
   $("#modalSignIn").on("click",function() {
     $("#signInModal").modal();
@@ -71,23 +44,6 @@ $('#textaa').on('click', function() {
   $("#modalSignUp").on("click", function() {
     $("#signUpModal").modal();
   });
-
-//  //start the signin path by checking the inputs first
-//  $("#submitSignIn").on("click", function() {
-//    signingIn();
-//  });
-
-
-
-  //button to start the create new user path of students
-//  $("#createBtn").on("click", function() {
-//    creatingStudent();
-//  });
-
-  //button to starte the create new user path of tutors
-//  $("#tutorClassesSubmit").on("click",function(){
-//    creatingTutor();
-//  });
 
   // makes sure only one choice can be chosen with checkbox
   $(".chb").change(function() {
@@ -109,7 +65,7 @@ $('#textaa').on('click', function() {
 		}, 1000)
   });
 
-  //toggle colors when subject is being selected by tutors
+  // colors when subject is being selected by tutors
   $('.subject').on("click",function(){
     $(this).toggleClass('btn-default select');
   });
@@ -145,7 +101,19 @@ $('#textaa').on('click', function() {
 
 
 });
-
+  
+  $('#lol').on('click', function() {
+    jQuery.noConflict()
+    $('#tutorClasses').modal()
+  });
+  $('.classModal').on('click', function() {
+    a = $(this).attr('value')
+    console.log(a)
+   // $.get('class/' + a).done(function(data) {
+      
+  //  })
+   // $().
+  })
   //when a page is loaded. wait for a tutor page to load up and run the rating search to create a start rating for the tutor
   if ($("body").is("#tutorBody")) {
     findRating($(".lead").text().trim(), function(data){

@@ -33,7 +33,7 @@ var fc = {
 		if ($("body").is("#studentBody")) {
 			selectAppointment(start, end, jsEvent, view);
 		} else if ($("body").is("#tutorBody")) {
-			if (confirm("delete?")) {
+			if (confirm("Delete you availability in this time slot?")) {
 				if ($("body").is("#tutorBody")) {
 					var id = $(this).params.id;
 					$.ajax({
@@ -94,8 +94,6 @@ $(function () { // document ready
 		});
 	});
 
-	//No idea what's going on here, but calling for text from .lead is pulling "The University of Austin", 
-	//causing sequelize errors.
 	//-----------------------------------------------------------------------------------------------
 	if ($("body").is("#tutorBody")) {
 		$.get("/tutorAvailability", { tutor_id: 1 }).done(function (result) {
@@ -104,15 +102,15 @@ $(function () { // document ready
 			$('#calendar').fullCalendar(fc);
 		});
 
-		// $.post("/scheduledAppointments", { tutor_id: $(".lead").text().trim() }).done(function (result) {
-		// 	for (var i = 0; i < result.length; i++) {
-		// 		var actualTitle = result[i].title.split(", ");
-		// 		var subject = result[i].subject;
-		// 		actualTitle = actualTitle[1];
-		// 		result[i].title = actualTitle + " - " + subject;
-		// 	}
-		// 	events.push(result);
-		// });
+		$.post("/scheduledAppointments", { tutor_id: $(".lead").text().trim() }).done(function (result) {
+			for (var i = 0; i < result.length; i++) {
+				var actualTitle = result[i].title.split(", ");
+				var subject = result[i].subject;
+				actualTitle = actualTitle[1];
+				result[i].title = actualTitle + " - " + subject;
+			}
+			events.push(result);
+		});
 	}
 
 	if ($("body").is("#studentBody")) {
@@ -175,7 +173,7 @@ function defineAvailability(start, end) {
 		}
 		var displayStart = start.clone();
 		var displayEnd = end.clone();
-		if (confirm("are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?")) {
+		if (confirm("Are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?")) {
 			availability.push(infoArray[0].dow);
 			for (var i = 0; i < infoArray.length; i++) {
 				availability.push(infoArray[i].hourTop);
