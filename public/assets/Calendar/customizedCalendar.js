@@ -96,7 +96,7 @@ $(function () { // document ready
 
 	//-----------------------------------------------------------------------------------------------
 	if ($("body").is("#tutorBody")) {
-		$.get("/tutorAvailability", { tutor_id: 1 }).done(function (result) {
+		$.post("/tutorAvailability", { tutor_id: 1 }).done(function (result) {
 
 			fc.events = result;
 			$('#calendar').fullCalendar(fc);

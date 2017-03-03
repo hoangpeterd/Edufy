@@ -148,23 +148,23 @@ module.exports = function (app, passport) {
     });
   });
 
-  app.post("/tutorAvailability", function (req, res) { //Something about this one being GET did something new
-    db.availability.findAll({ tutor_id: req.user.user_id }).then(function (result) {
-      var parsedArr = [];
-      console.log(result[0].dataValues);
-      console.log(result[1].dataValues);
-      console.log(result[2].dataValues);
-      for (var i = 0; i < result.length; i++) {
+app.post("/tutorAvailability", function (req, res) { //Something about this one being GET did something new
+  db.availability.findAll({tutor_id: req.user.user_id}).then(function (result) {
+    var parsedArr = [];
+    // console.log(result[0].dataValues);
+    // console.log(result[1].dataValues);
+    // console.log(result[2].dataValues);
+for (var i = 0; i < result.length; i++) {
         availableObj = {
-          title: "Available",
-          start: result[i].dataValues.start
-        };
-        parsedArr.push(availableObj);
+        title: "Available",
+        start: result[i].dataValues.start
       }
-
-      res.send(parsedArr);
-    });
+        parsedArr.push(availableObj);
+    }
+  
+    res.send(parsedArr);
   });
+});
 
   app.use(function (req, res) {
     res.sendStatus(404);
