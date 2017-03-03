@@ -79,8 +79,8 @@ $(function () { // document ready
 		});
 	});
 	// fs.writeFile('events.json', data[, options]
-	
-//No idea what's going on here, but calling for text from .lead is pulling "The University of Austin", 
+
+//No idea what's going on here, but calling for text from .lead is pulling "The University of Austin",
 //causing sequelize errors.
 //-----------------------------------------------------------------------------------------------
 //	if ($("body").is("#tutorBody")) {
@@ -101,7 +101,7 @@ $(function () { // document ready
 //			events.push(result);
 //		});
 //	}
-	
+
 //	if ($("body").is("#studentBody")) {
 //		$.post("/scheduledAppointments", { studentUserName: $(".lead").text().trim() }).done(function (result) {
 //			for (var i = 0; i < result.length; i++) {
@@ -118,8 +118,8 @@ $(function () { // document ready
 //		});
 //	}
 //-----------------------------------------------------------------------------------------------
-	
-	
+
+
 	/* initialize the calendar
 	-----------------------------------------------------------------*/
 
@@ -231,8 +231,8 @@ function selectAppointment(start, end, jsEvent, view) {
 }
 
 function parseData(localArr) {
-	
-// .lead issue here!	
+
+// .lead issue here!
 
 //	if ($("body").is("#tutorBody")) {
 //		$.post("/createTutorAvailability", { tutorUserName: $(".lead").text().trim(), dates: localArr }).done(function (result) {
@@ -241,4 +241,4 @@ function parseData(localArr) {
 //			}
 //		});
 //	}
-//}
+}
