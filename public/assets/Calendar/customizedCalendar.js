@@ -190,19 +190,20 @@ function defineAvailability(start, end) {
 		var displayStart = start.clone();
 		var displayEnd = end.clone();
 		//MODAL NAME: @bottom of tutor.html set up on click $("#free").modal();
-		// $("#calendar").on("mouseup", function() {
-		// 	console.log("inside mouse up");
-			// $("#free").modal({show: true});
-			// ("Are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?")
-		// });
-		if (confirm("Are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?")) {
+		if (displayEnd._isValid) {
+			event.preventDefault();
+			jQuery.noConflict(); 
+			$('#freeModal').modal('show');
+			$("#free").html("<p>are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?</p>");
+		}
+		$("#confirmFree").on("click", function() {
 			availability.push(infoArray[0].dow);
 			for (var i = 0; i < infoArray.length; i++) {
 				availability.push(infoArray[i].hourTop);
 			}
 			events.push(availability);
 			parseData(availability);
-		}
+		});
 	}
 	availability = [];
 }

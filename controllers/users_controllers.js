@@ -26,9 +26,6 @@ module.exports = function (app, passport) {
   });
 
   app.get('/profile', ensureLogin.ensureLoggedIn('/'), function (req, res) {
-
-    //	console.log(req.user);
-
     res.render(req.user.accountType, req.user);
   });
   
@@ -103,7 +100,7 @@ module.exports = function (app, passport) {
   });
 
   //getting rating information and sending the information so the tutor has their rating
-  app.post("/findRating", function (req, res) {
+  app.get("/findRating", function (req, res) {
     db.tutors.findOne({ where: { user_id: req.user.user_id } }).then(function (result) {
       res.send({ rating: result.rating, sessions: result.sessions });
     });

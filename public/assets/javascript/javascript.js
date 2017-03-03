@@ -1,12 +1,18 @@
 $(document).ready(function() {
 	//getting the url to send it to the back in to query the username so the DB can send back the rating information
-function findRating (userName, cb){
-  $.post("/findRating", {userName: userName}).done(function(result){
+  $.get("/findRating").done(function(result){
+      //when a page is loaded. wait for a tutor page to load up and run the rating search to create a start rating for the tutor
     var rating = result.rating/result.sessions;
-
-    cb(rating);
+      
+        $("#tutorRating").rateYo({
+          rating: rating,
+          readOnly: true,
+          multiColor: {
+            "startColor": "#000000", //black
+            "endColor"  : "#5cb85c"  //successgreen
+          }
+        });
   });
-}
   
   $('.grid-item').on('click', function() {
     
@@ -114,20 +120,6 @@ function findRating (userName, cb){
   //  })
    // $().
   })
-  //when a page is loaded. wait for a tutor page to load up and run the rating search to create a start rating for the tutor
-  if ($("body").is("#tutorBody")) {
-    findRating($(".lead").text().trim(), function(data){
-      $(function () {
-        $("#tutorRating").rateYo({
-          rating: data,
-          readOnly: true,
-          multiColor: {
-            "startColor": "#000000", //black
-            "endColor"  : "#5cb85c"  //successgreen
-          }
-        });
-      });
-    });
-  }
+
 });
 
