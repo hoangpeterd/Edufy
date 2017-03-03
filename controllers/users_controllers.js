@@ -35,6 +35,17 @@ module.exports = function (app, passport) {
     res.send(204);
   });
 
+  app.get('/class/:class' , function(req, res) {
+    
+    console.log(req.params.class)
+		db.users.findAll({raw: true}).then(function(data) {
+			for (let i = 0; i < data.length; i++) {
+				data[i].password = null
+			}
+			res.send(data)
+		});
+	});
+
   //Login needs to be looked at before presentation because that's where all the security is. SUPER IMPORTANT.
   app.post('/uploadProfileImage', function (req, res) {
 
