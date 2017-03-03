@@ -40,7 +40,7 @@
                 <input type='file' id='imageUpload' name='imageUpload'>
               </form>
             </div>
-            <div class="col-xs-7">
+            <div class="col-xs-5">
               <div class="row">
                   <h1 class="display-3">Peter Hoang</h1>
               </div>
@@ -51,12 +51,18 @@
                 <p class="lead">The University of Texas at Austin</p>
               </div>
             </div>
-                <div class="row">
-                  <!-- <button id="signOut" class="btn btn-success pull-right">sign out</button> -->
-                  <div class="countDown">
-                  <div class="counter" data-count="200"><p>total earnings</p>$200</div>
-                  </div>
-                </div>
+            <div class="col-xs-4">
+            <div class="row">
+              <!-- <button id="signOut" class="btn btn-success pull-right">sign out</button> -->
+              <div class="countDown">
+              <div class="counter" data-count="200"><p>total earnings</p>$200</div>
+              </div>
+            </div>
+          </div>
+              <div class="row">
+                <!-- <img src="assets/images/edufyIcon.png" width="15%"> -->
+                <button id="signOut" class="btn btn-success pull-right">sign out</button>
+              </div>
               </div>
             </div>
           </div>
@@ -78,58 +84,115 @@
     </div>
 
     <!-- tutorClasses modal -->
-    <div class="modal fade" id="tutorClasses" role="dialog">
-      <div class="modal-dialog modal-default" align="center">
+    <!-- <div class="modal fade" id="tutorClasses" role="dialog"> -->
+      <div id="tutorClasses" class="modal-dialog modal-lg" align="center">
           <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title"><img src="assets/images/edufyIcon.png" alt="edufy icon" height="30px" width="30px"> your proficiencies</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" align="center">
+
+
             <!-- courses -->
               <div class="row">
                 <div class="col-sm-4">
-                  <button class="btn btn-default subject" value="liberalArts"> liberal arts
-                  </button>
+                  <div class="grid-tab" value="liberalArts">
+                    <div class="hovereffect">
+                      <img class="img-responsive" src="assets/images/liberalArts.gif" alt="">
+                      <div class="overlayGrid">
+                        <h2 id="h2tab">liberal arts</h2>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-sm-4">
-                  <button class="btn btn-default subject" value="business"> business
-                  </button>
+                  <div class="grid-tab" value="business">
+                    <div class="hovereffect">
+                      <img class="img-responsive" src="assets/images/business.gif" alt="">
+                      <div class="overlayGrid">
+                        <h2 id="h2tab">business</h2>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-sm-4">
-                  <button class="btn btn-default subject" value="engineering"> engineering
-                  </button>
+                  <div class="grid-tab" value="engineering">
+                    <div class="hovereffect">
+                      <img class="img-responsive" src="assets/images/engineering.gif" alt="">
+                      <div class="overlayGrid">
+                        <h2 id="h2tab">engineering</h2>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-sm-4">
-                  <button class="btn btn-default subject" value="mathematics"> mathematics
-                  </button>
+                  <div class="grid-tab" value="mathematics">
+                    <div class="hovereffect">
+                      <img class="img-responsive" src="assets/images/mathematics.gif" alt="">
+                      <div class="overlayGrid">
+                        <h2 id="h2tab">mathematics</h2>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-sm-4">
-                  <button class="btn btn-default subject" value="biology"> biology
-                  </button>
+                  <div class="grid-tab" value="biology">
+                    <div class="hovereffect">
+                      <img class="img-responsive" src="assets/images/biology.gif" alt="">
+                      <div class="overlayGrid">
+                        <h2 id="h2tab">biology</h2>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-sm-4">
-                  <button class="btn btn-default subject" value="chemistry"> chemistry
-                  </button>
+                  <div class="grid-tab" value="chemistry">
+                    <div class="hovereffect">
+                      <img class="img-responsive" src="assets/images/chemistry.gif" alt="">
+                      <div class="overlayGrid">
+                        <h2 id="h2tab">chemistry</h2>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-sm-4">
-                  <button class="btn btn-default subject" value="computerScience"> computer science
-                  </button>
+                  <div class="grid-tab" value="computerScience">
+                    <div class="hovereffect">
+                      <img class="img-responsive" src="assets/images/computerScience.gif" alt="">
+                      <div class="overlayGrid">
+                        <h2 id="h2tab">computer science</h2>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-sm-4">
-                  <button class="btn btn-default subject" value="geology"> geology
-                  </button>
+                  <div class="grid-tab" value="geology">
+                    <div class="hovereffect">
+                      <img class="img-responsive" src="assets/images/geology.gif" alt="">
+                      <div class="overlayGrid">
+                        <h2 id="h2tab">geology</h2>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-sm-4">
-                  <button class="btn btn-default subject" value="physics"> physics
-                  </button>
+                  <div class="grid-tab" value="physics">
+                    <div class="hovereffect">
+                      <img class="img-responsive" src="assets/images/physics.gif" alt="">
+                      <div class="overlayGrid">
+                        <h2 id="h2tab">physics</h2>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             <!-- form area -->
-            <textarea class="form-control" id="specificClass" rows="3"></textarea>
+            <textarea class="form-control" id="specificClass" placeholder="input your classes for this subject" rows="3"></textarea>
+            <button id="nextButton" type="button" class="btn btn-primary btn-block" data-dismiss="modal">next</button>
           </div>
           <div class="modal-footer">
             <button id="tutorClassesSubmit" type="button" class="btn btn-success btn-block" data-dismiss="modal">submit</button>
