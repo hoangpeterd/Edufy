@@ -33,6 +33,7 @@ var fc = {
 		if ($("body").is("#studentBody")) {
 			selectAppointment(start, end, jsEvent, view);
 		} else if ($("body").is("#tutorBody")) {
+			//MODAL NAME: @bottom of tutor.html set up on click $("#availability").modal();
 			if (confirm("Delete you availability in this time slot?")) {
 				if ($("body").is("#tutorBody")) {
 					var id = $(this).params.id;
@@ -173,6 +174,7 @@ function defineAvailability(start, end) {
 		}
 		var displayStart = start.clone();
 		var displayEnd = end.clone();
+		//MODAL NAME: @bottom of tutor.html set up on click $("#free").modal();
 		if (confirm("Are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?")) {
 			availability.push(infoArray[0].dow);
 			for (var i = 0; i < infoArray.length; i++) {
@@ -219,6 +221,7 @@ function selectAppointment(start, end, jsEvent, view) {
 			parseData(start, end);
 		}
 		var displayStart = start.clone();
+		//MODAL NAME: @bottom of tutor.html set up on click $("#schedule").modal();
 		if (confirm("Schedule this appointment on " + displayStart.format('MMMM DD YYYY') + " at " + displayStart.format('HH:mm T') + "M?")) {
 			for (var i = 0; i < infoArray.length; i++) {
 				events.push(infoArray[i]);
