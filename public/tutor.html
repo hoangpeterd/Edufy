@@ -63,10 +63,12 @@
               </div>
             </div>
           </div>
+<!--
               <div class="row">
-                <!-- <img src="assets/images/edufyIcon.png" width="15%"> -->
+                 <img src="assets/images/edufyIcon.png" width="15%"> 
                 <button id="signOut" class="btn btn-success pull-right">sign out</button>
               </div>
+-->
               </div>
             </div>
           </div>
@@ -89,7 +91,7 @@
 
     <!-- tutorClasses modal -->
     <div class="modal fade" id="tutorClasses" role="dialog">
-      <div id="tutorClasses" class="modal-dialog modal-md" align="center">
+      <div class="modal-dialog modal-md" align="center">
           <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title"><img src="assets/images/edufyIcon.png" alt="edufy icon" height="30px" width="30px"> your proficiencies</h4>
@@ -196,10 +198,9 @@
               </div>
             <!-- form area -->
             <textarea class="form-control" id="specificClass" placeholder="input your classes for this subject" rows="3"></textarea>
-            <button id="nextButton" type="button" class="btn btn-primary btn-block">next</button>
           </div>
           <div class="modal-footer">
-            <button id="tutorClassesSubmit" type="button" class="btn btn-success btn-block" data-dismiss="modal">submit</button>
+            <button id="tutorClassesSubmit" type="button" class="btn btn-success btn-block" data-dismiss="modal">submit for class</button>
           </div>
         </div>
       </div>
@@ -207,31 +208,37 @@
     <!-- end tutorClasses modal -->
 
     <!-- calendar modals -->
-    <!-- <div class="modal fade" id="" role="dialog"> -->
+      <!-- If you can dynamically update this, you can get rid of the others. The next line sets it to hidden by default -->
+     <div class="modal fade" id="tutorClasses" role="dialog">
       <div class="modal-dialog modal-sm" align="center">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title"><img src="assets/images/edufyIcon.png" alt="edufy icon" height="30px" width="30px"> calendar</h4>
           </div>
-            <div id="availability" class="modal-body">
-              <!-- <p>delete your availability in this time slot?</p> -->
-            </div>
-            <div class="modal-footer">
-              <button id="modalSignUp" type="button" class="btn btn-success btn-block" data-dismiss="modal">confirm</button>
-            </div>
+          <div id="availability" class="modal-body">
+            <!-- <p>delete your availability in this time slot?</p> -->
           </div>
+          <div class="modal-footer">
+            <button id="modalSignUp" type="button" class="btn btn-success btn-block" data-dismiss="modal">confirm</button>
+          </div>
+        </div>
       </div>
     </div>
     <!-- end first calendar modal -->
     <!-- second calendar modal -->
+<<<<<<< HEAD
      <div class="modal fade" id="freeModal" role="dialog"> 
+=======
+<!--
+     <div class="modal fade" id="" role="dialog"> 
+>>>>>>> b59c56731bc6f2c0752b81d5548cb187a6adcc1c
       <div class="modal-dialog modal-sm" align="center">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title"><img src="assets/images/edufyIcon.png" alt="edufy icon" height="30px" width="30px"> calendar</h4>
           </div>
             <div id="free" class="modal-body">
-              <!-- <p>are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?"</p> -->
+               <p>are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?"</p> 
             </div>
             <div class="modal-footer">
               <button id="confirmFree" type="button" class="btn btn-success btn-block" data-dismiss="modal">confirm</button>
@@ -239,16 +246,18 @@
           </div>
       </div>
     </div>
+-->
     <!-- end second calendar modal -->
     <!-- third calendar modal -->
     <!-- <div class="modal fade" id="" role="dialog"> -->
+<!--
       <div class="modal-dialog modal-sm" align="center">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title"><img src="assets/images/edufyIcon.png" alt="edufy icon" height="30px" width="30px"> calendar</h4>
           </div>
             <div id="schedule" class="modal-body">
-              <!-- <p>schedule this appointment on " + displayStart.format('MMMM DD YYYY') + " at " + displayStart.format('HH:mm T') + "M?</p> -->
+               <p>schedule this appointment on " + displayStart.format('MMMM DD YYYY') + " at " + displayStart.format('HH:mm T') + "M?</p> 
             </div>
             <div class="modal-footer">
               <button id="modalSignUp" type="button" class="btn btn-success btn-block" data-dismiss="modal">confirm</button>
@@ -256,6 +265,7 @@
           </div>
       </div>
     </div>
+-->
     <!-- end second calendar modal -->
 
 
