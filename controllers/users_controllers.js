@@ -32,6 +32,7 @@ module.exports = function (app, passport) {
     res.render(req.user.accountType, req.user);
   });
   
+  //Supplies student with tutor list
   app.get('/class/:class', function(req, res) {
     
     console.log(req.params.class)
@@ -43,10 +44,11 @@ module.exports = function (app, passport) {
 		})
 	})
   
+  //Tutor posts classes teaching.
   app.post('/class/:class', function(req, res) {
     
     let a = {}
-    a[req.params.class] = req.body.courses
+    a[req.params.class] = req.body.classList
     db.classes.update(a, {where: {tutor_id: req.user.user_id}}).then(function(results) {
       console.log(results)
       res.send(results)
@@ -77,6 +79,10 @@ module.exports = function (app, passport) {
       console.log(data);
       // res.send(data)
     });
+  });
+  app.post('/class/:class', function (req, res) {
+      
+      res.send(req.params.class, req.body.classList)
   });
 
   //Login needs to be looked at before presentation because that's where all the security is. SUPER IMPORTANT.

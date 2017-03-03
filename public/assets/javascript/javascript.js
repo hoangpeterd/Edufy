@@ -1,12 +1,24 @@
 $(document).ready(function() {
 	//getting the url to send it to the back in to query the username so the DB can send back the rating information
-function findRating (userName, cb){
-  $.post("/findRating", {userName: userName}).done(function(result){
-    var rating = result.rating/result.sessions;
+  function findRating (userName, cb){
+    $.post("/findRating", {userName: userName}).done(function(result){
+      var rating = result.rating/result.sessions;
+      
+      cb(rating);
+    });
+  }
+  
+  function isClassStyle(classList) {
 
-    cb(rating);
-  });
-}
+		arr = classList.trim().replace(/\s+/g, '').toUpperCase().split(',');
+		for (let i = 0; i < arr.length; i++) {
+			if (!(/^[A-Z]{3,5}\d+$/.test(arr[i]))) {
+        return false
+				//throw new Error('Incorrect Syntax. If not provided, follow this example: MATH2001, ...etc');
+			}
+		}
+    return true;
+	}
   
   $('.grid-item').on('click', function() {
     
@@ -106,14 +118,26 @@ function findRating (userName, cb){
     jQuery.noConflict()
     $('#tutorClasses').modal()
   });
+  
+  var a = null;
+  
   $('.classModal').on('click', function() {
     a = $(this).attr('value')
-    console.log(a)
-   // $.get('class/' + a).done(function(data) {
-      
-  //  })
-   // $().
   })
+  
+  $('#tutorClassesSubmit').on('click', function() {
+    
+    if (!a) {return}
+    console.log($('#specificClass').val())
+    if (!isClassStyle($('#specificClass').val())) {
+      return
+    } else {
+      $.post('/class/' + a, {classList: $('#specificClass').val()}, function(data, status) {
+        console.log(data, status)
+      })
+    }
+  })
+      
   //when a page is loaded. wait for a tutor page to load up and run the rating search to create a start rating for the tutor
   if ($("body").is("#tutorBody")) {
     findRating($(".lead").text().trim(), function(data){
