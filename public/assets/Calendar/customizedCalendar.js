@@ -1,3 +1,6 @@
+
+/* initialize the calendar
+	-----------------------------------------------------------------*/
 var fc = {
 	schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
 	selectable: true,
@@ -33,11 +36,10 @@ var fc = {
 			if (confirm("delete?")) {
 				if ($("body").is("#tutorBody")) {
 					var id = $(this).params.id
-					console.log(id);
 					$.ajax({
 						method: "DELETE",
-						url: "/tutorAvailability/" + id
-					}).done(function(result) {
+						url: "/tutorAvailability/" + tutor_id
+					}).done(function (result) {
 
 					});
 				}
@@ -63,14 +65,26 @@ var appoint = {
 	eventBackgroundColor: "rgba(76, 174, 76, .5)"
 };
 
+// $("#listMonth").fullCalendar({
+// 	schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+// 	aspectRatio: 1.25,
+// 	eventSources: ['/tutorAvailability', events],
+// 	eventLimit: true,
+// 	eventBorderColor: "#4CAE4C",
+// 	eventBackgroundColor: "rgba(76, 174, 76, .5)",
+// 	header: {
+// 		left: 'prev,next',
+// 		center: '',
+// 		right: ''
+// 	},
+// 	defaultView: "listMonth"
+// });
+
 var businessHours = [];
 var events = [];
 $(function () { // document ready
 	/* initialize the external events
 	-----------------------------------------------------------------*/
-
-	// $("#calendar").fullCalendar('refetchEvents', availability);
-
 
 	$('#external-events .fc-event').each(function () {
 		// store data so the calendar knows to render an event upon drop
@@ -78,71 +92,55 @@ $(function () { // document ready
 			stick: true // maintain when user navigates (see docs on the renderEvent method)
 		});
 	});
-	// fs.writeFile('events.json', data[, options]
-	
-//No idea what's going on here, but calling for text from .lead is pulling "The University of Austin", 
-//causing sequelize errors.
-//-----------------------------------------------------------------------------------------------
-//	if ($("body").is("#tutorBody")) {
-//		$.post("/tutorAvailability", { tutorUserName: $(".lead").text().trim() }).done(function (result) {
-//			for (var i = 0; i < result.length; i++) {
-//				businessHours.push(result[i]);
-//			}
-//			fc.events = businessHours;
-//			$('#calendar').fullCalendar(fc);
-//		});
-//		$.post("/scheduledAppointments", { tutorUserName: $(".lead").text().trim() }).done(function (result) {
-//			for (var i = 0; i < result.length; i++) {
-//				var actualTitle = result[i].title.split(", ");
-//				var subject = result[i].subject;
-//				actualTitle = actualTitle[1];
-//				result[i].title = actualTitle + " - " + subject;
-//			}
-//			events.push(result);
-//		});
-//	}
-	
-//	if ($("body").is("#studentBody")) {
-//		$.post("/scheduledAppointments", { studentUserName: $(".lead").text().trim() }).done(function (result) {
-//			for (var i = 0; i < result.length; i++) {
-//				var subject = result[i].subject;
-//				var actualTitle = result[i].title.split(", ");
-//				actualTitle = actualTitle[0];
-//				result[i].title = actualTitle + " - " + subject;
-//			}
-//			events.push(result);
-//			appoint.events = result;
-//			console.log(result);
-//			$("#sessions").fullCalendar(appoint);
-//
-//		});
-//	}
-//-----------------------------------------------------------------------------------------------
-	
-	
-	/* initialize the calendar
-	-----------------------------------------------------------------*/
+
+	//No idea what's going on here, but calling for text from .lead is pulling "The University of Austin", 
+	//causing sequelize errors.
+	//-----------------------------------------------------------------------------------------------
+	if ($("body").is("#tutorBody")) {
+		// $.get("/")
+		$.post("/tutorAvailability", { tutor_id: $(".lead").text().trim() }).done(function (result) {
+			for (var i = 0; i < result.length; i++) {
+				businessHours.push(result[i]);
+			}
+			fc.events = businessHours;
+			$('#calendar').fullCalendar(fc);
+		});
+		// $.post("/scheduledAppointments", { tutor_id: $(".lead").text().trim() }).done(function (result) {
+		// 	for (var i = 0; i < result.length; i++) {
+		// 		var actualTitle = result[i].title.split(", ");
+		// 		var subject = result[i].subject;
+		// 		actualTitle = actualTitle[1];
+		// 		result[i].title = actualTitle + " - " + subject;
+		// 	}
+		// 	events.push(result);
+		// });
+	}
+
+	if ($("body").is("#studentBody")) {
+		$.post("/scheduledAppointments", { student_id: $(".lead").text().trim() }).done(function (result) {
+			for (var i = 0; i < result.length; i++) {
+				var subject = result[i].subject;
+				var actualTitle = result[i].title.split(", ");
+				actualTitle = actualTitle[0];
+				result[i].title = actualTitle + " - " + subject;
+			}
+			events.push(result);
+			appoint.events = result;
+			$("#sessions").fullCalendar(appoint);
+
+		});
+	}
+	//-----------------------------------------------------------------------------------------------
 
 
 
 
-	// 	$("#listMonth").fullCalendar({
-	// 		aspectRatio: 1.25,
-	// 		eventSources: ['/tutorAvailability', events],
-	// 		eventLimit: true,
-	// 		eventBorderColor: "#4CAE4C",
-	// 		eventBackgroundColor: "rgba(76, 174, 76, .5)",
-	// 				header: {
-	// 			left: 'prev,next',
-	// 			center: '',
-	// 			right: ''
-	// 		}
-	// 	});
+
 });
 
 function defaultView() {
 	if ($("body").is("#tutorBody")) {
-		return 'month';
+		return 'agendaWeek'; //change back to month and add tool tips for launch
 	} else if ($("body").is("#studentBody")) {
 		return 'agendaWeek';
 	}
@@ -165,12 +163,9 @@ function defineAvailability(start, end, jsEvent, view) {
 			var newEnd = startTime.clone();
 			newEnd = newEnd.add(1, 'hour');
 			var newAvailability = {
-				dow: [start.day()],
+				dow: start,
 				hourTop: startTime.format('HH:mm:ss'),
 				start: startTime.toISOString(),
-				color: null,
-				rendering: 'background',
-				hourBottom: newEnd,
 				title: "Available Timeslot"
 			};
 			infoArray.push(newAvailability);
@@ -178,9 +173,8 @@ function defineAvailability(start, end, jsEvent, view) {
 		var displayStart = start.clone();
 		var displayEnd = end.clone();
 		if (confirm("are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?")) {
-			availability.push(displayStart.format('YYYY-MM-DD'));
 			for (var i = 0; i < infoArray.length; i++) {
-				availability.push(infoArray[i].hourTop);
+				availability.push(infoArray[i]);
 			}
 			events.push(availability);
 			parseData(availability);
@@ -188,6 +182,7 @@ function defineAvailability(start, end, jsEvent, view) {
 	}
 	availability = [];
 }
+
 
 function selectAppointment(start, end, jsEvent, view) {
 	if (end.diff(start) / (1000 * 60 * 60) % 1 !== 0) {
@@ -232,13 +227,12 @@ function selectAppointment(start, end, jsEvent, view) {
 
 function parseData(localArr) {
 	
-// .lead issue here!	
-
-//	if ($("body").is("#tutorBody")) {
-//		$.post("/createTutorAvailability", { tutorUserName: $(".lead").text().trim(), dates: localArr }).done(function (result) {
-//			if (result.reload) {
-//				location.reload();
-//			}
-//		});
-//	}
-//}
+	if ($("body").is("#tutorBody")) {
+		console.log(localArr)
+		$.post("/createTutorAvailability", { dates: localArr }).done(function (result) {
+			if (result.reload) {
+				location.reload();
+			}
+		});
+	}
+}

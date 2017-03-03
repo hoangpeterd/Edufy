@@ -10,15 +10,14 @@ module.exports = function(sequelize, DataTypes){
       type: DataTypes.STRING,
 			allowNull: false
     },
-    date: {
-      type: DataTypes.STRING(100),
-			isAlphanumeric: true,
+    start: {
+      type: DataTypes.STRING,
 			allowNull: false
     },
-    startTimes: {
+    dow: {
       type: DataTypes.TEXT,
-			allowNull: false
-    }
+      allowNull: false
+    },
   }, {
     timestamps: false
     , freezeTableName: true
@@ -26,7 +25,8 @@ module.exports = function(sequelize, DataTypes){
     classMethods: {
       associate: function(models) {
         Availability.belongsTo(models.tutors, {
-          foreignKey: 'user_id'
+          foreignKey: 'user_id',
+          primaryKey: true
         });
       }
     }
