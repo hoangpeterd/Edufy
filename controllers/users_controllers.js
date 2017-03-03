@@ -46,8 +46,7 @@ module.exports = function (app, passport) {
 
     let upload = req.files.imageUpload;
     let filePath = '/uploadFiles/' + user.username.replace(/\.|@/g, '') + user.user_id.toString()
-    // console.log(req.files.mimetype)
-    // console.log(req.files.data)
+ 
     upload.mv(path.join(__dirname + '/../private' + filePath), function (err) {
       if (err) { res.status(500).send(err); return true; }
       db.users.update({ picUrl: filePath }, { where: { user_id: user.user_id } })
@@ -67,28 +66,23 @@ module.exports = function (app, passport) {
   });
 
   app.post("/createTutorAvailability", function (req, res) {
-    console.log(req.body);
-    
-    var date = req.body.dates[0]; //add week when dow = 0
-    var dow;
-    var startTimes;
+    var tutor_id = req.user.user_id;
+    var availableObj = {};
+    var availableArr = [];
+    var dow = req.body.dates[0];
     for(var i = 1; i < req.body.dates.length; i++) {
-      startTimes = req.body.dates[0] + req.body.dates[i];
-      dow = req.body.dates[i];
+      var start = req.body.dates[i];
+      availableObj = {
+        tutor_id: tutor_id,
+        dow: dow,
+        start: req.body.dates[i]
+      }
+      availableArr.push(availableObj);
     }
-    var availableObj = {
-      tutor_id: req.user.user_id,
-      start: startTime,
-      dow: dow
-    }
-    console.log(availableObj);
-  // db.availability.create(availableObj).then(function (result) {
-  //   console.log("Look here");
-  //   console.log(result);
-  //   res.send({ reload: true });
-  // }).catch(function (err) {
-  //   console.log(err);
-  // });
+
+    db.availability.bulkCreate(availableArr).then(function (result) {
+      res.send({ reload: true });
+    });
 });
 
 app.post("/scheduledAppointments", function (req, res) {
@@ -113,22 +107,16 @@ app.post("/scheduledAppointments", function (req, res) {
 app.post("/tutorAvailability", function (req, res) { //Something about this one being GET did something new
   db.availability.findAll({tutor_id: req.user.user_id}).then(function (result) {
     var parsedArr = [];
-
     for (var i = 0; i < result.length; i++) {
-      var split = result[i].startTimes.split(", ");
-      var thisDate = result[i].date;
-      var endTime = split[split.length - 1];
-      split.pop();
-      for (var j = 0; j < split.length; j++) {
-        var start = thisDate + "T" + split[j];
+        var dow = result[i].dataValues.dow;
+        var start = result[i].dataValues.start;
         var holdObj = {
-          // start: start,
+          start: start,
+          dow: dow,
           title: "Available"
         }
         parsedArr.push(holdObj);
-      }
     }
-
 
     res.send(parsedArr);
   });
@@ -144,7 +132,7 @@ app.delete("/tutorAvailability/:id", function (req, res) {
       id: req.params.id
     }
   }).then(function (result) {
-    console.log(done);
+    // console.log(done);
   });
 });
 }
