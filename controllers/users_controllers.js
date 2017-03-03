@@ -30,10 +30,32 @@ module.exports = function (app, passport) {
 
     res.render(req.user.accountType, req.user);
   });
+  
+  app.get('/class/:class' , function(req, res) {
+    
+    console.log(req.params.class)
+		db.users.findAll({raw: true}).then(function(data) {
+			for (let i = 0; i < data.length; i++) {
+				data[i].password = null
+			}
+			res.send(data)
+		})
+	})
 
   app.get("/favicon.ico", function (req, res) {
     res.send(204);
   });
+
+  app.get('/class/:class' , function(req, res) {
+    
+    console.log(req.params.class)
+		db.users.findAll({raw: true}).then(function(data) {
+			for (let i = 0; i < data.length; i++) {
+				data[i].password = null
+			}
+			res.send(data)
+		});
+	});
 
   //Login needs to be looked at before presentation because that's where all the security is. SUPER IMPORTANT.
   app.post('/uploadProfileImage', function (req, res) {
@@ -107,17 +129,17 @@ app.post("/scheduledAppointments", function (req, res) {
 app.post("/tutorAvailability", function (req, res) { //Something about this one being GET did something new
   db.availability.findAll({tutor_id: req.user.user_id}).then(function (result) {
     var parsedArr = [];
-    for (var i = 0; i < result.length; i++) {
-        var dow = result[i].dataValues.dow;
-        var start = result[i].dataValues.start;
-        var holdObj = {
-          start: start,
-          dow: dow,
-          title: "Available"
-        }
-        parsedArr.push(holdObj);
+    console.log(result[0].dataValues);
+    console.log(result[1].dataValues);
+    console.log(result[2].dataValues);
+for (var i = 0; i < result.length; i++) {
+        availableObj = {
+        title: "Available",
+        start: result[i].dataValues.start
+      }
+        parsedArr.push(availableObj);
     }
-
+  
     res.send(parsedArr);
   });
 });
@@ -137,28 +159,3 @@ app.delete("/tutorAvailability/:id", function (req, res) {
 });
 }
 
-
-
-//ignore these. some codes i might wanna use in the future
-// ...
-//     retStatus = 'Success';
-//     // res.redirect('/team');
-//     res.send({
-//       retStatus : retStatus,
-//       redirectTo: '/team',
-//       msg : 'Just go there please' // this should help
-//     });
-// ...
-// Client-side in $.post('/team/' ...
-//
-// ...
-//     $.post('/team/' + teamId, { _method : 'delete' }, function(response) {
-//         console.log(response);
-//         if(response.retStatus === 'Success') {
-//             // not sure what did you mean by ('/team' && '/team' !== "")
-//             // if('/team' && '/team' !== "") {
-//             if (response.redirectTo && response.msg == 'Just go there please') {
-//                 window.location = response.redirectTo;
-//             }
-//         }
-//     });
