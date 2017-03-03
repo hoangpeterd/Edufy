@@ -1,4 +1,5 @@
-//getting the url to send it to the back in to query the username so the DB can send back the rating information
+$(document).ready(function() {
+	//getting the url to send it to the back in to query the username so the DB can send back the rating information
 function findRating (userName, cb){
   $.post("/findRating", {userName: userName}).done(function(result){
     var rating = result.rating/result.sessions;
@@ -6,10 +7,16 @@ function findRating (userName, cb){
     cb(rating);
   });
 }
+  
+//  $('.grid-item').on('click', function() {
+//    
+//    console.log($(this).attr('value'))
+//    $.get('/class/' + $(this).attr('value')).done(function(data) {
+//      console.log(data)
+//    })
+//  }) 
+  	
 
-
-
-$("document").ready(function(){
   //when clicked on the signin button a modal will show up
   $("#modalSignIn").on("click",function() {
     $("#signInModal").modal();
@@ -61,13 +68,6 @@ $("document").ready(function(){
     $(this).toggleClass('btn-default select');
   });
 
-// tutor list with subject selected
-  $(".grid-item").on("click", function(){
-      jQuery.noConflict();
-      $("#tutorList").modal();
-    console.log($(this).text());
-  });
-
   // countdown timer
   $('.counter').each(function() {
   var $this = $(this),
@@ -110,3 +110,4 @@ $("document").ready(function(){
     });
   }
 });
+

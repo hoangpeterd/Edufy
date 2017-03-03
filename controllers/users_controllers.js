@@ -11,6 +11,16 @@ module.exports = function(app, passport){
 
     res.sendFile(path.join(__dirname + "/../public", "dex.html"));
   });
+	app.get('/class/:class' , function(req, res) {
+    
+    console.log(req.params.class)
+		db.users.findAll({raw: true}).then(function(data) {
+			for (let i = 0; i < data.length; i++) {
+				data[i].password = null
+			}
+			res.send(data)
+		})
+	})
 
   //If incorrect/false info, will refresh page, maybe tooltips, something else; upon correct info
   //will redirect to index page with user info, making index dynamic.
@@ -110,7 +120,6 @@ module.exports = function(app, passport){
   app.post("/tutorAvailability", function(req, res) { //Something about this one being GET did something new
     db.availability.findAll({where: req.body}).then(function(result) {
      var parsedArr = [];
-
       for (var i = 0; i < result.length; i++) {
         var split = result[i].startTimes.split(", ");
         var thisDate = result[i].date;
