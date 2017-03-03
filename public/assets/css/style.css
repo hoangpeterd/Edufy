@@ -414,3 +414,13 @@ label {
 button#nextButton.btn.btn-primary.btn-block {
 	margin-bottom: 15px;
 }
+
+a {
+	color: #222 !important;
+	text-decoration: none !important;
+}
+
+a:hover {
+	text-decoration: none !important;
+	color: #449d44 !important;
+}
