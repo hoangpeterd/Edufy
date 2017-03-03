@@ -1,52 +1,49 @@
 //creating a virtue table so sequelize can run properly
-module.exports = function(sequelize, DataTypes){
-  var Users = sequelize.define("users", {
+module.exports = function (sequelize, DataTypes) {
+	var Users = sequelize.define("users", {
 		user_id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
 			autoIncrement: true
 		},
-    username: {
-      type: DataTypes.STRING(50),
+		username: {
+			type: DataTypes.STRING(50),
 			isEmail: true,
 			allowNull: false
-    },
-    password: {
-      type: DataTypes.STRING(65),
+		},
+		password: {
+			type: DataTypes.STRING(65),
 			allowNull: false
-    },
+		},
 		firstName: {
-      type: DataTypes.STRING(15),
+			type: DataTypes.STRING(15),
 			isAlpha: true,
 			allowNull: false
-    },
+		},
 		lastName: {
-      type: DataTypes.STRING(15),
+			type: DataTypes.STRING(15),
 			isAlpha: true,
 			allowNull: false
-    },
+		},
 		picUrl: {
-      type: DataTypes.STRING(100)
-    },
+			type: DataTypes.STRING(100)
+		},
 		accountType: {
-			type: DataTypes.ENUM('student','tutor'),
+			type: DataTypes.ENUM('student', 'tutor'),
 			allowNull: false
 		}
-  }, {
-		classMethods: {
-		associate: function(models) {
-        Users.belongsTo(models.tutors, {
-			// foreignKey: {
-			// 	name: "tutor_id",
-			// 	allowNull: false
-			// }
+	}, {
+			classMethods: {
+				associate: function (models) {
+					Users.belongsTo(models.tutors, {
+						// foreignKey: {
+						// 	name: "tutor_id",
+						// 	allowNull: false
+						// }
+					});
+				}, 
+				timestamps: false
+			}
 		});
-  },
-    timestamps: false
-  	}
-
-
-});
-
-  return Users;
+	return Users;
 };
