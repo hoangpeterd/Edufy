@@ -1,14 +1,10 @@
 //creating a virtue table so sequelize can run properly
 module.exports = function(sequelize, DataTypes){
   var Availability = sequelize.define("availability", {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true
-    },
     tutor_id: {
       type: DataTypes.STRING,
-			allowNull: false
+			allowNull: false,
+      primaryKey: true
     },
     date: {
       type: DataTypes.STRING(100),
