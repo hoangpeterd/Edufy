@@ -22,14 +22,15 @@ module.exports = function(sequelize, DataTypes){
     classMethods: {
       associate: function(models) {
         Availability.belongsTo(models.tutors, {
-          foreignKey: {
-            name:'tutor_id',
-            allowNull: false
-          }  
+          // foreignKey: {
+          //   name:'tutor_id',
+          //   allowNull: false
+          // }
         });
-      }
-    },
-    timestamps: false
+      },
+        timestamps: false
+    }
+
   });
 
   return Availability;

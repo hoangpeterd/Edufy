@@ -164,12 +164,11 @@ div.modal-body {
 
 .grid-tab {
 	position: relative;
-	width: 130px;
+	width: auto;
 	height: 120px;
 	margin-bottom: 30px;
 	background: #449d44;
 	color: #222;
-	border-radius: 6px;
 }
 
 .grid-item:hover {
@@ -395,10 +394,6 @@ div.col-xs-12 {
 
 label {
 	font-weight: 400 !important;
-}
-
-#tutorClasses {
-	width: 500px;
 }
 
 #h2tab {

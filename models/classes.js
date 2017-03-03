@@ -83,12 +83,15 @@ module.exports = function (sequelize, DataTypes) {
 			classMethods: {
 				associate: function (models) {
 					Classes.belongsTo(models.tutors, {
-						foreignKey: 'tutor_id',
-						onDelete: "cascade"
+					// 	foreignKey: {
+					// 		name: 'tutor_id',
+					// 	onDelete: "cascade"
+					// }
 					});
-				}
-			},
-			timestamps: false
+				},
+				timestamps: false
+			}
+
 		});
 	return Classes;
 };

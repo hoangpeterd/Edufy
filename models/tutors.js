@@ -19,14 +19,15 @@ module.exports = function (sequelize, DataTypes) {
       classMethods: {
         associate: function (models) {
           Tutors.hasMany(models.availability, {
-            foreignKey: {
-              name: "user_id",
-              onDelete: "cascade"
-            }
+            // foreignKey: {
+            //   name: "user_id",
+            //   onDelete: "cascade"
+            // }
           });
-        }
-      },
-      timestamps: false
+        },
+          timestamps: false
+      }
+
     });
 
 
