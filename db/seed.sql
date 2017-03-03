@@ -2,26 +2,117 @@
 #Because the site as whole needs testing for bugs, there is no point in spending so much time making seeds, alter your own tables until
 #We come to a consensus on seeds. - YASHA
 
-INSERT INTO tutors (username, firstName, lastName, rating, sessions, specificClasses)
-VALUES	('Tish@uh.edu', 'Tish', 'McNeel', 24000, 5000, 'coolness 101'),
-('Yash@uh.edu', 'Yasha', 'Meat', 3, 1, 'trollness 101'),
-('CamKirk@uh.edu', 'Cam', 'Kirk', 2700, 600, 'workhardPlayHard 101');
+INSERT INTO users (username, password, firstName, lastName, accountType)
+VALUES	('Tish@uh.edu', '$2a$07$a4o./vnJ6Q/.Bq9pe7NRNOb89Q1zWm6gWjImkOIYkmouVQ9Lr5GJ6', 'Tish', 'McNeel', 'tutor')
+, ('Yash@uh.edu', '$2a$07$a4o./vnJ6Q/.Bq9pe7NRNOb89Q1zWm6gWjImkOIYkmouVQ9Lr5GJ6', 'Yasha', 'Meat', 'tutor')
+, ('CamKirk@uh.edu', '$2a$07$a4o./vnJ6Q/.Bq9pe7NRNOb89Q1zWm6gWjImkOIYkmouVQ9Lr5GJ6', 'Cam', 'Kirk', 'tutor')
+, ('MNguyen@uh.edu', '$2a$07$a4o./vnJ6Q/.Bq9pe7NRNOb89Q1zWm6gWjImkOIYkmouVQ9Lr5GJ6', 'Michelle', 'Present', 'tutor')
+, ('DanDan@uh.edu', '$2a$07$a4o./vnJ6Q/.Bq9pe7NRNOb89Q1zWm6gWjImkOIYkmouVQ9Lr5GJ6', 'Dan', 'Dan', 'tutor')
+, ('JamesBond@uh.edu', '$2a$07$a4o./vnJ6Q/.Bq9pe7NRNOb89Q1zWm6gWjImkOIYkmouVQ9Lr5GJ6', 'Bond,', 'JamesBond', 'tutor')
+, ('Hamza@uh.edu', '$2a$07$a4o./vnJ6Q/.Bq9pe7NRNOb89Q1zWm6gWjImkOIYkmouVQ9Lr5GJ6', 'Hamza', 'Hazaa', 'tutor')
+, ('APowers@uh.edu', '$2a$07$a4o./vnJ6Q/.Bq9pe7NRNOb89Q1zWm6gWjImkOIYkmouVQ9Lr5GJ6', 'Austin', 'Powers', 'tutor')
+, ('PHoang@uh.edu', '$2a$07$a4o./vnJ6Q/.Bq9pe7NRNOb89Q1zWm6gWjImkOIYkmouVQ9Lr5GJ6', 'Peter', 'Hoang', 'tutor,student');
 
-INSERT INTO availability (tutorUserName, date, startTimes)
-VALUES ('Tish@uh.edu', '2017-06-06', '16:00:00, 17:00:00, 18:00:00, 19:00:00'),
-('CamKirk@uh.edu', '2017-06-14', '09:00:00, 10:00:00, 11:00:00, 12:00:00'),
-('Yash@uh.edu', '2017-06-15', '01:00:00, 02:00:00, 03:00:00, 04:00:00, 05:00:00, 06:00:00, 07:00:00, 08:00:00, 09:00:00, 10:00:00, 11:00:00, 12:00:00');
+INSERT INTO tutors (user_id, rating, sessions)
+VALUES (1, 5, 1)
+,(2, 3, 1)
+,(3, 4.5, 1)
+,(4, 4, 1)
+,(5, 3.5, 1)
+,(6, 4, 1)
+,(7, 5, 1)
+,(8, 1, 1)
+,(9, 5, 1);
 
+INSERT INTO classes (tutor_id, mathematics, geology, biology, physics, compSci, engineering, liberalArts, business, chemistry)
+VALUES (1, 'MATH 4509', NULL, NULL, 'PHYS 4032', 'COMP 6043, COMP 4356', NULL, NULL, NULL, NULL)
+,(2, 'MATH 1200', 'GEOL 1242', NULL, 'PHYS 1011, PHYS 1123', 'COMP 2031', NULL, NULL, NULL, NULL)
+,(3, 'MATH 2201', NULL, NULL, 'PHYS 3421', 'COMP 4332, COMP 4356', 'ENGI 3425, ENGI 3495', NULL, NULL, 'CHEM 4302, CHEM 3042')
+,(4, 'MATH 3452', NULL, 'BIOL 4395, BIOL 3495', 'PHYS 4325', 'COMP 4765, COMP 4456', NULL, NULL, 'BUSI 3045, BUSI 3953', NULL)
+,(5, 'MATH 4444, MATH 3029', NULL, NULL, 'PHYS 4032', 'COMP 3056, COMP 4356', NULL, NULL, NULL, 'CHEM 3039, CHEM 3024')
+,(6, 'MATH 4007', 'GEOL 4007', 'BIOL 4007', 'PHYS 4007', 'COMP 4007', 'ENGI 4007', 'LIBA 4007', 'BUSI 4007', 'CHEM 4007')
+,(7, 'MATH 1111', NULL, NULL, 'PHYS 1234', 'COMP 1234', NULL, 'LIBA 1234', 'BUSI 1234', NULL)
+,(8, 'MATH 4444', 'GEOL 3333', 'BIOL 2222', 'PHYS 1111', 'COMP 1111', 'ENGI 5555', 'LIBA 7777', 'BUSI 2222', 'CHEM 4444')
+,(9, 'MATH 1001', 'GEOL 1001', 'BIOL 1001', 'PHYS 1001', 'COMP 1001', 'ENGI 1001', 'LIBA 1001', 'BUSI 1001', 'CHEM 1001');
 
-INSERT INTO appointments (tutorUserName, studentUserName, subject, date)
-VALUES ('Tish@uh.edu', 'DanTran@uh.edu', 'business', '2017-02-28T10:30:00'),
-('Tish@uh.edu', 'DanTran@uh.edu', 'liberalArts', '2017-06-06T17:00:00'),
-('Tish@uh.edu', 'DanTran@uh.edu', 'engineering', '2017-06-06T18:00:00'),
-('CamKirk@uh.edu', 'R.Thiim@ut.edu', 'mathematics', '2017-06-14T09:00:00'),
-('CamKirk@uh.edu', 'R.Thiim@ut.edu', 'biology', '2017-06-14T10:00:00'),
-('CamKirk@uh.edu', 'R.Thiim@ut.edu', 'computerScience', '2017-06-14T11:00:00'),
-('Yash@uh.edu', 'PetaHoang@ut.edu', 'geography', '2017-06-15T05:00:00'),
-('Yash@uh.edu', 'PetaHoang@ut.edu', 'physics', '2017-06-15T06:00:00'),
-('Yash@uh.edu', 'PetaHoang@ut.edu', 'business', '2017-06-15T07:00:00'),
-('Yash@uh.edu', 'PetaHoang@ut.edu', 'engineering', '2017-06-15T08:00:00');
+INSERT INTO availability (tutor_id, start, dow)
+VALUES (1, '2017-03-05T07:00;00', 0)
+,(1, '2017-03-05T08:00;00', 0)
+,(1, '2017-03-05T09:00;00', 0)
+,(1, '2017-03-05T10:00;00', 0)
+,(1, '2017-03-05T11:00;00', 0)
+,(2, '2017-03-06T10:00;00', 1)
+,(2, '2017-03-06T11:00;00', 1)
+,(2, '2017-03-06T12:00;00', 1)
+,(2, '2017-03-06T13:00;00', 1)
+,(2, '2017-03-06T14:00;00', 1)
+,(2, '2017-03-06T15:00;00', 1)
+,(2, '2017-03-06T16:00;00', 1)
+,(3, '2017-03-14T09:00;00', 2)
+,(3, '2017-03-14T10:00;00', 2)
+,(3, '2017-03-14T11:00;00', 2)
+,(3, '2017-03-14T12:00;00', 2)
+,(3, '2017-03-14T13:00;00', 2)
+,(3, '2017-03-14T14:00;00', 2)
+,(3, '2017-03-14T15:00;00', 2)
+,(3, '2017-03-16T08:00;00', 4)
+,(3, '2017-03-16T09:00;00', 4)
+,(3, '2017-03-16T10:00;00', 4)
+,(3, '2017-03-16T11:00;00', 4)
+,(4, '2017-03-11T12:00;00', 6)
+,(5, '2017-03-25T12:00;00', 6)
+,(5, '2017-03-25T13:00;00', 6)
+,(5, '2017-03-25T14:00;00', 6)
+,(5, '2017-03-25T15:00;00', 6)
+,(5, '2017-03-25T16:00;00', 6)
+,(5, '2017-03-25T17:00;00', 6)
+,(5, '2017-03-25T18:00;00', 6)
+,(5, '2017-03-25T19:00;00', 6)
+,(5, '2017-03-25T20:00;00', 6)
+,(5, '2017-03-25T21:00;00', 6)
+,(6, '2017-03-07T07:00;00', 2)
+,(6, '2017-03-07T08:00;00', 2)
+,(6, '2017-03-07T09:00;00', 2)
+,(6, '2017-03-07T10:00;00', 2)
+,(6, '2017-03-07T11:00;00', 2)
+,(6, '2017-03-07T12:00;00', 2)
+,(6, '2017-03-07T13:00;00', 2)
+,(7, '2017-03-09T12:00;00', 4)
+,(7, '2017-03-09T13:00;00', 4)
+,(7, '2017-03-09T14:00;00', 4)
+,(7, '2017-03-09T15:00;00', 4)
+,(7, '2017-03-09T16:00;00', 4)
+,(8, '2017-03-11T08:00;00', 6)
+,(8, '2017-03-11T09:00;00', 6)
+,(8, '2017-03-11T10:00;00', 6)
+,(8, '2017-03-11T13:00;00', 6)
+,(8, '2017-03-11T14:00;00', 6)
+,(8, '2017-03-11T15:00;00', 6)
+,(8, '2017-03-11T16:00;00', 6)
+,(8, '2017-03-11T17:00;00', 6)
+,(8, '2017-03-11T18:00;00', 6)
+,(8, '2017-03-11T19:00;00', 6)
+,(9, '2017-03-12T07:00;00', 0)
+,(9, '2017-03-12T08:00;00', 0)
+,(9, '2017-03-12T09:00;00', 0)
+,(9, '2017-03-12T10:00;00', 0)
+,(9, '2017-03-12T11:00;00', 0)
+,(9, '2017-03-12T12:00;00', 0);
 
+INSERT INTO appointments (tutor_id, student_id, subject, date)
+VALUES (1, 9, 'mathematics', '2017-03-28T10:30:00')
+, (2, 9, 'geology', '2017-03-28T10:30:00')
+, (8, 9, 'mathematics', '2017-03-28T10:30:00')
+, (6, 9, 'liberalArts', '2017-03-28T10:30:00')
+, (3, 9, 'mathematics', '2017-03-28T10:30:00')
+, (4, 9, 'biology', '2017-03-28T10:30:00')
+, (3, 9, 'engineering', '2017-03-28T10:30:00')
+, (8, 9, 'biology', '2017-03-28T10:30:00')
+, (5, 9, 'compSci', '2017-03-28T10:30:00')
+, (6, 9, 'physics', '2017-03-28T10:30:00')
+, (7, 9, 'compSci', '2017-03-28T10:30:00')
+, (6, 9, 'liberalArts', '2017-03-28T10:30:00')
+, (3, 9, 'compSci', '2017-03-28T10:30:00')
+, (3, 9, 'chemistry', '2017-03-28T10:30:00')
+, (4, 9, 'business', '2017-03-28T10:30:00')
+, (1, 9, 'compSci', '2017-03-28T10:30:00');

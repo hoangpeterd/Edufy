@@ -33,18 +33,19 @@ module.exports = function(sequelize, DataTypes){
 			allowNull: false
 		}
   }, {
-    timestamps: false
-  }, {
-		instanceMethods: {
-    	toJSON: function () {
-				var values = Object.assign({}, this.get());
-
-				delete values.password;
-      	return values;
+		classMethods: {
+		associate: function(models) {
+        Users.belongsTo(models.tutors, {
+			foreignKey: {
+				name: "tutor_id",
+				allowNull: false
 			}
-  	}
-	}
-);
+		});
+			}
+  	},
+    timestamps: false
+
+});
 
   return Users;
 };
