@@ -103,15 +103,33 @@ $(function () { // document ready
 			$('#calendar').fullCalendar(fc);
 		});
 
-		$.post("/scheduledAppointments", { tutor_id: $(".lead").text().trim() }).done(function (result) {
-			for (var i = 0; i < result.length; i++) {
-				var actualTitle = result[i].title.split(", ");
-				var subject = result[i].subject;
-				actualTitle = actualTitle[1];
-				result[i].title = actualTitle + " - " + subject;
-			}
-			events.push(result);
+	// 	$.post("/scheduledAppointments", { tutor_id: $(".lead").text().trim() }).done(function (result) {
+	// 		for (var i = 0; i < result.length; i++) {
+	// 			var actualTitle = result[i].title.split(", ");
+	// 			var subject = result[i].subject;
+	// 			actualTitle = actualTitle[1];
+	// 			result[i].title = actualTitle + " - " + subject;
+	// 		}
+	// 		events.push(result);
+	// 	});
+	// }
+
+	if ($("body").is("#tutorBody")) {
+		$.post("/tutorAvailability", { tutor_id: 1 }).done(function (result) {
+
+			fc.events = result;
+			$('#calendar').fullCalendar(fc);
 		});
+
+		// $.post("/scheduledAppointments", { tutor_id: $(".lead").text().trim() }).done(function (result) {
+		// 	for (var i = 0; i < result.length; i++) {
+		// 		var actualTitle = result[i].title.split(", ");
+		// 		var subject = result[i].subject;
+		// 		actualTitle = actualTitle[1];
+		// 		result[i].title = actualTitle + " - " + subject;
+		// 	}
+		// 	events.push(result);
+		// });
 	}
 
 	if ($("body").is("#studentBody")) {
@@ -175,6 +193,7 @@ function defineAvailability(start, end) {
 		var displayStart = start.clone();
 		var displayEnd = end.clone();
 		//MODAL NAME: @bottom of tutor.html set up on click $("#free").modal();
+
 		if (confirm("Are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?")) {
 			availability.push(infoArray[0].dow);
 			for (var i = 0; i < infoArray.length; i++) {
