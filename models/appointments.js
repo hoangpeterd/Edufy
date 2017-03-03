@@ -25,16 +25,9 @@ module.exports = function(sequelize, DataTypes){
   }, {
     classMethods: {
       associate: function(models) {
-        Appointments.belongsTo(models.tutors, {
-          // foreignKey: {
-          //   'user_id'
-          // }
-        });
-      },
-      timestamps: false
+        Appointments.belongsTo(models.tutors);
+      }
     }
-
   });
-
   return Appointments;
 };
