@@ -30,6 +30,17 @@ module.exports = function (app, passport) {
 
     res.render(req.user.accountType, req.user);
   });
+  
+  app.get('/class/:class' , function(req, res) {
+    
+    console.log(req.params.class)
+		db.users.findAll({raw: true}).then(function(data) {
+			for (let i = 0; i < data.length; i++) {
+				data[i].password = null
+			}
+			res.send(data)
+		})
+	})
 
   app.get("/favicon.ico", function (req, res) {
     res.send(204);
