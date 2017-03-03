@@ -32,21 +32,22 @@ var fc = {
 	eventClick: function (data, jsEvent, view) {
 		if ($("body").is("#studentBody")) {
 			selectAppointment(start, end, jsEvent, view);
-		} else if ($("body").is("#tutorBody")) {
-			if (confirm("delete?")) {
-				if ($("body").is("#tutorBody")) {
-					var id = $(this).params.id
-					$.ajax({
-						method: "DELETE",
-						url: "/tutorAvailability/" + tutor_id
-					}).done(function (result) {
-
-					});
-				}
-			}
 		}
+		// else if ($("body").is("#tutorBody")) {
+		// 	if (confirm("delete?")) {
+		// 		if ($("body").is("#tutorBody")) {
+		// 			var id = $(this).params.id
+		// 			$.ajax({
+		// 				method: "DELETE",
+		// 				url: "/tutorAvailability/" + tutor_id
+		// 			}).done(function (result) {
+
+		// 			});
+		// 		}
+		// 	}
+		// }
 	},
-	select: function (start, end, jsEvent, view) {
+	select: function (start, end) {
 		if ($("body").is("#tutorBody")) {
 			defineAvailability(start, end);
 		}
@@ -82,6 +83,7 @@ var appoint = {
 
 var businessHours = [];
 var events = [];
+
 $(function () { // document ready
 	/* initialize the external events
 	-----------------------------------------------------------------*/
@@ -97,12 +99,24 @@ $(function () { // document ready
 	//causing sequelize errors.
 	//-----------------------------------------------------------------------------------------------
 	if ($("body").is("#tutorBody")) {
-		// $.get("/")
-		$.post("/tutorAvailability", { tutor_id: $(".lead").text().trim() }).done(function (result) {
+		$.post("/tutorAvailability", { tutor_id: 1 }).done(function (result) {
+			var timeObject = {
+				start: null,
+				title: "Available",
+				startTime: null
+			}
 			for (var i = 0; i < result.length; i++) {
-				businessHours.push(result[i]);
+				var start = result[i].start.split("T");
+				var startTime = start[1];
+				var start = start[0];
+
+				timeObject.start = start;
+				timeObject.startTime = startTime;
+
+				businessHours.push(timeObject);
 			}
 			fc.events = businessHours;
+			// console.log(businessHours);
 			$('#calendar').fullCalendar(fc);
 		});
 		// $.post("/scheduledAppointments", { tutor_id: $(".lead").text().trim() }).done(function (result) {
@@ -146,35 +160,40 @@ function defaultView() {
 	}
 }
 
-function defineAvailability(start, end, jsEvent, view) {
+function defineAvailability(start, end) {
 	var availability = [];
 	if (end.diff(start) / (1000 * 60 * 60) % 1 !== 0) {
 		end.add(30, 'minutes');
 	}
 	if ($("body").is("#tutorBody")) {
+		var newAvailability = {};
 		var timeSpan = end.diff(start) / (1000 * 60 * 60); //Returns the number of hours per selected availablespan.
 		var infoArray = [];
 		var startTime = start.clone();
+		var original = start.clone();
 		var endTime = end.clone();
+		var dow = start._d.getDay();
 		var k = 0;
 		for (var j = 0; j < timeSpan; j++) {
 			if (j >= 1) k = 1;
 			startTime = startTime.add(k, 'hour');
 			var newEnd = startTime.clone();
 			newEnd = newEnd.add(1, 'hour');
-			var newAvailability = {
-				dow: start,
-				hourTop: startTime.format('HH:mm:ss'),
-				start: startTime.toISOString(),
+			newAvailability = {
+				dow: dow,
+				hourTop: startTime.format(),
+				// start: original._d,
 				title: "Available Timeslot"
 			};
+
 			infoArray.push(newAvailability);
 		}
 		var displayStart = start.clone();
 		var displayEnd = end.clone();
 		if (confirm("are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?")) {
+				availability.push(infoArray[0].dow);
 			for (var i = 0; i < infoArray.length; i++) {
-				availability.push(infoArray[i]);
+				availability.push(infoArray[i].hourTop);
 			}
 			events.push(availability);
 			parseData(availability);
@@ -226,9 +245,8 @@ function selectAppointment(start, end, jsEvent, view) {
 }
 
 function parseData(localArr) {
-	
+
 	if ($("body").is("#tutorBody")) {
-		console.log(localArr)
 		$.post("/createTutorAvailability", { dates: localArr }).done(function (result) {
 			if (result.reload) {
 				location.reload();
