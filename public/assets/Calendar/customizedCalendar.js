@@ -173,7 +173,7 @@ function defineAvailability(start, end) {
 		}
 		var displayStart = start.clone();
 		var displayEnd = end.clone();
-		if (confirm("are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?")) {
+		if (confirm("Are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?")) {
 			availability.push(infoArray[0].dow);
 			for (var i = 0; i < infoArray.length; i++) {
 				availability.push(infoArray[i].hourTop);

@@ -159,28 +159,3 @@ app.delete("/tutorAvailability/:id", function (req, res) {
 });
 }
 
-
-
-//ignore these. some codes i might wanna use in the future
-// ...
-//     retStatus = 'Success';
-//     // res.redirect('/team');
-//     res.send({
-//       retStatus : retStatus,
-//       redirectTo: '/team',
-//       msg : 'Just go there please' // this should help
-//     });
-// ...
-// Client-side in $.post('/team/' ...
-//
-// ...
-//     $.post('/team/' + teamId, { _method : 'delete' }, function(response) {
-//         console.log(response);
-//         if(response.retStatus === 'Success') {
-//             // not sure what did you mean by ('/team' && '/team' !== "")
-//             // if('/team' && '/team' !== "") {
-//             if (response.redirectTo && response.msg == 'Just go there please') {
-//                 window.location = response.redirectTo;
-//             }
-//         }
-//     });
