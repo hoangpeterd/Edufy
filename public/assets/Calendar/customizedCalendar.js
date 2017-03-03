@@ -66,20 +66,22 @@ var appoint = {
 	eventBackgroundColor: "rgba(76, 174, 76, .5)"
 };
 
-$("#listMonth").fullCalendar({
-	schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-	aspectRatio: 1.25,
-	eventSources: ['/tutorAvailability', events],
-	eventLimit: true,
-	eventBorderColor: "#4CAE4C",
-	eventBackgroundColor: "rgba(76, 174, 76, .5)",
-	header: {
-		left: 'prev,next',
-		center: '',
-		right: ''
-	},
-	defaultView: "listMonth"
-});
+if ($("body").is("#tutorBody")) {
+	$("#listMonth").fullCalendar({
+		schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+		aspectRatio: 1.25,
+		eventSources: ['/tutorAvailability', events],
+		eventLimit: true,
+		eventBorderColor: "#4CAE4C",
+		eventBackgroundColor: "rgba(76, 174, 76, .5)",
+		header: {
+			left: 'prev,next',
+			center: '',
+			right: ''
+		},
+		defaultView: "listMonth"
+	});
+}
 
 var businessHours = [];
 var events = [];
@@ -103,16 +105,16 @@ $(function () { // document ready
 			$('#calendar').fullCalendar(fc);
 		});
 
-	// 	$.post("/scheduledAppointments", { tutor_id: $(".lead").text().trim() }).done(function (result) {
-	// 		for (var i = 0; i < result.length; i++) {
-	// 			var actualTitle = result[i].title.split(", ");
-	// 			var subject = result[i].subject;
-	// 			actualTitle = actualTitle[1];
-	// 			result[i].title = actualTitle + " - " + subject;
-	// 		}
-	// 		events.push(result);
-	// 	});
-	// }
+		$.post("/scheduledAppointments", { tutor_id: $(".lead").text().trim() }).done(function (result) {
+			for (var i = 0; i < result.length; i++) {
+				var actualTitle = result[i].title.split(", ");
+				var subject = result[i].subject;
+				actualTitle = actualTitle[1];
+				result[i].title = actualTitle + " - " + subject;
+			}
+			events.push(result);
+		});
+	}
 
 	if ($("body").is("#tutorBody")) {
 		$.post("/tutorAvailability", { tutor_id: 1 }).done(function (result) {
@@ -121,15 +123,15 @@ $(function () { // document ready
 			$('#calendar').fullCalendar(fc);
 		});
 
-		// $.post("/scheduledAppointments", { tutor_id: $(".lead").text().trim() }).done(function (result) {
-		// 	for (var i = 0; i < result.length; i++) {
-		// 		var actualTitle = result[i].title.split(", ");
-		// 		var subject = result[i].subject;
-		// 		actualTitle = actualTitle[1];
-		// 		result[i].title = actualTitle + " - " + subject;
-		// 	}
-		// 	events.push(result);
-		// });
+		$.post("/scheduledAppointments", { tutor_id: $(".lead").text().trim() }).done(function (result) {
+			for (var i = 0; i < result.length; i++) {
+				var actualTitle = result[i].title.split(", ");
+				var subject = result[i].subject;
+				actualTitle = actualTitle[1];
+				result[i].title = actualTitle + " - " + subject;
+			}
+			events.push(result);
+		});
 	}
 
 	if ($("body").is("#studentBody")) {
@@ -146,13 +148,9 @@ $(function () { // document ready
 
 		});
 	}
+});
 	//-----------------------------------------------------------------------------------------------
 
-
-
-
-
-});
 
 function defaultView() {
 	if ($("body").is("#tutorBody")) {
@@ -184,7 +182,6 @@ function defineAvailability(start, end) {
 			newAvailability = {
 				dow: dow,
 				hourTop: startTime.format(),
-				// start: original._d,
 				title: "Available Timeslot"
 			};
 
@@ -193,7 +190,11 @@ function defineAvailability(start, end) {
 		var displayStart = start.clone();
 		var displayEnd = end.clone();
 		//MODAL NAME: @bottom of tutor.html set up on click $("#free").modal();
-
+		// $("#calendar").on("mouseup", function() {
+		// 	console.log("inside mouse up");
+			// $("#free").modal({show: true});
+			// ("Are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?")
+		// });
 		if (confirm("Are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?")) {
 			availability.push(infoArray[0].dow);
 			for (var i = 0; i < infoArray.length; i++) {
