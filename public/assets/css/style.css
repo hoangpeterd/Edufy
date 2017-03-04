@@ -483,3 +483,13 @@ input:checked + .slider:before {
 #classRow {
 	width: 490px;
 }
+
+/*tooltip*/
+.invalid{
+	border-color: #E9322D!important;
+box-shadow: 0 0 6px #F8B9B7!important;
+}
+
+.popover-content {
+	width: 200px;
+}
