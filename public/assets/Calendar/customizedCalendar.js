@@ -102,7 +102,7 @@ $(function () { // document ready
 			var subject = result[i].subject;
 			var actualTitle = result[i].title.split(", ");
 			actualTitle = actualTitle[0];
-			result[i].title = actualTitle + " - " + subject;
+			result[i].title = `Appt. with ${actualTitle} (${subject})`;
 		}
 		events.push(result);
 		appoint.events = result;

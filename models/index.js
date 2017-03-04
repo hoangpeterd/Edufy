@@ -8,7 +8,7 @@ var env = process.env.NODE_ENV || 'development';
 var config = require(__dirname + '/../config/config.json')[env];
 var db = {};
 
-//keeping my password hidden i inserted the password to the config object.
+// keeping my password hidden i inserted the password to the config object.
 // var kee = require("../key.js");
 //
 // if (env === "development") {

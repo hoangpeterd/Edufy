@@ -168,21 +168,29 @@ module.exports = function (app, passport) {
   });
 
   app.post("/scheduledAppointments", function (req, res) {
-    db.appointments.findAll({ where: req.body }).then(function (result) {
+    db.appointments.findAll({ where: {student_id: req.user.user_id}, raw: true }).then(function(result) {
       var apptArr = [];
-      for (var i = 0; i < result.length; i++) {
-        var startDate = new Date(result[i].dataValues.date);
-        var endDate = new Date(result[i].dataValues.endTimes);
-        var subject = result[i].dataValues.subject;
-        var apptObj = {
-          title: (result[i].dataValues.tutor_id + ", " + result[i].dataValues.student_id),
-          subject: subject,
-          start: startDate.toISOString('YYYY-MM-DD H:mm:ss'),
-          end: startDate.toISOString('YYYY-MM-DD H:mm:ss')
-        };
-        apptArr.push(apptObj);
+      for (let i = 0; i < result.length; i++) {
+        var temp = []
+        var startDate = new Date(result[i].date);
+        var endDate = new Date(result[i].endTimes);
+        var subject = result[i].subject;
+        db.users.findOne({where: {user_id: result[i].tutor_id}, raw: true}).then(function(data) {
+          if (!data) {data = {}; data.firstName = "John"; data.lastName = 'Cena'}
+          var apptObj = {
+            title: `${data.firstName} ${data.lastName.match(/^\w/i).toString()}., ${result[i].student_id}`,
+            subject: subject,
+            start: startDate.toISOString('YYYY-MM-DD H:mm:ss'),
+            end: startDate.toISOString('YYYY-MM-DD H:mm:ss')
+          };
+          apptArr.push(apptObj);
+        })
+
       };
-      res.send(apptArr);
+      setTimeout(function() {
+        console.log('ok')
+        res.send(apptArr);
+      }, 500)
     });
   });
 
