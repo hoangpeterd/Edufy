@@ -23,7 +23,7 @@ $(document).ready(function() {
           }
         });
   });
-}
+
 
   $('.grid-item').on('click', function() {
 

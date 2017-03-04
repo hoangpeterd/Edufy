@@ -85,6 +85,7 @@ passport.use('local-signup', new Strategy({passReqToCallback: true},
               db.tutors.create({
                 user_id: user.user_id,
               }).then(function() {
+
                 return cb(null, user)
               })
 		        } else {return cb(null, user)}
