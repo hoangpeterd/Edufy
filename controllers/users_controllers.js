@@ -92,7 +92,7 @@ module.exports = function (app, passport) {
               tutorInfo[i]["event"] = freeArr;
             }
 
-
+            console.log(tutorInfo)
             res.send(tutorInfo);
           });
         });
@@ -140,8 +140,9 @@ module.exports = function (app, passport) {
   //getting rating information and sending the information so the tutor has their rating
   app.get("/findRating", function (req, res) {
 
-    if (!req.user) {return}
+    if  (!req.user || /student/.test(req.user.accountType)) {return}
     db.tutors.findOne({ where: { user_id: req.user.user_id } }).then(function (result) {
+      if (!result) {console.log('User missing in database or fall through'); return;}
       res.send({ rating: result.rating, sessions: result.sessions });
     });
   });
