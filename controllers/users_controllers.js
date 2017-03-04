@@ -56,6 +56,7 @@ module.exports = function (app, passport) {
 
       db.users.findAll({raw: true, where: {$or: tutorIDArr}}).then(function(data) {
         var tutorInfo = []
+          console.log(data);
         for(var i = 0; i<data.length; i++){
           var tutorObj = {
             fullName: data[i].firstName + " " + data[i].lastName,
@@ -66,10 +67,14 @@ module.exports = function (app, passport) {
           tutorInfo.push(tutorObj);
         }
 
+
         db.tutors.findAll({raw: true, where: {$or: tutorIDArr}}).then(function(data) {
+
+
           for(var i = 0; i<data.length; i++){
-            rating = data[i].rating / data[i].sessions;
-            tutorInfo[i]["rating"] = rating;
+            var rating = data[i].rating / data[i].sessions;
+
+            tutorInfo[i].rating = rating;
           }
 
 
@@ -182,13 +187,11 @@ module.exports = function (app, passport) {
   });
 
 app.post("/tutorAvailability", function (req, res) { //Something about this one being GET did something new
-  db.availability.findAll({tutor_id: req.user.user_id}).then(function (result) {
+  db.availability.findAll({where: {tutor_id: req.user.user_id}}).then(function (result) {
     var parsedArr = [];
-    // console.log(result[0].dataValues);
-    // console.log(result[1].dataValues);
-    // console.log(result[2].dataValues);
 for (var i = 0; i < result.length; i++) {
         availableObj = {
+        tutor_id: req.user.id,
         title: "Available",
         start: result[i].dataValues.start
       }
