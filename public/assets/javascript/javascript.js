@@ -46,7 +46,7 @@ $(document).ready(function() {
           starIcon = starIcon + '<i class="fa fa-star-o"></i>'
         }
 
-        var large = `<div class='panel panel-default'><div class='panel-heading' role='tab' id='heading${id}'><h4 class='panel-title'><a role='button' data-toggle='collapse' data-parent='#accordion' href='#collapse${id}' aria-expanded='true' aria-controls='collapse${id}'><div class='row'><div class='col-xs-12' align='left'><div class='col-xs-6'><img class='img-rounded 'id='profileImage' width='55' height='55' src"#"></div><div class='col-xs-6'><div class='row'>${tutorName}</div><div class='row'>` + starIcon + `</div><div class='row'>${classes}</div></div></div></div></a></h4></div><div id='collapse${id}' class='panel-collapse collapse' role='tabpanel' aria-labelledby='heading${id}'><div class='panel-body text-left'><div id="stuCal${index}"></div></div></div></div>`
+        var large = `<div class='panel panel-default'><div class='panel-heading' role='tab' id='heading${id}'><h4 class='panel-title'><a role='button' data-toggle='collapse' data-parent='#accordion' href='#collapse${id}' aria-expanded='true' aria-controls='collapse${id}'><div class='row'><div class='col-xs-12' align='left'><div class='col-xs-6'><img class='img-rounded 'id='profileImage' width='55' height='55' src"#"></div><div class='col-xs-6'><div class='row classRow'>${tutorName}</div><div class='row'>` + starIcon + `</div><div class='row classRow'>${classes}</div></div></div></div></a></h4></div><div id='collapse${id}' class='panel-collapse collapse' role='tabpanel' aria-labelledby='heading${id}'><div class='panel-body text-left'><div id="stuCal${index}"></div></div></div></div>`
 
         $('#accordion').append(large)
       });
