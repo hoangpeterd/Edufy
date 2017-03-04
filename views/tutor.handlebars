@@ -39,30 +39,27 @@
             </div>
             <div class="row">
               <form action='/logout' method='get'>
-                <button id="signOut" class="btn btn-success pull-right">sign out</button>
+                <button id="signOut" class="btn btn-success pull-right">sign out</button> 
               </form>
               <div class="countDown">
-                <div class="counter" data-count="200">
-                  <p>total earnings</p>$200</div>
+                <div class="counter" data-count="200"><p>total earnings</p>$200</div>
               </div>
             </div>
           </div>
           <div class="row">
             <!-- <img src="assets/images/edufyIcon.png" width="15%"> -->
-            <!--            <button id="signOut" class="btn btn-success pull-right">sign out</button>-->
+<!--            <button id="signOut" class="btn btn-success pull-right">sign out</button>-->
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- end jumbotron -->
+    <!-- end jumbotron -->
 
   <div class="container">
     <div class="row">
       <div class="col-sm-3">
-        <a href="#" id='lol'>
-          <h1 class="text-left" style="padding-bottom: 20px">subjects</h1>
-        </a>
+       <a href="#" id='lol'><h1 class="text-left" style="padding-bottom: 20px">subjects</h1></a>
         <h1 class="headers text-left">sessions</h1>
         <div id="listMonth"></div>
       </div>
@@ -72,157 +69,157 @@
     </div>
   </div>
 
-  <!--  Pick classes-->
-
-  <div class="modal fade" id="tutorClasses" role="dialog">
-    <div id="tutorClasses" class="modal-dialog modal-md" align="center">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title"><img src="assets/images/edufyIcon.png" alt="edufy icon" height="30px" width="30px"> your proficiencies</h4>
-        </div>
-        <div class="modal-body" align="center">
-
-
-          <!-- courses -->
-          <div class="row">
-            <div class="col-sm-4">
-              <div class="grid-tab classModal" value="liberalArts">
-                <div class="hovereffect">
-                  <img class="img-responsive" src="assets/images/liberalArts.gif" alt="">
-                  <div class="overlayGrid">
-                    <h2 id="h2tab">liberal arts</h2>
-                  </div>
-                </div>
-              </div>
+    <!--  Pick classes-->
+     
+      <div class="modal fade" id="tutorClasses" role="dialog">
+      <div id="tutorClasses" class="modal-dialog modal-md" align="center">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title"><img src="assets/images/edufyIcon.png" alt="edufy icon" height="30px" width="30px"> your proficiencies</h4>
             </div>
-            <div class="col-sm-4">
-              <div class="grid-tab classModal" value="business">
-                <div class="hovereffect">
-                  <img class="img-responsive" src="assets/images/business.gif" alt="">
-                  <div class="overlayGrid">
-                    <h2 id="h2tab">business</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="grid-tab classModal" value="engineering">
-                <div class="hovereffect">
-                  <img class="img-responsive" src="assets/images/engineering.gif" alt="">
-                  <div class="overlayGrid">
-                    <h2 id="h2tab">engineering</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-4">
-              <div class="grid-tab classModal" value="mathematics">
-                <div class="hovereffect">
-                  <img class="img-responsive" src="assets/images/mathematics.gif" alt="">
-                  <div class="overlayGrid">
-                    <h2 id="h2tab">mathematics</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="grid-tab classModal" value="biology">
-                <div class="hovereffect">
-                  <img class="img-responsive" src="assets/images/biology.gif" alt="">
-                  <div class="overlayGrid">
-                    <h2 id="h2tab">biology</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="grid-tab classModal" value="chemistry">
-                <div class="hovereffect">
-                  <img class="img-responsive" src="assets/images/chemistry.gif" alt="">
-                  <div class="overlayGrid">
-                    <h2 id="h2tab">chemistry</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-4">
-              <div class="grid-tab classModal" value="computerScience">
-                <div class="hovereffect">
-                  <img class="img-responsive" src="assets/images/computerScience.gif" alt="">
-                  <div class="overlayGrid">
-                    <h2 id="h2tab">computer science</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="grid-tab classModal" value="geology">
-                <div class="hovereffect">
-                  <img class="img-responsive" src="assets/images/geology.gif" alt="">
-                  <div class="overlayGrid">
-                    <h2 id="h2tab">geology</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="grid-tab classModal" value="physics">
-                <div class="hovereffect">
-                  <img class="img-responsive" src="assets/images/physics.gif" alt="">
-                  <div class="overlayGrid">
-                    <h2 id="h2tab">physics</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            <div class="modal-body" align="center">
 
 
-          <!-- form area -->
-          <textarea class="form-control" id="specificClass" placeholder="input your classes for this subject" rows="3"></textarea>
+            <!-- courses -->
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="grid-tab classModal" value="liberalArts">
+                    <div class="hovereffect">
+                      <img class="img-responsive" src="assets/images/liberalArts.gif" alt="">
+                      <div class="overlayGrid">
+                        <h2 id="h2tab">liberal arts</h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="grid-tab classModal" value="business">
+                    <div class="hovereffect">
+                      <img class="img-responsive" src="assets/images/business.gif" alt="">
+                      <div class="overlayGrid">
+                        <h2 id="h2tab">business</h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="grid-tab classModal" value="engineering">
+                    <div class="hovereffect">
+                      <img class="img-responsive" src="assets/images/engineering.gif" alt="">
+                      <div class="overlayGrid">
+                        <h2 id="h2tab">engineering</h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="grid-tab classModal" value="mathematics">
+                    <div class="hovereffect">
+                      <img class="img-responsive" src="assets/images/mathematics.gif" alt="">
+                      <div class="overlayGrid">
+                        <h2 id="h2tab">mathematics</h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="grid-tab classModal" value="biology">
+                    <div class="hovereffect">
+                      <img class="img-responsive" src="assets/images/biology.gif" alt="">
+                      <div class="overlayGrid">
+                        <h2 id="h2tab">biology</h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="grid-tab classModal" value="chemistry">
+                    <div class="hovereffect">
+                      <img class="img-responsive" src="assets/images/chemistry.gif" alt="">
+                      <div class="overlayGrid">
+                        <h2 id="h2tab">chemistry</h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="grid-tab classModal" value="computerScience">
+                    <div class="hovereffect">
+                      <img class="img-responsive" src="assets/images/computerScience.gif" alt="">
+                      <div class="overlayGrid">
+                        <h2 id="h2tab">computer science</h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="grid-tab classModal" value="geology">
+                    <div class="hovereffect">
+                      <img class="img-responsive" src="assets/images/geology.gif" alt="">
+                      <div class="overlayGrid">
+                        <h2 id="h2tab">geology</h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="grid-tab classModal" value="physics">
+                    <div class="hovereffect">
+                      <img class="img-responsive" src="assets/images/physics.gif" alt="">
+                      <div class="overlayGrid">
+                        <h2 id="h2tab">physics</h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+<!-- form area -->
+ <textarea class="form-control" id="specificClass" placeholder="input your classes for this subject" rows="3"></textarea>
           <div class="modal-footer">
             <button id="tutorClassesSubmit" type="button" class="btn btn-success btn-block">submit</button>
           </div>
         </div>
       </div>
     </div>
-    <div class="modal fade" id="freeModal" role="dialog">
+      <div class="modal fade" id="freeModal" role="dialog"> 
       <div class="modal-dialog modal-sm" align="center">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title"><img src="assets/images/edufyIcon.png" alt="edufy icon" height="30px" width="30px"> calendar</h4>
           </div>
-          <div id="free" class="modal-body">
-            <!-- <p>are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?"</p> -->
+            <div id="free" class="modal-body" align='center'>
+              <!-- <p>are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?"</p> -->
+            </div>
+            <div class="modal-footer">
+              <button id="confirmFree" type="button" class="btn btn-success btn-block" data-dismiss="modal">confirm</button>
+            </div>
           </div>
-          <div class="modal-footer">
-            <button id="confirmFree" type="button" class="btn btn-success btn-block" data-dismiss="modal">confirm</button>
-          </div>
-        </div>
       </div>
     </div>
+            
+           
 
-    <script src="https://code.jquery.com/jquery-1.11.3.min.js" integrity="sha256-7LkWEzqTdpEfELxcZZlS6wAx5Ff13zZ83lYO2/ujj7g="
-      crossorigin="anonymous"></script>
-      {{!--
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>--}}
-      <!-- linking bootstrap JS -->
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-        crossorigin="anonymous"></script>
-        <!-- linking JS file -->
-        <script type="text/javascript" src="assets/javascript/javascript.js"></script>
-        <!-- full calendar -->
-        <script src='assets/Calendar/lib/moment.min.js'></script>
-        <script src='assets/Calendar/lib/jquery.min.js'></script>
-        <script src='assets/Calendar/lib/fullcalendar.min.js'></script>
-        <script src='assets/Calendar/scheduler.min.js'></script>
-        <script src="assets/Calendar/customizedCalendar.js"></script>
-        <!--star Rating -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"></script>
-        <!-- Isotope -->
-        <script src="assets/Isotope/isotope.pkgd.js"></script>
-</body>
+  <script
+  src="https://code.jquery.com/jquery-1.11.3.min.js"
+  integrity="sha256-7LkWEzqTdpEfELxcZZlS6wAx5Ff13zZ83lYO2/ujj7g="
+  crossorigin="anonymous"></script>
+  {{!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>--}}
+  <!-- linking bootstrap JS -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <!-- linking JS file -->
+  <script type="text/javascript" src="assets/javascript/javascript.js"></script>
+  <!-- full calendar -->
+  <script src='assets/Calendar/lib/moment.min.js'></script>
+  <script src='assets/Calendar/lib/jquery.min.js'></script>
+  <script src='assets/Calendar/lib/fullcalendar.min.js'></script>
+  <script src='assets/Calendar/scheduler.min.js'></script>
+  <script src="assets/Calendar/customizedCalendar.js"></script>
+  <!--star Rating -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"></script>
+  <!-- Isotope -->
+  <script src="assets/Isotope/isotope.pkgd.js"></script>
+</body>  
