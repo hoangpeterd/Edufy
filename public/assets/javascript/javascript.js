@@ -33,11 +33,17 @@ $(document).ready(function() {
     $.get('/class/' + subject).done(function(data) {
       $.each(data, function(index, value) {
         let tutorName = value.fullName;
+<<<<<<< HEAD
         let classes = value.class;
         let link = 'assets/images/' + value.user_id + ".gif" || 2;
+=======
+        let classes = value.class;;
+        let link = value.picUrl || "assets/images/placeholder.png";
+>>>>>>> 027f7deeb0f70fb2e3d88e2188982ea2056cf721
         let stars = value.rating;
         let id = value.id;
         let starIcon = "";
+
         for( var i = stars; i>0; i--){
           starIcon = starIcon + '<i class="fa fa-star"></i>';
         }
@@ -46,7 +52,11 @@ $(document).ready(function() {
           starIcon = starIcon + '<i class="fa fa-star-o"></i>';
         }
 
+<<<<<<< HEAD
         var large = `<div class='panel panel-default'><div class='panel-heading' role='tab' id='heading${id}'><h4 class='panel-title'><a role='button' data-toggle='collapse' data-parent='#accordion' href='#collapse${id}' aria-expanded='true' aria-controls='collapse${id}'><div class='row'><div class='col-xs-12' align='left'><div class='col-xs-6'><img class='img-rounded 'id='profileImage' width='55' height='55' src"#"></div><div class='col-xs-6'><div class='row'>${tutorName}</div><div class='row'>` + starIcon + `</div><div class='row'>${classes}</div></div></div></div></a></h4></div><div id='collapse${id}' class='panel-collapse collapse' role='tabpanel' aria-labelledby='heading${id}'><div class='panel-body text-left'><div id="stuCal${index}"></div></div></div></div>`;
+=======
+        var large = `<div class='panel panel-default'><div class='panel-heading' role='tab' id='heading${id}'><h4 class='panel-title'><a role='button' data-toggle='collapse' data-parent='#accordion' href='#collapse${id}' aria-expanded='true' aria-controls='collapse${id}'><div class='row'><div class='col-xs-12' align='left'><div class='col-xs-6'><img class='img-rounded 'id='profileImage' width='55' height='55' src="${link}"></div><div class='col-xs-6'><div class='row classRow'>${tutorName}</div><div class='row'>${starIcon}</div><div class='row classRow'>${classes}</div></div></div></div></a></h4></div><div id='collapse${id}' class='panel-collapse collapse' role='tabpanel' aria-labelledby='heading${id}'><div class='panel-body text-left'>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</div></div></div>`
+>>>>>>> 027f7deeb0f70fb2e3d88e2188982ea2056cf721
 
         $('#accordion').append(large);
       });
@@ -83,7 +93,6 @@ $(document).ready(function() {
       }
     });
   });
-
 
 
   //when clicked on the signin button a modal will show up
@@ -280,7 +289,6 @@ $.fn.goValidate = function() {
     });
     return this;
 };
-
 
 
 	$('form').goValidate();

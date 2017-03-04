@@ -7,7 +7,7 @@ const flash = require('connect-flash')
 const bcrypt = require('bcryptjs');
 const db = require("./models");
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 
 // Serve static content for the app from the "public" directory in the application directory. Private stores profile images.
 app.use(express.static(__dirname + "/public"));
@@ -121,9 +121,9 @@ var server = email.server.connect({
 });
 
 server.send({
-  text: 'Hey howdy',
+  text: 'You a lil bissssh',
   from: 'NodeJS',
-  to: 'Yasha <yashanyou@gmail.com>',
+  to: 'Dan <dandtran@yahoo.com>',
   cc: '',
   subject: 'Greetings'
 }, function (err, message) {

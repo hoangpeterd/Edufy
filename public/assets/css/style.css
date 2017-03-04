@@ -480,7 +480,7 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-#classRow {
+.classRow {
 	width: 490px;
 }
 
@@ -492,6 +492,7 @@ box-shadow: 0 0 6px #F8B9B7!important;
 
 .popover-content {
 	width: 200px;
+}
 
 .fa{
 	color: #5cb85c;
