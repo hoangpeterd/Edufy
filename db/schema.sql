@@ -22,13 +22,13 @@ CREATE TABLE IF NOT EXISTS tutors (
 #CREATE TABLE IF NOT EXISTS students (
 	#user_id PRIMARY KEY NOT NULL,
   #FOREIGN KEY fk_students_user (user_id) REFERENCES users(user_id)
-	
+
 	#Would be awesome if we could figure out stuff the students could have. Table looks small :(
 	#Actually there is a lot I could think of, but implementation time at this point = Eh.
-	
+
 #);
 
-CREATE TABLE IF NOT EXISTS availability (
+CREATE TABLE IF NOT EXISTS availabilities (
   id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
   tutor_id INTEGER NOT NULL,
   start VARCHAR(100) NOT NULL,
