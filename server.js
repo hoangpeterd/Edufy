@@ -81,11 +81,16 @@ passport.use('local-signup', new Strategy({passReqToCallback: true},
 
 						//Read schema for details.
             if (created && /tutor/.test(req.body.accountType)) {
+              db.classes.create({tutor_id: user.user_id})
               db.tutors.create({
                 user_id: user.user_id,
               }).then(function() {
+<<<<<<< HEAD
 
                 return cb(null, user)
+=======
+                return cb(null, user)	
+>>>>>>> 7fa2f435a32062d1083d8aaf18dee6c0f7dd1ffc
               })
 		        } else {return cb(null, user)}
           })
@@ -109,6 +114,25 @@ passport.deserializeUser(function(id, cb) {
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+var email = require('emailjs');
+
+var server = email.server.connect({
+  user: '1NigerianPrince1@gmail.com',
+  password: 'scamArtist2000',
+  host: 'smtp.gmail.com',
+  ssl: true
+});
+
+server.send({
+  text: 'Hey howdy',
+  from: 'NodeJS',
+  to: 'Yasha <yashanyou@gmail.com>',
+  cc: '',
+  subject: 'Greetings'
+}, function (err, message) {
+  console.log(err || message);
+});
 
 
 // const methodOverride = require("method-override");

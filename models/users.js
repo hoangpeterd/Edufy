@@ -32,18 +32,12 @@ module.exports = function (sequelize, DataTypes) {
 			type: DataTypes.ENUM('student', 'tutor'),
 			allowNull: false
 		}
-	}, {
-			classMethods: {
-				associate: function (models) {
-					Users.belongsTo(models.tutors, {
-						// foreignKey: {
-						// 	name: "tutor_id",
-						// 	allowNull: false
-						// }
-					});
-				},
-				timestamps: false
-			}
-		});
+  }, {
+    classMethods: {
+ 			associate: function (models) {
+ 			  Users.belongsTo(models.tutors)
+      }
+    }
+  })
 	return Users;
 };

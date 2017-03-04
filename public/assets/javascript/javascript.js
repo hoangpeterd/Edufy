@@ -1,10 +1,27 @@
 $(document).ready(function() {
+
+  function isClassStyle(classList) {
+
+		arr = classList.trim().replace(/\s+/g, '').toUpperCase().split(',');
+		for (let i = 0; i < arr.length; i++) {
+			if (!(/^[A-Z]{3,5}\d+$/.test(arr[i]))) {
+				throw new Error('Incorrect Syntax. If not provided, follow this example: MATH2001, ...etc');
+			}
+		}
+	}
 	//getting the url to send it to the back in to query the username so the DB can send back the rating information
-function findRating (userName, cb){
-  $.post("/findRating", {userName: userName}).done(function(result){
+  $.get("/findRating").done(function(result){
+      //when a page is loaded. wait for a tutor page to load up and run the rating search to create a start rating for the tutor
     var rating = result.rating/result.sessions;
 
-    cb(rating);
+        $("#tutorRating").rateYo({
+          rating: rating,
+          readOnly: true,
+          multiColor: {
+            "startColor": "#000000", //black
+            "endColor"  : "#5cb85c"  //successgreen
+          }
+        });
   });
 }
 
@@ -12,8 +29,10 @@ function findRating (userName, cb){
 
     $('#accordion').empty()
     let subject = $(this).attr('value')
+
     $.get('/class/' + subject).done(function(data) {
       $.each(data, function(index, value) {
+
         console.log(value.fullName);
 
         let tutorName = value.fullName;
@@ -21,7 +40,6 @@ function findRating (userName, cb){
         let link = 'assets/images/' + value.user_id + ".gif" || 2;
         let rating = value.rating;
         let id = value.id;
-
 
         var large = `<div class='panel panel-default'><div class='panel-heading' role='tab' id='heading${id}'><h4 class='panel-title'><a role='button' data-toggle='collapse' data-parent='#accordion' href='#collapse${id}' aria-expanded='true' aria-controls='collapse${id}'><div class='row'><div class='col-xs-12' align='left'><div class='col-xs-6'><img class='img-rounded 'id='profileImage' width='55' height='55' src=${link}></div><div class='col-xs-6'><div class='row'>${tutorName}</div><div class='row'>${rating}</div><div class='row'>${classes}</div></div></div></div></a></h4></div><div id='collapse${id}' class='panel-collapse collapse' role='tabpanel' aria-labelledby='heading${id}'><div class='panel-body text-left'>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</div></div></div>`
 
@@ -115,19 +133,18 @@ function findRating (userName, cb){
   //  })
    // $().
   })
-  //when a page is loaded. wait for a tutor page to load up and run the rating search to create a start rating for the tutor
-  if ($("body").is("#tutorBody")) {
-    findRating($(".lead").text().trim(), function(data){
-      $(function () {
-        $("#tutorRating").rateYo({
-          rating: data,
-          readOnly: true,
-          multiColor: {
-            "startColor": "#000000", //black
-            "endColor"  : "#5cb85c"  //successgreen
-          }
-        });
-      });
-    });
-  }
+
+  $('#tutorClassesSubmit').on('click', function() {
+
+    if (!a) {return}
+    console.log($('#specificClass').val())
+    if (!isClassStyle($('#specificClass').val())) {
+      return
+    } else {
+      $.post('/class/' + a, {classList: $('#specificClass').val()}, function(data, status) {
+        console.log(data, status)
+      })
+    }
+  })
+
 });

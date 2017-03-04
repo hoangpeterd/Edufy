@@ -26,12 +26,10 @@ module.exports = function (app, passport) {
   });
 
   app.get('/profile', ensureLogin.ensureLoggedIn('/'), function (req, res) {
-
-    //	console.log(req.user);
-
     res.render(req.user.accountType, req.user);
   });
 
+  //Supplies student with tutor list
   app.get('/class/:class', function(req, res) {
     var subject = req.params.class;
     var subjectObj = {};
@@ -91,7 +89,7 @@ module.exports = function (app, passport) {
   app.post('/class/:class', function(req, res) {
 
     let a = {}
-    a[req.params.class] = req.body.courses
+    a[req.params.class] = req.body.classList
     db.classes.update(a, {where: {tutor_id: req.user.user_id}}).then(function(results) {
 
       res.send(results)
@@ -111,18 +109,6 @@ module.exports = function (app, passport) {
   //  }
   // });
   // // UPDATE post SET updatedAt = null WHERE deletedAt NOT NULL;
-  // app.get('/class/:class', function (req, res) {
-  //   var subjectObj = {};
-  //   subjectObj[req.params.class] = { $ne: null };
-  //   db.classes.findAll({ raw: true, where: subjectObj, include: [db.availability] }).then(function (data) {
-
-      // for (let i = 0; i < data.length; i++) {
-      // 	data[i].password = null
-      // }
-      // console.log(data);
-      // res.send(data)
-  //   });
-  // });
 
   //Login needs to be looked at before presentation because that's where all the security is. SUPER IMPORTANT.
   app.post('/uploadProfileImage', function (req, res) {
@@ -148,7 +134,9 @@ module.exports = function (app, passport) {
   });
 
   //getting rating information and sending the information so the tutor has their rating
-  app.post("/findRating", function (req, res) {
+  app.get("/findRating", function (req, res) {
+
+    if (!req.user) {return}
     db.tutors.findOne({ where: { user_id: req.user.user_id } }).then(function (result) {
       res.send({ rating: result.rating, sessions: result.sessions });
     });
