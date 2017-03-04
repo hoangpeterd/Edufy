@@ -56,6 +56,7 @@ module.exports = function (app, passport) {
 
       db.users.findAll({raw: true, where: {$or: tutorIDArr}}).then(function(data) {
         var tutorInfo = []
+          console.log(data);
         for(var i = 0; i<data.length; i++){
           var tutorObj = {
             fullName: data[i].firstName + " " + data[i].lastName,
@@ -66,10 +67,14 @@ module.exports = function (app, passport) {
           tutorInfo.push(tutorObj);
         }
 
+
         db.tutors.findAll({raw: true, where: {$or: tutorIDArr}}).then(function(data) {
+
+
           for(var i = 0; i<data.length; i++){
-            rating = data[i].rating / data[i].sessions;
-            tutorInfo[i]["rating"] = rating;
+            var rating = data[i].rating / data[i].sessions;
+
+            tutorInfo[i].rating = rating;
           }
 
 
