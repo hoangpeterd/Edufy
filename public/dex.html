@@ -79,7 +79,7 @@
 							</div>
 							<div class="form-group input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-								<input class="form-control" type="text" name='username' placeholder="email" oninvalid="this.setCustomValidity('Please Enter valid email')" oninput="setCustomValidity('')" required/>
+								<input class="form-control email" dataplacement="top" data-trigger="manual" data-content="must be a valid .edu address (user@school.edu)" type="text" name='username' placeholder="email" oninvalid="this.setCustomValidity('Please Enter valid email')" oninput="setCustomValidity('')" required/>
 							</div>
 							<div class="form-group input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
@@ -113,11 +113,9 @@
 				</div>
 		</div>
 	</div>
-  </div
 	<!-- end sign in modal -->
 
 <!--	</div>-->
-	<!-- end tutorClasses modal -->
   <!-- logo -->
   <div class="container logo">
       <img id="logo" class="img-responsive center-block" src="assets/images/edufyLogo.png" height="300" width="500">
@@ -131,6 +129,6 @@
 	<!-- linking JS file -->
 	<script type="text/javascript" src="assets/javascript/javascript.js"></script>
 	<!-- Isotope -->
-	<script src="assets/Isotope/isotope.pkgd.js"></script>  
+	<script src="assets/Isotope/isotope.pkgd.js"></script>
 </body>
 </html>

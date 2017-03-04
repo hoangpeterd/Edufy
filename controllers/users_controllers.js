@@ -56,7 +56,6 @@ module.exports = function (app, passport) {
 
       db.users.findAll({raw: true, where: {$or: tutorIDArr}}).then(function(data) {
         var tutorInfo = []
-          console.log(data);
         for(var i = 0; i<data.length; i++){
           var tutorObj = {
             fullName: data[i].firstName + " " + data[i].lastName,
@@ -79,10 +78,20 @@ module.exports = function (app, passport) {
 
 
           db.availability.findAll({raw: true, where: {$or: availIDArr}}).then(function(data){
-            for(var i = 0; i<data.length; i++){
-
+            for(var i = 0; i<tutorInfo.length; i++){
+              var freeArr = [];
+              for(var j = 0; j<data.length; j++){
+                if(tutorInfo[i].id === parseInt(data[j].tutor_id)){
+                  var events = {
+                    title: "Available",
+                    start: data[j].start
+                  }
+                  freeArr.push(events);
+                }
+              }
+              tutorInfo[i]["event"] = freeArr;
             }
-            console.log(data);
+
 
             res.send(tutorInfo);
           });

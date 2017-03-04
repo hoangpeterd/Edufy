@@ -7,7 +7,7 @@ const flash = require('connect-flash')
 const bcrypt = require('bcryptjs');
 const db = require("./models");
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5000;
 
 // Serve static content for the app from the "public" directory in the application directory. Private stores profile images.
 app.use(express.static(__dirname + "/public"));
