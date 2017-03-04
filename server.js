@@ -121,9 +121,9 @@ var server = email.server.connect({
 });
 
 server.send({
-  text: 'Hey howdy',
+  text: 'You a lil bissssh',
   from: 'NodeJS',
-  to: 'Yasha <yashanyou@gmail.com>',
+  to: 'Dan <dandtran@yahoo.com>',
   cc: '',
   subject: 'Greetings'
 }, function (err, message) {
