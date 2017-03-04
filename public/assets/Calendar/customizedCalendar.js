@@ -1,6 +1,7 @@
 
 /* initialize the calendar
-	-----------------------------------------------------------------*/
+	-----------------------------------------------------------------
+	FULL VIEW CALENDAR */
 var fc = {
 	schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
 	selectable: true,
@@ -19,7 +20,7 @@ var fc = {
 		center: '',
 		right: 'today prev,next agendaWeek,month'
 	},
-	defaultView: defaultView(),
+	defaultView: 'agendaWeek',
 	views: {
 		month: {
 			selectable: false,
@@ -31,20 +32,7 @@ var fc = {
 	eventBackgroundColor: "rgba(76, 174, 76, .5)",
 	eventClick: function (data, jsEvent, view) {
 		if ($("body").is("#studentBody")) {
-			selectAppointment(start, end, jsEvent, view);
-		} else if ($("body").is("#tutorBody")) {
-			//MODAL NAME: @bottom of tutor.html set up on click $("#availability").modal();
-			if (confirm("Delete you availability in this time slot?")) {
-				if ($("body").is("#tutorBody")) {
-					var id = $(this).params.id;
-					$.ajax({
-						method: "DELETE",
-						url: "/tutorAvailability/" + id
-					}).done(function (result) {
-
-					});
-				}
-			}
+			selectAppointment(data, jsEvent, view);
 		}
 	},
 	select: function (start, end) {
@@ -54,6 +42,7 @@ var fc = {
 	}
 };
 
+/* EACH STUDENT'S CALENDAR */
 var appoint = {
 	schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
 	header: {
@@ -66,19 +55,20 @@ var appoint = {
 	eventBackgroundColor: "rgba(76, 174, 76, .5)"
 };
 
+/* SMALL LIST-STYLE CALENDAR FOR TUTORS*/
 var sideView = {
-		schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-		aspectRatio: .0,
-		eventLimit: true,
-		eventBorderColor: "#4CAE4C",
-		eventBackgroundColor: "rgba(76, 174, 76, .5)",
-		header: {
-			left: 'prev,next',
-			center: '',
-			right: ''
-		},
-		defaultView: "listWeek"
-	}
+	schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+	aspectRatio: 0,
+	eventLimit: true,
+	eventBorderColor: "#4CAE4C",
+	eventBackgroundColor: "rgba(76, 174, 76, .5)",
+	header: {
+		left: 'prev,next',
+		center: '',
+		right: ''
+	},
+	defaultView: "listWeek"
+};
 
 
 var businessHours = [];
@@ -95,150 +85,104 @@ $(function () { // document ready
 		});
 	});
 
-	//-----------------------------------------------------------------------------------------------
-	if ($("body").is("#tutorBody")) {
+	//----------------------------------------------------------------------------------------------- 
+	//set up requests to communicate with back end
+	if ($("body").is("#tutorBody")) { //Grabs available times per tutor
 		$.post("/tutorAvailability").done(function (result) {
 			fc.events = result;
 			sideView.events = result;
 			$('#calendar').fullCalendar(fc);
 			$("#listMonth").fullCalendar(sideView);
 		});
-
-		$.post("/scheduledAppointments").done(function (result) {
-			for (var i = 0; i < result.length; i++) {
-				var actualTitle = result[i].title.split(", ");
-				var subject = result[i].subject;
-				actualTitle = actualTitle[1];
-				result[i].title = actualTitle + " - " + subject;
-			}
-			events.push(result);
-		});
 	}
-
-	if ($("body").is("#studentBody")) {
-		$.post("/scheduledAppointments").done(function (result) {
-			for (var i = 0; i < result.length; i++) {
-				var subject = result[i].subject;
-				var actualTitle = result[i].title.split(", ");
-				actualTitle = actualTitle[0];
-				result[i].title = actualTitle + " - " + subject;
-			}
-			events.push(result);
-			appoint.events = result;
-			$("#sessions").fullCalendar(appoint);
-
-		});
-	}
+	//inputs student appointments to their calendar
+	$.post("/scheduledAppointments").done(function (result) {
+		for (var i = 0; i < result.length; i++) {
+			var subject = result[i].subject;
+			var actualTitle = result[i].title.split(", ");
+			actualTitle = actualTitle[0];
+			result[i].title = actualTitle + " - " + subject;
+		}
+		events.push(result);
+		appoint.events = result;
+		$("#sessions").fullCalendar(appoint);
+	});
 });
 	//-----------------------------------------------------------------------------------------------
+	/* Capture tutor's selected timeslots for work */
+	function defineAvailability(start, end) {
+		var availability = [];
+		if (end.diff(start) / (1000 * 60 * 60) % 1 !== 0) {
+			end.add(30, 'minutes');
+		}//Finds whether time selected falls on half-hour mark, and completes the hour slot.
+		if ($("body").is("#tutorBody")) {
+			var newAvailability = {};
+			var timeSpan = end.diff(start) / (1000 * 60 * 60); //Returns the number of hours per selected availablespan.
+			var infoArray = []; //Temporary array will hold each object as it is generated
+			var startTime = start.clone();
+			var original = start.clone();
+			var endTime = end.clone();
+			var dow = start._d.getDay();
+			var k = 0;
+			for (var j = 0; j < timeSpan; j++) {
+				if (j >= 1) k = 1;
+				startTime = startTime.add(k, 'hour');
+				var newEnd = startTime.clone();
+				newEnd = newEnd.add(1, 'hour');
+				newAvailability = { //Object which represents time slot in calendar
+					dow: dow,
+					hourTop: startTime.format(),
+					title: "Available Timeslot"
+				};
 
-
-function defaultView() {
-	if ($("body").is("#tutorBody")) {
-		return 'agendaWeek'; //change back to month and add tool tips for launch
-	} else if ($("body").is("#studentBody")) {
-		return 'agendaWeek';
-	}
-}
-
-function defineAvailability(start, end) {
-	var availability = [];
-	if (end.diff(start) / (1000 * 60 * 60) % 1 !== 0) {
-		end.add(30, 'minutes');
-	}
-	if ($("body").is("#tutorBody")) {
-		var newAvailability = {};
-		var timeSpan = end.diff(start) / (1000 * 60 * 60); //Returns the number of hours per selected availablespan.
-		var infoArray = [];
-		var startTime = start.clone();
-		var original = start.clone();
-		var endTime = end.clone();
-		var dow = start._d.getDay();
-		var k = 0;
-		for (var j = 0; j < timeSpan; j++) {
-			if (j >= 1) k = 1;
-			startTime = startTime.add(k, 'hour');
-			var newEnd = startTime.clone();
-			newEnd = newEnd.add(1, 'hour');
-			newAvailability = {
-				dow: dow,
-				hourTop: startTime.format(),
-				title: "Available Timeslot"
-			};
-
-			infoArray.push(newAvailability);
-		}
-		var displayStart = start.clone();
-		var displayEnd = end.clone();
-		//MODAL NAME: @bottom of tutor.html set up on click $("#free").modal();
-		// if (displayEnd._isValid) {
-		// 	event.preventDefault();
-		// 	jQuery.noConflict(); 
-		// 	$('#freeModal').modal();
-		// 	$("#free").html("<p>are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?</p>");
-		// }
-		// $("#confirmFree").on("click", function() {
-			availability.push(infoArray[0].dow);
-			for (var i = 0; i < infoArray.length; i++) {
-				availability.push(infoArray[i].hourTop);
+				infoArray.push(newAvailability);
 			}
-			events.push(availability);
-			parseData(availability);
+			var displayStart = start.clone();
+			var displayEnd = end.clone();
+			//Modal will capture the tutor's confirmation that correct times have been selected
+			if (displayEnd._isValid) {
+				event.preventDefault();
+				jQuery.noConflict();
+				$('#freeModal').modal();
+				$("#free").html("<p>are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?</p>");
+			}
+			$("#confirmFree").on("click", function () {
+				availability.push(infoArray[0].dow);
+				for (var i = 0; i < infoArray.length; i++) {
+					availability.push(infoArray[i].hourTop);
+				}
+				events.push(availability);
+				parseData(availability);
+			});
+		}
+		availability = [];
+	}
+	//This function will take in the availability of the tutor and parse it into the back-end
+	function parseData(localArr) {
+		if ($("body").is("#tutorBody")) {
+			$.post("/createTutorAvailability", { dates: localArr }).done(function (result) {
+				if (result.reload) {
+					location.reload();
+				}
+			});
+		}
+	}
+
+	//How the student will be able to click on an existing "tutor availability" to claim that time slot on their own calendar.
+	function selectAppointment(data, jsEvent, view) {
+		var start = data.start;
+		var newEvent = { //date object, missing certain queries from back-end
+			start: start.toISOString(),
+			title: "Scheduled Appointment"//Dynamically input names
 		};
-	// }
-	availability = [];
-}
-
-
-function selectAppointment(start, end, jsEvent, view) {
-	if (end.diff(start) / (1000 * 60 * 60) % 1 !== 0) {
-		end.add(30, 'minutes');
-	}
-	// //Use starting and ending for passing into Calendar
-	var starting = start.clone();
-	var ending = end.clone();
-
-	if ($("body").is("#studentBody")) {
-		var timeSpan = end.diff(start) / (1000 * 60 * 60); //Returns the number of hours per selected availablespan.
-		var infoArray = [];
-		var startTime = start.clone();
-		var endTime = end.clone();
-		var k = 0;
-		for (var j = 0; j < timeSpan; j++) {
-			if (j >= 1) k = 1;
-			startTime = startTime.add(k, 'hour');
-			var newEnd = startTime.clone();
-			// startingAt = startTime.format('H:mm:00');
-			newEnd = newEnd.add(1, 'hour');
-			// newEnd = newEnd.format('H:mm:00');
-			var newEvent = {
-				// dow: start.day(),
-				hourTop: startTime.format('HH:mm:ss'),
-				start: startTime.toISOString(),
-				// end: newEnd.format('H:mm:ss'),
-				// hourBottom: newEnd,
-				title: "Scheduled Appointment"
-			};
-			infoArray.push(newEvent);
-			parseData(start, end);
-		}
 		var displayStart = start.clone();
-		//MODAL NAME: @bottom of tutor.html set up on click $("#schedule").modal();
-		if (confirm("Schedule this appointment on " + displayStart.format('MMMM DD YYYY') + " at " + displayStart.format('HH:mm T') + "M?")) {
-			for (var i = 0; i < infoArray.length; i++) {
-				events.push(infoArray[i]);
-			}
+		if (displayStart._isValid) { //Modal will confirm time slot is the one desired
+			event.preventDefault();
+			jQuery.noConflict();
+			$('#freeModal').modal();
+			$("#free").html("<p>would you like to claim this " + displayStart.format('hh:mm T') + "M appointment?</p>");
+			$("#confirmFree").on("click", function () {
+				events.push(newEvent); //The events array represents student appointments
+			});
 		}
 	}
-}
-
-function parseData(localArr) {
-
-	if ($("body").is("#tutorBody")) {
-		$.post("/createTutorAvailability", { dates: localArr }).done(function (result) {
-			if (result.reload) {
-				location.reload();
-			}
-		});
-	}
-}

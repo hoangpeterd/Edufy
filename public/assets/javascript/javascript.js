@@ -75,6 +75,9 @@ $(document).ready(function() {
   $("#modalSignUp").on("click", function() {
     $("#signUpModal").modal();
   });
+  $("#calendar").on("click", function() {
+    $("#freeModal").modal();
+  });
 
   // makes sure only one choice can be chosen with checkbox
   $(".chb").change(function() {
@@ -136,6 +139,7 @@ $(document).ready(function() {
   $('#lol').on('click', function() {
     jQuery.noConflict()
     $('#tutorClasses').modal()
+    console.log($('#tutorClasses') )
   });
 
   $('.classModal').on('click', function() {
