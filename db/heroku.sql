@@ -8,9 +8,8 @@ CREATE TABLE `appointments` (
   `updatedAt` datetime NOT NULL,
   `tutorUserId` int(11) DEFAULT NULL,
   PRIMARY KEY (`app_id`),
-  KEY `tutorUserId` (`tutorUserId`),
-  CONSTRAINT `appointments_ibfk_1` FOREIGN KEY (`tutorUserId`) REFERENCES `tutors` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1
+  KEY `tutorUserId` (`tutorUserId`)
+);
 
 CREATE TABLE `availabilities` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -21,9 +20,8 @@ CREATE TABLE `availabilities` (
   `updatedAt` datetime NOT NULL,
   `tutorUserId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `tutorUserId` (`tutorUserId`),
-  CONSTRAINT `availabilities_ibfk_1` FOREIGN KEY (`tutorUserId`) REFERENCES `tutors` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1
+  KEY `tutorUserId` (`tutorUserId`)
+);
 
 CREATE TABLE `classes` (
   `tutor_id` int(11) NOT NULL,
@@ -40,9 +38,8 @@ CREATE TABLE `classes` (
   `updatedAt` datetime NOT NULL,
   `tutorUserId` int(11) DEFAULT NULL,
   PRIMARY KEY (`tutor_id`),
-  KEY `tutorUserId` (`tutorUserId`),
-  CONSTRAINT `classes_ibfk_1` FOREIGN KEY (`tutorUserId`) REFERENCES `tutors` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1
+  KEY `tutorUserId` (`tutorUserId`)
+);
 
 CREATE TABLE `tutors` (
   `user_id` int(11) NOT NULL,
@@ -51,7 +48,7 @@ CREATE TABLE `tutors` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1
+);
 
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -65,6 +62,5 @@ CREATE TABLE `users` (
   `updatedAt` datetime NOT NULL,
   `tutorUserId` int(11) DEFAULT NULL,
   PRIMARY KEY (`user_id`),
-  KEY `tutorUserId` (`tutorUserId`),
-  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`tutorUserId`) REFERENCES `tutors` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1
+  KEY `tutorUserId` (`tutorUserId`)
+);

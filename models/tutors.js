@@ -16,20 +16,11 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false
     }
   }, {
-      classMethods: {
-        associate: function (models) {
-          Tutors.hasMany(models.availability, {
-            // foreignKey: {
-            //   name: "user_id",
-            //   onDelete: "cascade"
-            // }
-          });
-        },
-          timestamps: false
+    classMethods: {
+      associate: function (models) {
+        Tutors.hasMany(models.availability)
       }
-
-    });
-
-
+    }
+  })
   return Tutors;
 };

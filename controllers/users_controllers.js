@@ -26,31 +26,72 @@ module.exports = function (app, passport) {
   });
 
   app.get('/profile', ensureLogin.ensureLoggedIn('/'), function (req, res) {
-
-    //	console.log(req.user);
-
     res.render(req.user.accountType, req.user);
   });
-  
+
   //Supplies student with tutor list
   app.get('/class/:class', function(req, res) {
-    
-    console.log(req.params.class)
-		db.users.findAll({raw: true}).then(function(data) {
+    var subject = req.params.class;
+    var subjectObj = {};
+    subjectObj[req.params.class] = { $ne: null };
+
+		db.classes.findAll({raw: true, where: subjectObj}).then(function(data) {
+      var tutorIDArr = [];
+      var availIDArr = [];
+      var tutorSub = [];
 			for (let i = 0; i < data.length; i++) {
-				data[i].password = null
+        var tutorID = {
+          user_id: data[i].tutor_id
+        };
+        var availID = {
+          tutor_id: data[i].tutor_id
+        }
+        var spefClass = {
+          class: data[i][subject]
+        };
+        tutorIDArr.push(tutorID);
+        availIDArr.push(availID);
+        tutorSub.push(spefClass);
 			}
-			res.send(data)
-		})
-	})
-  
-  //Tutor posts classes teaching.
+
+      db.users.findAll({raw: true, where: {$or: tutorIDArr}}).then(function(data) {
+        var tutorInfo = []
+        for(var i = 0; i<data.length; i++){
+          var tutorObj = {
+            fullName: data[i].firstName + " " + data[i].lastName,
+            class: tutorSub[i].class,
+            picUrl: data[i].picUrl,
+            id: data[i].user_id
+          }
+          tutorInfo.push(tutorObj);
+        }
+
+        db.tutors.findAll({raw: true, where: {$or: tutorIDArr}}).then(function(data) {
+          for(var i = 0; i<data.length; i++){
+            rating = data[i].rating / data[i].sessions;
+            tutorInfo[i]["rating"] = rating;
+          }
+
+
+          db.availability.findAll({raw: true, where: {$or: availIDArr}}).then(function(data){
+            for(var i = 0; i<data.length; i++){
+
+            }
+            console.log(data);
+
+            res.send(tutorInfo);
+          });
+        });
+      });
+		});
+	});
+
   app.post('/class/:class', function(req, res) {
-    
+
     let a = {}
     a[req.params.class] = req.body.classList
     db.classes.update(a, {where: {tutor_id: req.user.user_id}}).then(function(results) {
-      console.log(results)
+
       res.send(results)
     })
   })
@@ -68,22 +109,6 @@ module.exports = function (app, passport) {
   //  }
   // });
   // // UPDATE post SET updatedAt = null WHERE deletedAt NOT NULL;
-  app.get('/class/:class', function (req, res) {
-    var subjectObj = {};
-    subjectObj[req.params.class] = { $ne: null };
-    db.classes.findAll({ raw: true, where: subjectObj, include: [db.availability] }).then(function (data) {
-
-      // for (let i = 0; i < data.length; i++) {
-      // 	data[i].password = null
-      // }
-      console.log(data);
-      // res.send(data)
-    });
-  });
-  app.post('/class/:class', function (req, res) {
-      
-      res.send(req.params.class, req.body.classList)
-  });
 
   //Login needs to be looked at before presentation because that's where all the security is. SUPER IMPORTANT.
   app.post('/uploadProfileImage', function (req, res) {
@@ -109,7 +134,9 @@ module.exports = function (app, passport) {
   });
 
   //getting rating information and sending the information so the tutor has their rating
-  app.post("/findRating", function (req, res) {
+  app.get("/findRating", function (req, res) {
+
+    if (!req.user) {return}
     db.tutors.findOne({ where: { user_id: req.user.user_id } }).then(function (result) {
       res.send({ rating: result.rating, sessions: result.sessions });
     });
@@ -167,7 +194,7 @@ for (var i = 0; i < result.length; i++) {
       }
         parsedArr.push(availableObj);
     }
-  
+
     res.send(parsedArr);
   });
 });
@@ -186,4 +213,3 @@ for (var i = 0; i < result.length; i++) {
     });
   });
 };
-
