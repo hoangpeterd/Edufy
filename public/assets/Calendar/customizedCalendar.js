@@ -171,21 +171,21 @@ function defineAvailability(start, end) {
 		var displayStart = start.clone();
 		var displayEnd = end.clone();
 		//MODAL NAME: @bottom of tutor.html set up on click $("#free").modal();
-		if (displayEnd._isValid) {
-			event.preventDefault();
-			jQuery.noConflict(); 
-			$('#freeModal').modal();
-			$("#free").html("<p>are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?</p>");
-		}
-		$("#confirmFree").on("click", function() {
+		// if (displayEnd._isValid) {
+		// 	event.preventDefault();
+		// 	jQuery.noConflict(); 
+		// 	$('#freeModal').modal();
+		// 	$("#free").html("<p>are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?</p>");
+		// }
+		// $("#confirmFree").on("click", function() {
 			availability.push(infoArray[0].dow);
 			for (var i = 0; i < infoArray.length; i++) {
 				availability.push(infoArray[i].hourTop);
 			}
 			events.push(availability);
 			parseData(availability);
-		});
-	}
+		};
+	// }
 	availability = [];
 }
 
