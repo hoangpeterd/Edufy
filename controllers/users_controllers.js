@@ -104,16 +104,6 @@ module.exports = function (app, passport) {
   app.get("/favicon.ico", function (req, res) {
     res.send(204);
   });
-  // Post.update({
-  //  updatedAt: null,
-  // }, {
-  //  where: {
-  //    deletedAt: {
-  //      $ne: null
-  //    }
-  //  }
-  // });
-  // // UPDATE post SET updatedAt = null WHERE deletedAt NOT NULL;
 
   //Login needs to be looked at before presentation because that's where all the security is. SUPER IMPORTANT.
   app.post('/uploadProfileImage', function (req, res) {
@@ -186,7 +176,7 @@ module.exports = function (app, passport) {
     });
   });
 
-app.post("/tutorAvailability", function (req, res) { //Something about this one being GET did something new
+  app.post("/tutorAvailability", function (req, res) { //Something about this one being GET did something new
   db.availability.findAll({where: {tutor_id: req.user.user_id}}).then(function (result) {
     var parsedArr = [];
 for (var i = 0; i < result.length; i++) {

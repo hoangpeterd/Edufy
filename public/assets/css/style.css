@@ -483,3 +483,7 @@ input:checked + .slider:before {
 #classRow {
 	width: 490px;
 }
+
+.fa{
+	color: #5cb85c;
+}
