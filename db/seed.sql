@@ -11,7 +11,7 @@ VALUES	('Tish@uh.edu', '$2a$07$a4o./vnJ6Q/.Bq9pe7NRNOb89Q1zWm6gWjImkOIYkmouVQ9Lr
 , ('JamesBond@uh.edu', '$2a$07$a4o./vnJ6Q/.Bq9pe7NRNOb89Q1zWm6gWjImkOIYkmouVQ9Lr5GJ6', 'Bond,', 'JamesBond', 'tutor')
 , ('Hamza@uh.edu', '$2a$07$a4o./vnJ6Q/.Bq9pe7NRNOb89Q1zWm6gWjImkOIYkmouVQ9Lr5GJ6', 'Hamza', 'Hazaa', 'tutor')
 , ('APowers@uh.edu', '$2a$07$a4o./vnJ6Q/.Bq9pe7NRNOb89Q1zWm6gWjImkOIYkmouVQ9Lr5GJ6', 'Austin', 'Powers', 'tutor')
-, ('PHoang@uh.edu', '$2a$07$a4o./vnJ6Q/.Bq9pe7NRNOb89Q1zWm6gWjImkOIYkmouVQ9Lr5GJ6', 'Peter', 'Hoang', 'tutor,student');
+, ('PHoang@uh.edu', '$2a$07$a4o./vnJ6Q/.Bq9pe7NRNOb89Q1zWm6gWjImkOIYkmouVQ9Lr5GJ6', 'Peter', 'Hoang', 'student');
 
 INSERT INTO tutors (user_id, rating, sessions)
 VALUES (1, 5, 1)
