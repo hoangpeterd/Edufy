@@ -86,6 +86,7 @@ $(function () { // document ready
 	});
 
 	//-----------------------------------------------------------------------------------------------
+
 	//set up requests to communicate with back end
 	if ($("body").is("#tutorBody")) { //Grabs available times per tutor
 		$.post("/tutorAvailability").done(function (result) {
