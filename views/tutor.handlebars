@@ -63,7 +63,7 @@
         <a href="#" id='lol'>
           <h1 class="text-left" style="padding-bottom: 20px">subjects</h1>
         </a>
-        <h1 class="headers text-left">sessions</h1>
+        <button class="headers text-left" id='modalSignUp1'>sessions</button>
         <div id="listMonth"></div>
       </div>
       <div class="col-sm-9">
@@ -73,7 +73,6 @@
   </div>
 
   <!--  Pick classes-->
-
   <div class="modal fade" id="tutorClasses" role="dialog">
     <div id="tutorClasses" class="modal-dialog modal-md" align="center">
       <div class="modal-content">
@@ -190,14 +189,16 @@
         </div>
       </div>
     </div>
-    <div class="modal fade" id="freeModal" role="dialog">
+    </div>
+  
+  <div class="modal fade" id="freeModal" role="dialog">
       <div class="modal-dialog modal-sm" align="center">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title"><img src="assets/images/edufyIcon.png" alt="edufy icon" height="30px" width="30px"> calendar</h4>
           </div>
           <div id="free" class="modal-body">
-            <!-- <p>are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?"</p> -->
+<!--             <p>are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?"</p> -->
           </div>
           <div class="modal-footer">
             <button id="confirmFree" type="button" class="btn btn-success btn-block" data-dismiss="modal">confirm</button>
@@ -205,9 +206,75 @@
         </div>
       </div>
     </div>
+    
+  
+    
+    
+<!--
+  <div class="modal fade" id="signUpModal1" role="dialog">
+		<div class="modal-dialog modal-sm" align="center">
+				<div class="modal-content">
+					 <div class="modal-header">
+							<h4 class="modal-title"><img src="assets/images/edufyIcon.png" alt="edufy icon" height="30px" width="30px"> sign up</h4>
+					</div>
+					<form action='/sign-up' hod="post">
+						<div class="modal-body">
+							<div class="form-group input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+								<input class="form-control" type="text" name='firstName' placeholder="first name" required/>
+							</div>
+							<div class="form-group input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+								<input class="form-control" type="text" name='lastName' placeholder="last name" required/>
+							</div>
+							<div class="form-group input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+								<input class="form-control" type="text" name='username' placeholder="email" oninvalid="this.setCustomValidity('Please Enter valid email')" oninput="setCustomValidity('')" required/>
+							</div>
+							<div class="form-group input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+								<input class="form-control" type="password" name='password' placeholder="password" required/>
+							</div>
+							<div class="form-group">
+-->
+								<!-- <select id="creatPosition" class="form-control">
+									<option value="Tutor">tutor</option>
+								  <option value="Student">student</option>
+								</select> -->
+<!--
+								<label class="checkbox-inline">
+      						<input type="checkbox" name='accountType' class="chb" value="tutor">tutor
+    						</label>
+    						<label class="checkbox-inline">
+    						  <input type="checkbox" name='accountType' class="chb" value="student">student
+    						</label>
+							</div>
+-->
+							<!-- <div class="checkbox">
+								<label>
+									<input type="checkbox"> i agree to the <a href="#">terms and conditions</a>
+								</label>
+							</div> -->
+<!--
+							 <div class="form-group text-center">
+								<a href="#">forgot password</a>&nbsp;|&nbsp;<a href="#">support</a>
+							</div> 
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-success btn-block">submit</button>
+						</div>
+					</form>
+				</div>
+		</div>
+	</div>
+    
+    
+  
+-->
 
     <script src="https://code.jquery.com/jquery-1.11.3.min.js" integrity="sha256-7LkWEzqTdpEfELxcZZlS6wAx5Ff13zZ83lYO2/ujj7g="
-      crossorigin="anonymous"></script>
+      crossorigin="anonymous">
+    </script>
       {{!--
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>--}}
       <!-- linking bootstrap JS -->
@@ -218,7 +285,8 @@
         <!-- full calendar -->
         <script src='assets/Calendar/lib/moment.min.js'></script>
         <script src='assets/Calendar/lib/jquery.min.js'></script>
-        <script src='assets/Calendar/lib/fullcalendar.min.js'></script>
+        <script src='assets/Calendar/lib/fullcalendar.min.js'>
+        </script>
         <script src='assets/Calendar/scheduler.min.js'></script>
         <script src="assets/Calendar/customizedCalendar.js"></script>
         <!--star Rating -->
