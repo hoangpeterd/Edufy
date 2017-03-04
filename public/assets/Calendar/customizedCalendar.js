@@ -6,7 +6,7 @@ var fc = {
 	selectable: true,
 	selectHelper: true,
 	editable: false, // enable draggable events
-	aspectRatio: 1.25,
+	aspectRatio: 1.8,
 	nowIndicator: true,
 	slotEventOverlap: false,
 	eventOverlap: false,
@@ -66,11 +66,9 @@ var appoint = {
 	eventBackgroundColor: "rgba(76, 174, 76, .5)"
 };
 
-if ($("body").is("#tutorBody")) {
-	$("#listMonth").fullCalendar({
+var sideView = {
 		schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-		aspectRatio: 1.25,
-		eventSources: ['/tutorAvailability', events],
+		aspectRatio: .0,
 		eventLimit: true,
 		eventBorderColor: "#4CAE4C",
 		eventBackgroundColor: "rgba(76, 174, 76, .5)",
@@ -79,9 +77,9 @@ if ($("body").is("#tutorBody")) {
 			center: '',
 			right: ''
 		},
-		defaultView: "listMonth"
-	});
-}
+		defaultView: "listWeek"
+	}
+
 
 var businessHours = [];
 var events = [];
@@ -99,13 +97,14 @@ $(function () { // document ready
 
 	//-----------------------------------------------------------------------------------------------
 	if ($("body").is("#tutorBody")) {
-		$.post("/tutorAvailability", { tutor_id: 2 }).done(function (result) {
-      console.log(result)
+		$.post("/tutorAvailability").done(function (result) {
 			fc.events = result;
+			sideView.events = result;
 			$('#calendar').fullCalendar(fc);
+			$("#listMonth").fullCalendar(sideView);
 		});
 
-		$.post("/scheduledAppointments", { tutor_id: $(".lead").text().trim() }).done(function (result) {
+		$.post("/scheduledAppointments").done(function (result) {
 			for (var i = 0; i < result.length; i++) {
 				var actualTitle = result[i].title.split(", ");
 				var subject = result[i].subject;
@@ -117,7 +116,7 @@ $(function () { // document ready
 	}
 
 	if ($("body").is("#studentBody")) {
-		$.post("/scheduledAppointments", { student_id: $(".lead").text().trim() }).done(function (result) {
+		$.post("/scheduledAppointments").done(function (result) {
 			for (var i = 0; i < result.length; i++) {
 				var subject = result[i].subject;
 				var actualTitle = result[i].title.split(", ");
@@ -175,7 +174,7 @@ function defineAvailability(start, end) {
 		if (displayEnd._isValid) {
 			event.preventDefault();
 			jQuery.noConflict(); 
-			$('#freeModal').modal('show');
+			$('#freeModal').modal();
 			$("#free").html("<p>are you free between " + displayStart.format('hh:mm T') + "M and " + displayEnd.format('hh:mm T') + "M?</p>");
 		}
 		$("#confirmFree").on("click", function() {
