@@ -92,7 +92,7 @@ module.exports = function (app, passport) {
               tutorInfo[i]["event"] = freeArr;
             }
 
-            console.log(tutorInfo)
+
             res.send(tutorInfo);
           });
         });
