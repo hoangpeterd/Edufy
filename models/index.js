@@ -9,11 +9,11 @@ var config = require(__dirname + '/../config/config.json')[env];
 var db = {};
 
 //keeping my password hidden i inserted the password to the config object.
-// var kee = require("../key.js");
-// 
-// if (env === "development") {
-//   config.password = kee.mysql;
-// }
+var kee = require("../key.js");
+
+if (env === "development") {
+  config.password = kee.mysql;
+}
 
 if (config.use_env_variable) {
   var sequelize = new Sequelize(process.env[config.use_env_variable]);
