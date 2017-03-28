@@ -33,7 +33,7 @@ $(document).ready(function() {
     $.get('/class/' + subject).done(function(data) {
       $.each(data, function(index, value) {
         let tutorName = value.fullName;
-        let classes = value.class;;
+        let classes = value.class;
         let link = value.picUrl || "assets/images/placeholder.png";
         let stars = value.rating;
         let id = value.id;

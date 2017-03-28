@@ -197,7 +197,7 @@ module.exports = function (app, passport) {
   app.post("/tutorAvailability", function (req, res) { //Something about this one being GET did something new
   db.availability.findAll({where: {tutor_id: req.user.user_id}}).then(function (result) {
     var parsedArr = [];
-for (var i = 0; i < result.length; i++) {
+    for (var i = 0; i < result.length; i++) {
         availableObj = {
         tutor_id: req.user.id,
         title: "Available",

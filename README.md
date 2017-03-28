@@ -2,7 +2,7 @@
 
 ##Summary
 
-stuff
+This is a peer to peer tutoring app, where you can sign up either as a tutor or as a student. the tutor can schedule their own free time to tutor and the student can set up a session with the tutor according to the tutor's free time.
 
 ##Installation
 
